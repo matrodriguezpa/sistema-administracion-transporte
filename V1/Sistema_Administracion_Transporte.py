@@ -217,9 +217,73 @@ def actualizarTablaServicios1(con):
     cursorObj.execute(actualizar)
     con.commit()
 
+def borrarRegistroTablaServicios(con):
+    codigoServicio=input("Codigo del servicio: ")
+    cursorObj=con.cursor()
+    borrar='DELETE FROM servicios WHERE codigoServicio='+codigoServicio
+    print("Sentencia = ",borrar)
+    cursorObj.execute(borrar)
+    con.commit()
+
+def borrarTablaServicios(con):
+    cursorObj=con.cursor()
+    borrar='DROP TABLE servicios'
+    print("Sentencia = ",borrar)
+    cursorObj.execute(borrar)
+    con.commit()
+
+def menu(miConexion):
+    salirPrincipal=False
+    while not salirPrincipal:
+        opcPrincipal=input('''
+                Sistema de información de Transporte - MENU PRINCIPAL
+
+                1.Menú de gestión de Servicios
+                2.Menú de gestión de Clientes
+                3.Menú de Ventas
+                4.Imprimir factura
+                5.Salir
+
+                Seleccione una opción:
+                            ''')
+        if(opcPrincipal=='1'):
+            salirServicios=False
+            while not salirServicios:
+                opcServicios=input('''
+                Sistema de información de Transporte - MENU SERVICIOS
+
+                1.Insertar un servicio leido por teclado
+                2.Insertar un sevicio
+                3.consultar un servicio
+
+                ...
+                
+                13.Salir
+
+                Seleccione una opción:
+                            ''')
+                if(opcServicios=='1'):
+                    servicioCreado=leerServicio()
+                    insertarTablaServicios(miConexion,servicioCreado)
+                if(opcServicios=='2'):
+                    insertarTablaServicios2(miConexion)
+                if(opcServicios=='3'):
+                    consultarTablaServicios(miConexion)
+                if(opcServicios=='13'):
+                    salirServicios=True
+        elif(opcPrincipal=='2'):
+            salirPrincipal=True
+        elif(opcPrincipal=='3'):
+            salirPrincipal=True
+        elif(opcPrincipal=='4'):
+            salirPrincipal=True
+        elif(opcPrincipal=='5'):
+            salirPrincipal=True
+
 def main():
     miCon=conexionDB()
-    #crearTablaServicios(miCon)
+    crearTablaServicios(miCon)
+    menu(miCon)
     #servicioCreado=leerServicio()
     #insertarTablaServicios(miCon,servicioCreado)
     #insertarTablaServicios2(miCon)
@@ -232,7 +296,9 @@ def main():
     #consultarTablaServicios6(miCon)
     #consultarTablaServicios7(miCon)
     #actualizarTablaServicios(miCon)
-    actualizarTablaServicios1(miCon)
+    #actualizarTablaServicios1(miCon)
+    #borrarRegistroTablaServicios(miCon)
+    #borrarTablaServicios(miCon)
     cerrarConexionDB(miCon)
 
 main()
