@@ -13,6 +13,10 @@ def conexionDB():
 def cerrarConexionDB(con):
     con.close()
 
+class cliente:
+
+class venta:
+
 class Servicios:
 
     def __init__(self):

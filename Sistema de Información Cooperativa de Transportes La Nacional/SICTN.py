@@ -1,4 +1,3 @@
-#Sistema de trasporte
 import sqlite3
 from sqlite3 import Error
 from datetime import datetime
@@ -248,21 +247,24 @@ def menu(miConexion,objServicios):
     salirPrincipal=False
     while not salirPrincipal:
         opcPrincipal=input('''
-                Sistema de información de Transporte - MENU PRINCIPAL
+//-------- Sistema de información Cooperativa de transportes la nacional-----------//
 
+                    //---MENU PRINCIPAL---//
+
+                    
                 1.Menú de gestión de Servicios
                 2.Menú de gestión de Clientes
                 3.Menú de Ventas
                 4.Imprimir factura
                 5.Salir
 
-                Seleccione una opción:
-                            ''')
+                Seleccione una opción: ''')
         if(opcPrincipal=='1'):
             salirServicios=False
             while not salirServicios:
                 opcServicios=input('''
-                Sistema de información de Transporte - MENU SERVICIOS
+
+                    //---SERVICIOS---//
 
                 1.Insertar un servicio leido por teclado
                 2.Insertar un sevicio
@@ -272,8 +274,8 @@ def menu(miConexion,objServicios):
                 
                 13.Salir
 
-                Seleccione una opción:
-                            ''')
+                Seleccione una opción: ''')
+                
                 if(opcServicios=='1'):
                     servicioCreado=objServicios.leerServicio()
                     objServicios.insertarTablaServicios(miConexion,servicioCreado)
