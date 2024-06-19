@@ -12,6 +12,104 @@ def conexionDB():
 def cerrarConexionDB(con):
     con.close()
 
+class Clientes:
+    def __init__(self):
+        noIdentificacionCliente = None
+        nombre = None
+        apellido = None
+        direccion = None
+        telefono = None
+        correoElectronico = None
+
+    def crearTablaClientes(self,con):
+        cursorObj=con.cursor()
+        crear='''CREATE TABLE IF NOT EXISTS Clientes(
+                noIdentificacionCliente integer NOT NULL,
+                nombre text NOT NULL,
+                apellido text NOT NULL,
+                direccion text NOT NULL,
+                telefono integer NOT NULL,
+                correoElectronico text NOT NULL,
+                PRIMARY KEY(noIdentificacionCliente)
+                )
+                '''
+        print("Crear = ",crear)
+        cursorObj.execute(crear)
+        con.commit()
+
+#METODOS DE INSERSION
+       def insertarTablaServicios(self,con,miServicio):
+        cursorObj=con.cursor()
+        insertar="INSERT INTO servicios VALUES(?,?,?,?,?,?,?,?)"
+        print("Insertar = ",insertar)
+        cursorObj.execute(insertar,miServicio)
+        con.commit()
+
+    def insertarTablaServicios2(self,con):
+        codigoServicio=input("Código del servicio: ")
+        codigoServicio=codigoServicio.ljust(10)
+        cursorObj=con.cursor()
+        insertar='INSERT INTO servicios VALUES('+codigoServicio+', "REMESA","CHIA","COTA","100","1900-01-01 12:15:20","10","200")'
+        print("Insertar = ",insertar)
+        cursorObj.execute(insertar)
+        con.commit()
+    
+###METODOS CONSULTA
+    def consultarTablaServicios(self,con):
+        cursorObj=con.cursor()
+        consultar='SELECT codigoServicio, nombre, origen, destino, precioVenta FROM servicios'
+        print("Consulta construida = ",consultar)
+        cursorObj.execute(consultar)
+        filas=cursorObj.fetchall()
+        print("El tipo de dato de filas es: ",type(filas))
+        for row in filas:
+            cs=row[0]
+            nom=row[1]
+            ori=row[2]
+            pv=row[4]
+            print("La información del servicio es: ",cs,nom,ori,pv)
+
+#-----------------------
+
+    def leerCliente(self):
+        noIdentificacionCliente=input("Número de identificación del cliente: ")
+        noIdentificacionCliente=noIdentificacionCliente.ljust(10)
+        nombre=input("Nombre: ")
+        apellido=input("Apellido: ")
+        direccion=input("Direccion: ")
+        telefono=input("Teléfono: ")
+        correoElectronico=input("Correo Electrónico: ")
+        cliente=(noIdentificacionCliente,nombre,apellido,direccion,telefono,correoElectronico)
+        print("La tupla servicio es :",cliente)
+        return cliente
+
+    
+        
+    def actualizarTablaClienteNombre(self,con):
+        noIdentificacionCliente=input("Numero de identificacion del cliente: ")
+        cursorObj=con.cursor()
+        actualizar='UPDATE clientes SET nombre="'+nombre+'" WHERE noIdentificacionCliente='+noIdentificacionCliente
+        print("Actualizar Nombre = ",actualizar)
+        cursorObj.execute(actualizar)
+        con.commit()
+
+    def borrarRegistroTablaClientes(self,con):
+        noIdentificacionCliente=input("Numero de identificacion del cliente: ")
+        cursorObj=con.cursor()
+        borrar='DELETE FROM clientes WHERE noIdentificacionCliente='+codigoServicio
+        print("Sentencia = ",borrar)
+        cursorObj.execute(borrar)
+        con.commit()
+
+    def borrarTablaClientes(self,con):
+        cursorObj=con.cursor()
+        borrar='DROP TABLE clientes'
+        print("Sentencia = ",borrar)
+        cursorObj.execute(borrar)
+        con.commit()
+
+    
+
 class Servicios:
 
     def __init__(self):
@@ -77,6 +175,7 @@ class Servicios:
         print("Insertar = ",insertar)
         cursorObj.execute(insertar)
         con.commit()
+    
 
     def consultarTablaServicios(self,con):
         cursorObj=con.cursor()
@@ -92,6 +191,7 @@ class Servicios:
             pv=row[4]
             print("La información del servicio es: ",cs,nom,ori,pv)
 
+#obtener con fecha 
     def consultarTablaServicios1(self,con):
         cursorObj=con.cursor()
         consultar='''SELECT codigoServicio,
@@ -117,6 +217,8 @@ class Servicios:
             time=row[7]
             print("La información del servicio es: ",cs,nom,ori,pv,fecha,"|",date,"|",time)
 
+
+#obtener puestos y peso y kilos
     def consultarTablaServicios2(self,con):
         cursorObj=con.cursor()
         consultar='''SELECT * FROM servicios'''
@@ -135,6 +237,7 @@ class Servicios:
             kilos=row[7]
             print("La información del servicio es: ",cs,nom,ori,pv,fecha,"|",puestos,"|",kilos)
 
+#obtener cuantos registros hay
     def consultarTablaServicios3(self,con):
         cursorObj=con.cursor()
         consultar='''SELECT COUNT(*) FROM servicios'''
@@ -146,6 +249,7 @@ class Servicios:
             cuenta=row[0]
             print("La cantidad de registros en la base de datos es: ",cuenta)
 
+#suma de los precios
     def consultarTablaServicios4(self,con):
         cursorObj=con.cursor()
         consultar='''SELECT sum(precioVenta) FROM servicios'''
@@ -157,6 +261,7 @@ class Servicios:
             suma=row[0]
             print("La sumatoria de los precios de venta es: ",suma)
 
+#seleccionar con chia
     def consultarTablaServicios5(self,con):
         #origen=input("Ciudad de origen: ")
         cursorObj=con.cursor()
@@ -176,6 +281,7 @@ class Servicios:
             kilos=row[7]
             print("La información del servicio es: ",cs,nom,ori,pv,fecha,"|",puestos,"|",kilos)
 
+##seleccionar con un nombre especifico
     def consultarTablaServicios6(self,con):
         origen=input("Ciudad de origen: ")
         cursorObj=con.cursor()
@@ -195,6 +301,7 @@ class Servicios:
             kilos=row[7]
             print("La información del servicio es: ",cs,nom,ori,pv,fecha,"|",puestos,"|",kilos)
 
+#donde comienze comp una letra
     def consultarTablaServicios7(self,con):
         cursorObj=con.cursor()
         consultar='SELECT * FROM servicios WHERE origen like "C%"'
@@ -297,23 +404,13 @@ def menu(miConexion,objServicios):
 def main():
     miCon=conexionDB()
     miServicio=Servicios()
+    miCliente=Clientes()
+    
     miServicio.crearTablaServicios(miCon)
+    miCliente.crearTablaClientes(miCon)
+    
     menu(miCon,miServicio)
-    #servicioCreado=leerServicio()
-    #insertarTablaServicios(miCon,servicioCreado)
-    #insertarTablaServicios2(miCon)
-    #consultarTablaServicios(miCon)
-    #consultarTablaServicios1(miCon)
-    #consultarTablaServicios2(miCon)
-    #consultarTablaServicios3(miCon)
-    #consultarTablaServicios4(miCon)
-    #consultarTablaServicios5(miCon)
-    #consultarTablaServicios6(miCon)
-    #consultarTablaServicios7(miCon)
-    #actualizarTablaServicios(miCon)
-    #actualizarTablaServicios1(miCon)
-    #borrarRegistroTablaServicios(miCon)
-    #borrarTablaServicios(miCon)
     cerrarConexionDB(miCon)
 
 main()
+
