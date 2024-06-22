@@ -5,7 +5,6 @@ import Servicios
 import Clientes
 import menu
 
-
 def conexionDB():
     try:
         con=sqlite3.connect('miBaseDatos.db')

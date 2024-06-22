@@ -39,10 +39,17 @@ class Servicios:
         destino=input("Ciudad de destino: ")
         precioVenta=input("Precio de venta: ")
 
-        hS=input("Hora de salida (HH:MM:SS): ")
-        #FALTA OBETENER FECHA DEL SISTEMA
-        fecha="1900:01:01:"+hS
-        horaSalida=datetime.strptime(fecha,"%Y:%m:%d:%H:%M:%S")
+        #Comprueba si esta en el formato correcto la hora ingresada
+        while True:
+            hora = input("Hora de salida (HH:MM:SS): ")
+            fecha = datetime.now().strftime("%Y:%m:%d:")
+            try:
+                fechaCompleta = fecha + hora
+                horaSalida = datetime.strptime(fechaCompleta, "%Y:%m:%d:%H:%M:%S")
+                print("Fecha y hora de salida:", horaSalida)
+                break
+            except ValueError:
+                print("Error: La hora de salida debe estar en el formato HH:MM:SS.")
 
         cantidadMaxPuestos=input("Cantidad de puestos: ")
         cantidadMaxKilos=input("Peso que puede llevar: ")
@@ -58,8 +65,8 @@ class Servicios:
         print("Insertar = ",insertar)
         cursorObj.execute(insertar,miServicio)
         con.commit()
-#AREGLAR
-    #insertar un registro en la trabla servicios
+
+    #insertar un registro en la trabla servicios # no utilizado
     def insertarTablaServicios1(self,con):
         codigoServicio=input("Código del servicio: ")
         cursorObj=con.cursor()
@@ -192,10 +199,70 @@ class Servicios:
 
     #actualiza el nombre de un registro de la trabla de servicios
     def actualizarTablaServicios(self,con):
-        codigoServicio=input("Codigo del servicio a actualizar el nombre: ")
-        nombre=input("Nuevo nombre del servicio: ")
+        codigoServicio=input("Codigo del servicio a actualizar: ")
+        nombre=input("Dato actualizado: ")
         cursorObj=con.cursor()
         actualizar='UPDATE servicios SET nombre="'+nombre+'" WHERE codigoServicio='+codigoServicio
+        print("Actualizar = ",actualizar)
+        cursorObj.execute(actualizar)
+        con.commit()
+
+    #actualiza el dato de un registro de la trabla de servicios
+    def actualizarTablaServicios1(self,con):
+        codigoServicio=input("Codigo del servicio a actualizar: ")
+        origen=input("Dato actualizado: ")
+        cursorObj=con.cursor()
+        actualizar='UPDATE servicios SET origen="'+origen+'" WHERE codigoServicio='+codigoServicio
+        print("Actualizar = ",actualizar)
+        cursorObj.execute(actualizar)
+        con.commit()
+
+    #actualiza el dato de un registro de la trabla de servicios
+    def actualizarTablaServicios2(self,con):
+        codigoServicio=input("Codigo del servicio a actualizar: ")
+        destino=input("Dato actualizado: ")
+        cursorObj=con.cursor()
+        actualizar='UPDATE servicios SET destino="'+destino+'" WHERE codigoServicio='+codigoServicio
+        print("Actualizar = ",actualizar)
+        cursorObj.execute(actualizar)
+        con.commit()
+
+    #actualiza el dato de un registro de la trabla de servicios
+    def actualizarTablaServicios3(self,con):
+        codigoServicio=input("Codigo del servicio a actualizar: ")
+        precioVenta=input("Dato actualizado: ")
+        cursorObj=con.cursor()
+        actualizar='UPDATE servicios SET precioVenta="'+precioVenta+'" WHERE codigoServicio='+codigoServicio
+        print("Actualizar = ",actualizar)
+        cursorObj.execute(actualizar)
+        con.commit()
+
+    #actualiza el dato de un registro de la trabla de servicios
+    def actualizarTablaServicios4(self,con):
+        codigoServicio=input("Codigo del servicio a actualizar: ")
+        horaSalida=input("Dato actualizado: ")
+        cursorObj=con.cursor()
+        actualizar='UPDATE servicios SET horaSalida="'+horaSalida+'" WHERE codigoServicio='+codigoServicio
+        print("Actualizar = ",actualizar)
+        cursorObj.execute(actualizar)
+        con.commit()
+
+    #actualiza el dato de un registro de la trabla de servicios
+    def actualizarTablaServicios5(self,con):
+        codigoServicio=input("Codigo del servicio a actualizar: ")
+        cantidadMaxPuestos=input("Dato actualizado: ")
+        cursorObj=con.cursor()
+        actualizar='UPDATE servicios SET cantidadMaxPuestos="'+cantidadMaxPuestos+'" WHERE codigoServicio='+codigoServicio
+        print("Actualizar = ",actualizar)
+        cursorObj.execute(actualizar)
+        con.commit()
+
+    #actualiza el dato de un registro de la trabla de servicios
+    def actualizarTablaServicios6(self,con):
+        codigoServicio=input("Codigo del servicio a actualizar: ")
+        cantidadMaxKilos=input("Dato actualizado: ")
+        cursorObj=con.cursor()
+        actualizar='UPDATE servicios SET cantidadMaxKilos="'+cantidadMaxKilos+'" WHERE codigoServicio='+codigoServicio
         print("Actualizar = ",actualizar)
         cursorObj.execute(actualizar)
         con.commit()
