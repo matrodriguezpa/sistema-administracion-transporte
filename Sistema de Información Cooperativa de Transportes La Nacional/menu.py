@@ -81,5 +81,7 @@ def menu(miConexion,objServicios):
                 if(opcionServicios=='1'):
                     servicioCreado=objServicios.leerServicio()
                     objServicios.insertarTablaServicios(miConexion,servicioCreado)
+                elif(opcionServicios=='2'):
+                    objServicios.consultarTablaServicios0(miConexion)
                 elif(opcionServicios=='13'):
                     salirServicios=True

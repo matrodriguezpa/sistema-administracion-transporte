@@ -82,7 +82,6 @@ class Servicios:
         print("Consulta construida = ",consultar)
         cursorObj.execute(consultar)
         filas=cursorObj.fetchall()
-        print("El tipo de dato de filas es: ",type(filas))
         for row in filas:
             cs=row[0]
             nom=row[1]
@@ -90,6 +89,16 @@ class Servicios:
             des=row[3]
             pv=row[4]
             print("La información del servicio es: ",cs,nom,ori,des,pv)
+
+    #PRUEBA retorna un dato especifico de un registro
+    def consultarTablaServicios0(self,con):
+        cursorObj=con.cursor()
+        dato = input("Dato a consultar: ")
+        codigoServicio = input("Código del dato: ")
+        consultar = 'SELECT '+dato+' FROM servicios WHERE codigoServicio="'+codigoServicio+'"'
+        cursorObj.execute(consultar)
+        resultado=cursorObj.fetchall()
+        return resultado
 
     #consultar fecha y hora de salida
     def consultarTablaServicios1(self,con):
