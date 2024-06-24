@@ -19,61 +19,41 @@ class Ventas:
         cursorObj.execute(crear)
         con.commit()
 
-    def añadirServicioAVender(self,con,servicio):
+    def añadirServicioAVender(self,con,noIdentificacionCliente,codigoServicio,cantidadVender):
         cursorObj=con.cursor()
-
-        #si la cantidadVendida+puestosVendidos es mayor a los puestos del servicio, no lo acepta 
-        while True:
-            cantidadVendida=input("Cantidad a vender: ")
-            try:
-                puestosDisponibles=servicio.consultarTablaServicios0("cantidadMaxPuestos",codigoServicio)
-                consulta = 'SELECT cantidadVendida FROM Ventas WHERE codigoServicio="'+codigoServicio+'"'
-                cursorObj.execute(consulta)
-                puestosVendidos=cursorObj.fetchall()
-                #Hace falta sumar todos datos puestosVendidos de cada registro para tener puestosVendidosTotal
-                 
-                if puestosVendidos == puestosVendidos:
-                    print("No hay más puestos disponibles, intente con otro servicio.")
-                    break
-                if puestosDisponibles>=cantidadVendida+puestosVendidos:
-                    puestosVendidos = puestosVendidos+cantidadVendida
-                    break
-            except:print("Puestos disponibles exedidos, ingrese una cantidad menor.")
-
-        #si el número de identificación o el codigo del serivico no existe, no lo acepta
-        while True:
-            noIdentificacionCliente=input("noIdentificacionCliente: ")
-            codigoServicio=input("Codigo del servicio a vender: ")
-            try:
-                servicio.consultarTablaServicios0("nombre",codigoServicio)
-                break
-            except:
-                print("Identificación o código invalidos.")
-
-        #imprimir el valor y decir si acepta
-        precio=servicio.consultarTablaServicios0("precio",codigoServicio)
-        #cantidadVendida*precio
-        #¿Acepta? (S/N):
-        insertar='INSERT INTO servicios VALUES('+noIdentificacionCliente+','+codigoServicio+','+cantidadVendida+')'
-        #Enviar factura al cliente? (S/N):
-        #Ingrese correo electrónico
+        noFactura=input("Inserte número de factura: ")
+        cursorObj=con.cursor()
+        insertar='INSERT INTO Ventas VALUES('+noFactura+','+noIdentificacionCliente+','+codigoServicio+', '+cantidadVender+')'
+        print("Accion ejecutada = ",insertar)
         cursorObj.execute(insertar)
         con.commit()
 
-    #misma funcion pero para transportar cajas???
+def ConsultarCantidadVendidaTotal(self,con,codigoServicio):
+    cursorObj=con.cursor()
+    consulta = 'SELECT sum(cantidadVendida) FROM Ventas WHERE codigoServicio="'+codigoServicio+'"'
+    cursorObj.execute(consulta)
+    cantidadVendidaTotal=cursorObj.fetchall()
+    return cantidadVendidaTotal
 
-    #def quitarServicioAñadido():
+def quitarServicioAñadido(self,con):
+    cursorObj=con.cursor()
+    noFactura=input("Número de la factura servicio a borrar: ")
+    borrar='DELETE FROM ventas WHERE codigoServicio='+noFactura
+    print("Sentencia = ",borrar)
+    cursorObj.execute(borrar)
+    con.commit()
 
-
-    def imprimirFactura(self):
-        print("""
-                /----------FACTURA DE VENTA----------/
-                            CLIENTE
-                            
-                            ORIGEN
-                            DESTINO
-                            
-                            ...
-                            
-                            PRECIO
-              """)    
+#Arreglar
+def imprimirFactura(self,con,objServicio,codigoServicio,cantidadVender):
+    cursorObj=con.cursor()
+    consultar=objServicio.consultarTablaServicios0("precio",codigoServicio)
+    precio=cursorObj.execute(consultar)
+    precioTotal=cantidadVender*precio
+    print("/----------FACTURA DE VENTA----------/")
+    print('PRECIO:',precioTotal)
+    
+    opcionFactura=input("¿Enviar factura al cliente? (S/N):")
+    if opcionFactura=="S":
+        consultar=objServicio.consultarTablaClientes("correoElectronico",codigoServicio)
+        correoElectronico=cursorObj.execute(consultar)
+        #codigo para enviar factura

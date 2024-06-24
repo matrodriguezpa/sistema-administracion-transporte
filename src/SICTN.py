@@ -25,8 +25,7 @@ def main():
     miCliente.crearTablaClientes(miCon)
     miVenta.crearTablaVentas(miCon)
     
-    menu.menu(miCon,miServicio)
+    menu.menu(miCon,miServicio,miVenta)
     cerrarConexionDB(miCon)
-
 main()
 

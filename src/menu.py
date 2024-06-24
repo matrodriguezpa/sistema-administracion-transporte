@@ -1,5 +1,5 @@
 
-def menu(miConexion,objServicios):
+def menu(miConexion,objServicios,objVentas):
     salirPrincipal=False
     while not salirPrincipal:
         opcPrincipal=input('''
@@ -23,12 +23,61 @@ def menu(miConexion,objServicios):
                 opcionVentas=input('''
                     //---Ventas---//
 
-                1.Insertar un servicio leido por el teclado.
-                2.Salir
-                                   ''')
+                1.Vender un servicio.
+                2.Imprimir factura
+                3.Salir
+
+                Selecione una opción:  ''')
                 if(opcionVentas=='1'):
                     salirVentas=True
+                    #Preguntar si es de pasajeros o encomienda
+                    #Si es pasajeros, no se llena el dato de encomienda y viseversa
+                    while True:
+                        opcionTipo=input("""
+                                    1.Pasajero
+                                    2.Encomienda
+                                    Selecione el tipo de servicio: """)
+                        if opcionTipo=="1":
+                            cantidadMaxDato = "cantidadMaxPuestos"
+                            break
+                        elif opcionTipo=="2":
+                            cantidadMaxDato = "cantidadMaxKilos"
+                            break
+                    #si el número de identificación o el codigo del serivico no existe, no lo acepta
+                    while True:
+                        codigoServicio=input("Codigo del servicio a vender:")
+                        noIdentificacionCliente=input("Número de indentificación")
+                        try:
+                            objServicios.consultarTablaServicios0("noIdentificacionCliente",codigoServicio)
+                            break
+                        except:
+                            print("Datos invalidos, intente otra vez")
+
+                    #si cantidadMaxima (Puestos o Kilos) > cantidadVendidaTotal+cantidadVender, no lo acepta.
+                    while True:
+                        cantidadVender=input("Cantidad a vender: ")
+                        try:
+                            cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato,codigoServicio)
+                            cantidadVendidaTotal=objVentas.ConsultarCantidadVendidaTotal(miConexion,objServicios)
+                            
+                            if cantidadMaxima == cantidadVendidaTotal:
+                                print("No hay más puestos disponibles, intente con otro servicio.")
+                            if (cantidadMaxima<cantidadVendidaTotal+cantidadVender):
+                                break
+                        except:print("Puestos disponibles exedidos, ingrese una cantidad menor.")
+
+                    objServicios.añadirServicioaVender(miConexion)
+
+                    while True:
+                        opcionFactura=input("¿Imprimir facutra? (S/N)")
+                        if (opcionFactura == "S"):
+                            objVentas.imprimirFactura()
+                        break
                 if(opcionVentas=='2'):
+                    salirVentas=True
+                    objVentas.imprimirFactura()
+
+                if(opcionVentas=='3'):
                     salirVentas=True
         
         #Menú de gestión de clientes 
