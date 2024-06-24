@@ -1,7 +1,7 @@
 
 from datetime import datetime
 
-class Servicios:
+class ClassServicios:
 
     def __init__(self):
         codigoServicio = None

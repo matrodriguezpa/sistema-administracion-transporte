@@ -3,7 +3,7 @@ from sqlite3 import Error
 import Ventas
 import Servicios
 import Clientes
-import menu
+import Menu
 
 def conexionDB():
     try:
@@ -16,16 +16,13 @@ def cerrarConexionDB(con):
     con.close()
 
 def main():
-    miCon=conexionDB()
-    miServicio=Servicios.Servicios()
-    miCliente=Clientes.Clientes()
-    miVenta=Ventas.Ventas()
+    miConexion=conexionDB()
+    miServicio=Servicios.ClassServicios()
+    miCliente=Clientes.ClassClientes()
+    miVenta=Ventas.ClassVentas()
+    miMenu=Menu.ClassMenu()
+    miMenu.menu(miConexion,miServicio,miVenta,miCliente,miMenu)
     
-    miServicio.crearTablaServicios(miCon)
-    miCliente.crearTablaClientes(miCon)
-    miVenta.crearTablaVentas(miCon)
-    
-    menu.menu(miCon,miServicio,miVenta)
-    cerrarConexionDB(miCon)
+    cerrarConexionDB(miConexion)
 main()
 

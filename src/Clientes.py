@@ -1,5 +1,5 @@
 
-class Clientes:
+class ClassClientes:
     def __init__(self):
         noIdentificacionCliente = None
         nombre = None
@@ -54,6 +54,17 @@ class Clientes:
             tel=row[4]
             cor=row[5]
             print("La información del servicio es: ",id,nom,ape,dir,tel,cor)
+    
+    def consultarTablaClientes1(self,con):
+        cursorObj=con.cursor()
+        dato = input("Número de indentificación del cliente: ")
+        codigoServicio = input("Codigo del servicio a vender: ")
+        consultar = 'SELECT noIdentificacionCliente FROM Clientes WHERE noIdentificacionCliente="'+dato+'"'
+        cursorObj.execute(consultar)
+        resultado=cursorObj.fetchall()
+        print(consultar)
+        print(resultado)
+        return resultado
 
     def leerCliente(self):
         noIdentificacionCliente=input("Número de identificación del cliente: ")
