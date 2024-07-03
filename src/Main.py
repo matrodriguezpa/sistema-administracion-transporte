@@ -1,28 +1,28 @@
 import sqlite3
 from sqlite3 import Error
-import Ventas
-import Servicios
-import Clientes
-import Menu
+import ventas_module as ventas
+import servicios_module as servicios
+import clientes_module as clientes
+import menu_module as menu
 
-def conexionDB():
+def conectar_db():
     try:
-        con=sqlite3.connect('miBaseDatos.db')
+        con = sqlite3.connect('base_datos.db')
         return con
-    except Error:
-        print(Error)
+    except Error as e:
+        print(e)
 
-def cerrarConexionDB(con):
+def cerrar_conexion_db(con):
     con.close()
 
 def main():
-    miConexion=conexionDB()
-    miServicio=Servicios.ClassServicios()
-    miCliente=Clientes.ClassClientes()
-    miVenta=Ventas.ClassVentas()
-    miMenu=Menu.ClassMenu()
-    miMenu.menu(miConexion,miServicio,miVenta,miCliente,miMenu)
+    conexion = conectar_db()
+    servicio = servicios.ClassServicios()
+    cliente = clientes.ClassClientes()
+    venta = ventas.ClassVentas()
+    menu = menu.ClassMenu()
+    menu.menu(conexion, servicio, venta, cliente, menu)
     
-    cerrarConexionDB(miConexion)
-main()
+    cerrar_conexion_db(conexion)
 
+main()

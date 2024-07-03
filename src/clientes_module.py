@@ -61,6 +61,7 @@ class ClassClientes:
         codigoServicio = input("Codigo del servicio a vender: ")
         consultar = 'SELECT noIdentificacionCliente FROM Clientes WHERE noIdentificacionCliente="'+dato+'"'
         cursorObj.execute(consultar)
+        #el problema esta en que no entiendo el fetch
         resultado=cursorObj.fetchall()
         print(consultar)
         print(resultado)
@@ -68,18 +69,18 @@ class ClassClientes:
         
     def consultarTablaClientes2(self, con):
         cursorObj = con.cursor()
-        noIdentificacionCliente = input("Número de identificación del cliente: ")
+        no_identificacion_cliente = input("Número de identificación de cliente: ")
+        
         # Comprobar existencia en la tabla Clientes
-        consulta = "SELECT COUNT(1) FROM clientes WHERE noIdentificacionCliente = ?"
-        cursorObj.execute(consulta, (noIdentificacionCliente,))
-        existe = cursorObj.fetchone()[0]
-        print(existe)
+        cursorObj.execute("SELECT noIdentificacionCliente FROM clientes WHERE noIdentificacionCliente = 1")
+        registro = cursorObj.fetchone()
+        print(registro)
 
-        if existe == noIdentificacionCliente:
+        if registro and registro[0] == no_identificacion_cliente:
+            print("Aceptado")
             return True
         else:
-            print("Número de identificación del cliente no encontrado.")
-            return False
+            print("No aceptado")
 
     def leerCliente(self):
         noIdentificacionCliente=input("Número de identificación del cliente: ")
@@ -116,4 +117,3 @@ class ClassClientes:
         print("Sentencia = ",borrar)
         cursorObj.execute(borrar)
         con.commit()
-

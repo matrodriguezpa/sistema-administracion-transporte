@@ -21,9 +21,19 @@ class ClassVentas:
 
     #leerVenta#para utilizarlo a lo largo de este metodo
 
+    def leerVenta(self):
+        noFactura = input("Número de Factura: ").ljust(10)
+        noIdentificacionCliente=input("Número de identificación del cliente: ")
+        codigoServicio=input("Código servicio: ")
+        cantidadVendida=input("Cantidad vendida: ")
+        venta=(noFactura,noIdentificacionCliente,codigoServicio,cantidadVendida)
+        print("Datos ingresados:",venta)
+        return venta
+
     def añadirServicioAVender(self,con,objServicios,objVentas,objClientes):
         #Preguntar si es de pasajeros o encomienda
         #Si es pasajeros, no se llena el dato de encomienda y viseversa
+        #venta = objVentas.leerVenta()
         while True:
             opcionTipo=input("""
                         1.Pasajero
@@ -34,7 +44,7 @@ class ClassVentas:
             elif opcionTipo=="2":
                 cantidadMaxDato = "cantidadMaxKilos"
             break
-        #si el número de identificación o el codigo del serivico no existe, no lo acepta
+        #si el número de identificación, no lo acepta
         while True:
             existeCliente = objClientes.consultarTablaClientes2(con)
             if existeCliente:
@@ -43,17 +53,15 @@ class ClassVentas:
                 print("Intente otra otra vez")
 
         #si cantidadMaxima (Puestos o Kilos) > cantidadVendidaTotal+cantidadVender, no lo acepta.
-        while True:
-            cantidadVender=input("Cantidad a vender: ")
-            try:
-                cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato,codigoServicio)
-                cantidadVendidaTotal=objVentas.ConsultarCantidadVendidaTotal(con,objServicios)
+        #while True:
+            #cantidadVender=input("Cantidad a vender: ")
+            #try:
+                #cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato)
+                #cantidadVendidaTotal=objVentas.ConsultarCantidadVendidaTotal()
                 
-                if cantidadMaxima == cantidadVendidaTotal:
-                    print("No hay más puestos disponibles, intente con otro servicio.")
-                if (cantidadMaxima<cantidadVendidaTotal+cantidadVender):
-                    break
-            except:print("Puestos disponibles exedidos, ingrese una cantidad menor.")
+                #if (cantidadMaxima<cantidadVendidaTotal+cantidadVender):
+                #    break
+            #except:print("Puestos disponibles exedidos, ingrese una cantidad menor o intente con otro.")
 
         cursorObj=con.cursor()
         noFactura=input("Inserte número de factura: ")
