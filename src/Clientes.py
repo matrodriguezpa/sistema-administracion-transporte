@@ -65,6 +65,21 @@ class ClassClientes:
         print(consultar)
         print(resultado)
         return resultado
+        
+    def consultarTablaClientes2(self, con):
+        cursorObj = con.cursor()
+        noIdentificacionCliente = input("Número de identificación del cliente: ")
+        # Comprobar existencia en la tabla Clientes
+        consulta = "SELECT COUNT(1) FROM clientes WHERE noIdentificacionCliente = ?"
+        cursorObj.execute(consulta, (noIdentificacionCliente,))
+        existe = cursorObj.fetchone()[0]
+        print(existe)
+
+        if existe == noIdentificacionCliente:
+            return True
+        else:
+            print("Número de identificación del cliente no encontrado.")
+            return False
 
     def leerCliente(self):
         noIdentificacionCliente=input("Número de identificación del cliente: ")
@@ -75,7 +90,7 @@ class ClassClientes:
         telefono=input("Teléfono: ")
         correoElectronico=input("Correo Electrónico: ")
         cliente=(noIdentificacionCliente,nombre,apellido,direccion,telefono,correoElectronico)
-        print("La tupla servicio es :",cliente)
+        print("La tupla Cliente es :",cliente)
         return cliente
 
     def actualizarTablaClienteNombre(self,con):

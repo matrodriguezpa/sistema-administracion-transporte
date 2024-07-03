@@ -19,6 +19,8 @@ class ClassVentas:
         cursorObj.execute(crear)
         con.commit()
 
+    #leerVenta#para utilizarlo a lo largo de este metodo
+
     def añadirServicioAVender(self,con,objServicios,objVentas,objClientes):
         #Preguntar si es de pasajeros o encomienda
         #Si es pasajeros, no se llena el dato de encomienda y viseversa
@@ -29,21 +31,16 @@ class ClassVentas:
                         Selecione el tipo de servicio: """)
             if opcionTipo=="1":
                 cantidadMaxDato = "cantidadMaxPuestos"
-                break
             elif opcionTipo=="2":
                 cantidadMaxDato = "cantidadMaxKilos"
-                break
+            break
         #si el número de identificación o el codigo del serivico no existe, no lo acepta
-        #Arreglar, no funciona laconsulta
-        #buscar otra forma de comprobar que el dato existe
         while True:
-            try:
-                noIdentificacionCliente ="1"
-                codigoServicio = "1"
-                if (objClientes.consultarTablaClientes1(con)==noIdentificacionCliente):
-                    break
-            except:
-                print("Datos invalidos, intente otra vez")
+            existeCliente = objClientes.consultarTablaClientes2(con)
+            if existeCliente:
+                break
+            else:
+                print("Intente otra otra vez")
 
         #si cantidadMaxima (Puestos o Kilos) > cantidadVendidaTotal+cantidadVender, no lo acepta.
         while True:
