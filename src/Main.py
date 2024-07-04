@@ -7,10 +7,10 @@ import menu
 
 def connect_data_base():
     try:
-        con=sqlite3.connect('miBaseDatos.db')
+        con = sqlite3.connect('base_datos.db')
         return con
-    except Error:
-        print(Error)
+    except Error as e:
+        print(e)
 
 def close_data_base(con):
     con.close()
