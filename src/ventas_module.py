@@ -43,7 +43,7 @@ class ClassVentas:
             elif opcionTipo=="2":
                 cantidadMaxDato = "cantidadMaxKilos"
             break
-        #si el número de identificación, no lo acepta
+        #si el número de identificación o el codigo del serivico no existe, no lo acepta
         while True:
             existeCliente = objClientes.consultarTablaClientes2(con)
             if existeCliente:
@@ -55,13 +55,15 @@ class ClassVentas:
         while True:
             cantidadVender=input("Cantidad a vender: ")
             try:
-                cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato,codigoServicio)
+                cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato,venta[2])
                 cantidadVendidaTotal=objVentas.ConsultarCantidadVendidaTotal(con,objServicios)
                 
                 if cantidadMaxima == cantidadVendidaTotal:
                     print("No hay más puestos disponibles, intente con otro servicio.")
-                if (cantidadMaxima<cantidadVendidaTotal+cantidadVender):
+                if (cantidadMaxima>cantidadVendidaTotal+cantidadVender):
                     break
+                else:
+                    print("Intente otra vez, puestos disponibles: "+cantidadMaxima-cantidadVendidaTotal)
             except:print("Puestos disponibles exedidos, ingrese una cantidad menor.")
 
         cursorObj=con.cursor()
