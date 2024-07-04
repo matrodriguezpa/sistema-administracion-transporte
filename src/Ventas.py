@@ -32,7 +32,7 @@ class ClassVentas:
     def añadirServicioAVender(self,con,objServicios,objVentas,objClientes):
         #Preguntar si es de pasajeros o encomienda
         #Si es pasajeros, no se llena el dato de encomienda y viseversa
-        venta= objVentas.leerVenta()
+        #venta= objVentas.leerVenta()
         while True:
             opcionTipo=input("""
                         1.Pasajero
@@ -90,16 +90,12 @@ class ClassVentas:
         con.commit()
 
     #Completar
-    def imprimirFactura(self,con,objServicio,codigoServicio,cantidadVender):
-        cursorObj=con.cursor()
-        consultar=objServicio.consultarTablaServicios0("precio",codigoServicio)
-        precio=cursorObj.execute(consultar)
-        precioTotal=cantidadVender*precio
-        print("/----------FACTURA DE VENTA----------/")
-        print('PRECIO:',precioTotal)
-        
+    def imprimirFactura(self,con):
         opcionFactura=input("¿Enviar factura al cliente? (S/N):")
-        if opcionFactura=="S":
-            consultar=objServicio.consultarTablaClientes("correoElectronico",codigoServicio)
-            correoElectronico=cursorObj.execute(consultar)
-            #codigo para enviar factura
+        while True:
+            if opcionFactura=="s":
+                print("")
+            elif opcionFactura=="n":
+                break
+        
+        

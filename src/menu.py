@@ -2,13 +2,20 @@
 class ClassMenu:
     def mostrar_menu_principal(self):
         return input('''
-        //--------- Sistema de información Cooperativa de transportes la nacional ---------//
+             ____        _      _____  
+            / ___|      / \    |_   _| 
+           | (___      / _ \     | |   
+            \___ \    / /_\ \    | |   
+            ____) |  / _____ \   | |   
+           |_____/  /_/     \_\  |_|   
 
-        //--- MENU PRINCIPAL ---//
+        SISTEMA DE ADMINISTRACIÓN DE TRANSPORTES 
+                    LA NACIONAL
 
-        1. Menú de Ventas
-        2. Menú de gestión de Clientes
-        3. Menú de gestión de Servicios
+        MENU PRINCIPAL
+        1. Modulo de Ventas
+        2. Modulo de gestión de Clientes
+        3. Modulo de gestión de Servicios
 
         Seleccione una opción: ''')
 
@@ -16,8 +23,7 @@ class ClassMenu:
         salirVentas = False
         while not salirVentas:
             opcionVentas = input('''
-            //--- Ventas ---//
-
+            MODULO VENTAS
             1. Vender un servicio.
             2. Imprimir factura.
             3. Volver.
@@ -42,8 +48,7 @@ class ClassMenu:
         salirClientes = False
         while not salirClientes:
             opcionClientes = input('''
-            //--- Clientes ---//
-
+            MODULO CLIENTES
             1. Insertar un servicio leído por el teclado.
             2. Volver.
 
@@ -61,8 +66,7 @@ class ClassMenu:
         salirServicios = False
         while not salirServicios:
             opcionServicios = input('''
-            //--- Servicios ---//
-
+            MODULO SERVICIOS
             1. Insertar un servicio leído por el teclado.
             2. Consultar todos los registros de la tabla servicios.
             3. Consultar fecha y hora de salida.

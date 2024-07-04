@@ -73,9 +73,9 @@ class ClassClientes:
         # Comprobar existencia en la tabla Clientes
         consulta = "SELECT noIdentificacionCliente FROM Clientes WHERE noIdentificacionCliente = ?"
         cursorObj.execute(consulta, (noIdentificacionCliente,))
-        datoConsultado = cursorObj.fetchone()[0]
+        datoConsultado = cursorObj.fetchone()
 
-        if datoConsultado == int(noIdentificacionCliente):
+        if datoConsultado[0] == int(noIdentificacionCliente):
             return True
         else:
             print("Número de identificación del cliente no encontrado.")
