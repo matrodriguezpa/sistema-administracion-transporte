@@ -69,13 +69,28 @@ class ClassClientes:
     def consultarTablaClientes2(self, con):
         cursorObj = con.cursor()
         noIdentificacionCliente = input("Número de identificación del cliente: ")
-        # Comprobar existencia en la tabla Clientes
-        consulta = "SELECT COUNT(1) FROM clientes WHERE noIdentificacionCliente = ?"
-        cursorObj.execute(consulta, (noIdentificacionCliente,))
-        existe = cursorObj.fetchone()[0]
-        print(existe)
 
-        if existe == noIdentificacionCliente:
+        # Comprobar existencia en la tabla Clientes
+        consulta = "SELECT noIdentificacionCliente FROM Clientes WHERE noIdentificacionCliente = ?"
+        cursorObj.execute(consulta, (noIdentificacionCliente,))
+        datoConsultado = cursorObj.fetchone()[0]
+
+        if datoConsultado == int(noIdentificacionCliente):
+            return True
+        else:
+            print("Número de identificación del cliente no encontrado.")
+            return False
+    
+    def consultarTablaClientes3(self, con):
+        cursorObj = con.cursor()
+        codigoServicio = input("Código del servicio: ")
+
+        # Comprobar existencia en la tabla servicio
+        consulta = "SELECT codigoServicio FROM Servicios WHERE codigoServicio = ?"
+        cursorObj.execute(consulta, (codigoServicio,))
+        datoConsultado = cursorObj.fetchone()[0]
+
+        if datoConsultado == int(codigoServicio):
             return True
         else:
             print("Número de identificación del cliente no encontrado.")

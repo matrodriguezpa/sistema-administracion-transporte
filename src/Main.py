@@ -3,26 +3,25 @@ from sqlite3 import Error
 import Ventas
 import Servicios
 import Clientes
-import Menu
+import menu
 
-def conexionDB():
+def connect_data_base():
     try:
         con=sqlite3.connect('miBaseDatos.db')
         return con
     except Error:
         print(Error)
 
-def cerrarConexionDB(con):
+def close_data_base(con):
     con.close()
 
 def main():
-    miConexion=conexionDB()
+    miConexion=connect_data_base()
     miServicio=Servicios.ClassServicios()
     miCliente=Clientes.ClassClientes()
     miVenta=Ventas.ClassVentas()
-    miMenu=Menu.ClassMenu()
+    miMenu=menu.ClassMenu()
     miMenu.menu(miConexion,miServicio,miVenta,miCliente,miMenu)
     
-    cerrarConexionDB(miConexion)
+    close_data_base(miConexion)
 main()
-

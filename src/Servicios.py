@@ -98,7 +98,7 @@ class ClassServicios:
         consultar = 'SELECT '+dato+' FROM servicios WHERE codigoServicio="'+codigoServicio+'"'
         cursorObj.execute(consultar)
         resultado=cursorObj.fetchall()
-        return resultado
+        return resultado[0]
 
     #consultar fecha y hora de salida
     def consultarTablaServicios1(self,con):

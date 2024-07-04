@@ -19,11 +19,20 @@ class ClassVentas:
         cursorObj.execute(crear)
         con.commit()
 
-    #leerVenta#para utilizarlo a lo largo de este metodo
+    def leerVenta(self):
+        noFactura=input("Nombre: ")
+        noIdentificacionCliente=input("Número de identificación del cliente: ").ljust(10)
+        codigoServicio=input("Apellido: ")
+        cantidadVendida=input("Direccion: ")
+        Venta=(noFactura,noIdentificacionCliente,codigoServicio,cantidadVendida)
+        print("La tupla Venta es :",Venta)
+        return Venta
 
+    #arreglar un poco
     def añadirServicioAVender(self,con,objServicios,objVentas,objClientes):
         #Preguntar si es de pasajeros o encomienda
         #Si es pasajeros, no se llena el dato de encomienda y viseversa
+        venta= objVentas.leerVenta()
         while True:
             opcionTipo=input("""
                         1.Pasajero
@@ -46,19 +55,21 @@ class ClassVentas:
         while True:
             cantidadVender=input("Cantidad a vender: ")
             try:
-                cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato,codigoServicio)
+                cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato,venta[2])
                 cantidadVendidaTotal=objVentas.ConsultarCantidadVendidaTotal(con,objServicios)
                 
                 if cantidadMaxima == cantidadVendidaTotal:
                     print("No hay más puestos disponibles, intente con otro servicio.")
-                if (cantidadMaxima<cantidadVendidaTotal+cantidadVender):
+                if (cantidadMaxima>cantidadVendidaTotal+cantidadVender):
                     break
+                else:
+                    print("Intente otra vez, puestos disponibles: "+cantidadMaxima-cantidadVendidaTotal)
             except:print("Puestos disponibles exedidos, ingrese una cantidad menor.")
 
         cursorObj=con.cursor()
         noFactura=input("Inserte número de factura: ")
         cursorObj=con.cursor()
-        insertar='INSERT INTO Ventas VALUES('+noFactura+','+noIdentificacionCliente+','+codigoServicio+', '+cantidadVender+')'
+        insertar='INSERT INTO Ventas VALUES('+noFactura+','+venta[1]+','+venta[2]+', '+venta[3]+')'
         print("Accion ejecutada = ",insertar)
         cursorObj.execute(insertar)
         con.commit()
