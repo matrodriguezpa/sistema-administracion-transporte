@@ -1,5 +1,5 @@
 
-class ClassClientes:
+class Clientes:
     def __init__(self):
         noIdentificacionCliente = None
         nombre = None
@@ -8,6 +8,7 @@ class ClassClientes:
         telefono = None
         correoElectronico = None
 
+    # Crear la tabla servicios si no existe
     def crearTablaClientes(self,con):
         cursorObj=con.cursor()
         crear='''CREATE TABLE IF NOT EXISTS Clientes(
@@ -22,65 +23,8 @@ class ClassClientes:
                 '''
         cursorObj.execute(crear)
         con.commit()
-
-    def insertarTablaClientes(self,con,miCliente):
-        cursorObj=con.cursor()
-        insertar="INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?)"
-        print("Insertar = ",insertar)
-        cursorObj.execute(insertar,miCliente)
-        con.commit()
-
-    def insertarTablaCLientes2(self,con):
-        noIdentificacionCliente=input("Número de identificación del cliente: ")
-        noIdentificacionCliente=noIdentificacionCliente.ljust(10)
-        cursorObj=con.cursor()
-        insertar='INSERT INTO servicios VALUES('+noIdentificacionCliente+', "REMESA","CHIA","COTA","100","1900-01-01 12:15:20","10","200")'
-        print("Insertar = ",insertar)
-        cursorObj.execute(insertar)
-        con.commit()
     
-    def consultarTablaClientes(self,con):
-        cursorObj=con.cursor()
-        consultar='SELECT noIdentificacionCliente, nombre, apellido, direccion, telefono, correoElectronico FROM clientes'
-        print("Consulta construida = ",consultar)
-        cursorObj.execute(consultar)
-        filas=cursorObj.fetchall()
-        print("El tipo de dato de filas es: ",type(filas))
-        for row in filas:
-            id=row[0]
-            nom=row[1]
-            ape=row[2]
-            dir=row[3]
-            tel=row[4]
-            cor=row[5]
-            print("La información del servicio es: ",id,nom,ape,dir,tel,cor)
-    
-    def consultarTablaClientes1(self,con):
-        cursorObj=con.cursor()
-        dato = input("Número de indentificación del cliente: ")
-        codigoServicio = input("Codigo del servicio a vender: ")
-        consultar = 'SELECT noIdentificacionCliente FROM Clientes WHERE noIdentificacionCliente="'+dato+'"'
-        cursorObj.execute(consultar)
-        #el problema esta en que no entiendo el fetch
-        resultado=cursorObj.fetchall()
-        print(consultar)
-        print(resultado)
-        return resultado
-        
-    def consultarTablaClientes2(self, con):
-        cursorObj = con.cursor()
-        noIdentificacionCliente = input("Número de identificación del cliente: ")
-        # Comprobar existencia en la tabla Clientes
-        consulta = "SELECT COUNT(1) FROM clientes WHERE noIdentificacionCliente = ?"
-        cursorObj.execute(consulta, (noIdentificacionCliente,))
-        existe = cursorObj.fetchone()[0]
-        print(existe)
-
-        if existe == noIdentificacionCliente:
-            return True
-        else:
-            print("No aceptado")
-
+    # Escribir un cliente para insertar luego
     def leerCliente(self):
         noIdentificacionCliente=input("Número de identificación del cliente: ")
         noIdentificacionCliente=noIdentificacionCliente.ljust(10)
@@ -93,26 +37,63 @@ class ClassClientes:
         print("La tupla Cliente es :",cliente)
         return cliente
 
+    # Inserta un registro
+    def insertarTablaClientes(self,con,miCliente):
+        cursorObj=con.cursor()
+        insertar="INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?)"
+        cursorObj.execute(insertar,miCliente)
+        con.commit()
+    
+    # Consultar todos los registros
+    def consultarTablaClientes(self,con):
+        cursorObj=con.cursor()
+        consultar = 'SELECT * FROM Clientes'
+        cursorObj.execute(consultar)
+        filas = cursorObj.fetchall()
+        for fila in filas:
+            print("La información del cliente es:", fila)
+    
+    # Consultar un dato especifico de un registro
+    def consultarTablaServicios2(self,con):
+        dato = input("Dato a consultar: ")
+        codigoServicio = input("Código del dato: ")
+
+        cursorObj=con.cursor()
+        consultar = f'SELECT {dato} FROM servicios WHERE codigoServicio = {codigoServicio}'
+        cursorObj.execute(consultar)
+        resultado = cursorObj.fetchone()
+        return resultado[0]
+
+    # Actualizar dato de un registro
     def actualizarTablaClienteNombre(self,con):
         noIdentificacionCliente=input("Numero de identificacion del cliente: ")
         nombre=input("Nuevo Nombre: ")
         cursorObj=con.cursor()
         actualizar='UPDATE clientes SET nombre="'+nombre+'" WHERE noIdentificacionCliente='+noIdentificacionCliente
-        print("Actualizar Nombre = ",actualizar)
         cursorObj.execute(actualizar)
         con.commit()
 
-    def borrarRegistroTablaClientes(self,con):
-        noIdentificacionCliente=input("Numero de identificacion del cliente: ")
-        cursorObj=con.cursor()
-        borrar='DELETE FROM clientes WHERE noIdentificacionCliente='+noIdentificacionCliente
-        print("Sentencia = ",borrar)
-        cursorObj.execute(borrar)
-        con.commit()
+    # Borra un registro
+    def borrarRegistroTablaServicios(self, con):
+        codigoServicio = input("Código del servicio a borrar: ")
+        try:
+            cursorObj= con.cursor()
+            borrar = 'DELETE FROM servicios WHERE codigoServicio = %s'
+            cursorObj.execute(borrar, (codigoServicio,))
+            con.commit()
+            print("Registro borrado exitosamente.")
+        except Exception as e:
+            print(f"Error al borrar el registro: {e}")
+            con.rollback()
 
-    def borrarTablaClientes(self,con):
-        cursorObj=con.cursor()
-        borrar='DROP TABLE clientes'
-        print("Sentencia = ",borrar)
-        cursorObj.execute(borrar)
-        con.commit()
+    # Borrar toda la tabla de servicios
+    def borrarTablaServicios(self, con):
+        try:
+            with con.cursor() as cursorObj:
+                borrar = 'DROP TABLE IF EXISTS servicios'
+                print("Sentencia = ", borrar)
+                cursorObj.execute(borrar)
+                con.commit()
+                print("Tabla 'servicios' borrada exitosamente.")
+        except Exception as e:
+            print(f"Error al borrar la tabla 'servicios': {e}")

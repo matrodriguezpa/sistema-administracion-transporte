@@ -1,5 +1,11 @@
 
-class ClassVentas:
+import smtplib
+import getpass
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+class Ventas:
+
     def __init__(self):
         noFactura = None
         noIdentificacionCliente = None
@@ -25,77 +31,102 @@ class ClassVentas:
         codigoServicio=input("Apellido: ")
         cantidadVendida=input("Direccion: ")
         Venta=(noFactura,noIdentificacionCliente,codigoServicio,cantidadVendida)
-        print("La tupla Venta es :",Venta)
         return Venta
 
-    #arreglar un poco
-    def añadirServicioAVender(self,con,objServicios,objVentas,objClientes):
-        #Preguntar si es de pasajeros o encomienda
-        #Si es pasajeros, no se llena el dato de encomienda y viseversa
-        #venta= objVentas.leerVenta()
-        while True:
-            opcionTipo=input("""
-                        1.Pasajero
-                        2.Encomienda
-                        Selecione el tipo de servicio: """)
-            if opcionTipo=="1":
-                cantidadMaxDato = "cantidadMaxPuestos"
-            elif opcionTipo=="2":
-                cantidadMaxDato = "cantidadMaxKilos"
-            break
-        #si el número de identificación o el codigo del serivico no existe, no lo acepta
-        while True:
-            existeCliente = objClientes.consultarTablaClientes2(con)
-            if existeCliente:
-                break
-            else:
-                print("Intente otra otra vez")
-
-        #si cantidadMaxima (Puestos o Kilos) > cantidadVendidaTotal+cantidadVender, no lo acepta.
-        while True:
-            cantidadVender=input("Cantidad a vender: ")
-            try:
-                cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato,venta[2])
-                cantidadVendidaTotal=objVentas.ConsultarCantidadVendidaTotal(con,objServicios)
-                
-                if cantidadMaxima == cantidadVendidaTotal:
-                    print("No hay más puestos disponibles, intente con otro servicio.")
-                if (cantidadMaxima>cantidadVendidaTotal+cantidadVender):
-                    break
-                else:
-                    print("Intente otra vez, puestos disponibles: "+cantidadMaxima-cantidadVendidaTotal)
-            except:print("Puestos disponibles exedidos, ingrese una cantidad menor.")
-
+    def añadirServicioAVender(self,con,venta):
         cursorObj=con.cursor()
-        noFactura=input("Inserte número de factura: ")
-        cursorObj=con.cursor()
-        insertar='INSERT INTO Ventas VALUES('+noFactura+','+venta[1]+','+venta[2]+', '+venta[3]+')'
-        print("Accion ejecutada = ",insertar)
-        cursorObj.execute(insertar)
+        insertar="INSERT INTO servicios VALUES(?,?,?,?,?,?,?,?)"
+        cursorObj.execute(insertar,venta)
         con.commit()
 
-    def ConsultarCantidadVendidaTotal(self,con,codigoServicio):
+    def consultarTablaVentas():
+        return
+
+    def consultarCantidadVendidaTotal(self,con,codigoServicio):
         cursorObj=con.cursor()
         consulta = 'SELECT sum(cantidadVendida) FROM Ventas WHERE codigoServicio="'+codigoServicio+'"'
         cursorObj.execute(consulta)
         cantidadVendidaTotal=cursorObj.fetchall()
         return cantidadVendidaTotal
 
-    def quitarServicioAñadido(self,con):
-        cursorObj=con.cursor()
-        noFactura=input("Número de la factura servicio a borrar: ")
-        borrar='DELETE FROM ventas WHERE codigoServicio='+noFactura
-        print("Sentencia = ",borrar)
-        cursorObj.execute(borrar)
-        con.commit()
+    # Borra un registro
+    def borrarRegistroTablaVentas(self, con):
+        codigoServicio = input("Código del servicio a borrar: ")
+        try:
+            cursorObj= con.cursor()
+            borrar = 'DELETE FROM servicios WHERE codigoServicio = %s'
+            cursorObj.execute(borrar, (codigoServicio,))
+            con.commit()
+            print("Registro borrado exitosamente.")
+        except Exception as e:
+            print(f"Error al borrar el registro: {e}")
+            con.rollback()
 
-    #Completar
-    def imprimirFactura(self,con):
-        opcionFactura=input("¿Enviar factura al cliente? (S/N):")
-        while True:
-            if opcionFactura=="s":
-                print("")
-            elif opcionFactura=="n":
-                break
+    # Borrar toda la tabla de ventas
+    def borrarTablaServicios(self, con):
+        try:
+            with con.cursor() as cursorObj:
+                borrar = 'DROP TABLE IF EXISTS servicios'
+                print("Sentencia = ", borrar)
+                cursorObj.execute(borrar)
+                con.commit()
+                print("Tabla 'servicios' borrada exitosamente.")
+        except Exception as e:
+            print(f"Error al borrar la tabla 'servicios': {e}")
+
+    #imprimir una factura
+    def imprimirFactura(self,con,cliente,venta):
+        # Configuración del correo
+        correo_origen = 'satlanacional@gmail.com'
+        correo_smtp = 'smtp.gmail.com'
+        puerto_smtp = 587
+
+        # Obtener la contraseña de aplicación de manera segura
+        contraseña = getpass.getpass('Introduce tu contraseña de aplicación de Google: ')
+
+        # Obtener el destinatario y el mensaje
+        correo_destino = input('Introduce el correo del destinatario: ')
+        asunto = "Factura de venta no."+venta[0]
+        mensaje = f'''
+        TRANSPORTES LA NACIONAL
+
+        Cliente
+            Identificacion: 
+            Nombre:
+            Apellido:
+            Direccion: 
+            Telefono:
+            Correo Electronico: 
         
-        
+        Viaje Transporte:
+            Codigo Servicio:
+            Nombre:
+            Origen:
+            Destino:
+            Precio Venta:
+            Hora Salida:  
+            Cantidad: 
+                '''
+
+        # Crear el mensaje
+        msg = MIMEMultipart()
+        msg['From'] = correo_origen
+        msg['To'] = correo_destino
+        msg['Subject'] = asunto
+        msg.attach(MIMEText(mensaje, 'plain'))
+
+        try:
+            # Conectar al servidor SMTP
+            server = smtplib.SMTP(correo_smtp, puerto_smtp)
+            server.starttls()
+            server.login(correo_origen, contraseña)
+            
+            # Enviar el correo
+            server.sendmail(correo_origen, correo_destino, msg.as_string())
+            print('Correo enviado exitosamente')
+            
+        except Exception as e:
+            print(f'Ocurrió un error: {e}')
+            
+        finally:
+            server.quit()
