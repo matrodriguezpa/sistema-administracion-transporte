@@ -94,20 +94,20 @@ class Clientes:
         print("La cantidad de registros en la tabla Clientes es: ", total)
         return total
     
-    # Consultar registro por nombre
-    def consultarTablaClientes3(self,con,datoConsulta):
+    # Consultar registro por noIdentificacionCliente
+    def consultarTablaClientes3(self,con,noIdentificacionCliente):
         try:
             cursorObj=con.cursor()
-            consultar = 'SELECT * FROM Clientes WHERE nombre="'+datoConsulta+'"'
+            consultar = 'SELECT * FROM Clientes WHERE noIdentificacionCliente="'+noIdentificacionCliente+'"'
             cursorObj.execute(consultar)
-            filas = cursorObj.fetchall()
+            cliente = cursorObj.fetchall()
 
-            if not filas:
+            if not cliente:
                 print("Datos inexistentes")
             else:
                 print("Coincidencias:")
                 n=1
-                for row in filas:
+                for row in cliente:
                     id = row[0]
                     nom = row[1]
                     ape = row[2]
@@ -116,6 +116,7 @@ class Clientes:
                     cor = row[5]
                     print(n,"|",id,"|",nom,ape,"|",dir,"|",tel,"|",cor)
                     n=n+1
+                return cliente
         except Exception as e:
                     print(f"Error al buscar el servicio! {e}")
     

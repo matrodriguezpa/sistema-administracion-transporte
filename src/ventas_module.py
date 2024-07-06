@@ -16,7 +16,7 @@ class Ventas:
         cursorObj=con.cursor()
         crear='''CREATE TABLE IF NOT EXISTS Ventas(
                 noFactura integer NOT NULL,
-                noIdentificacionCliente text NOT NULL,
+                noIdentificacionCliente integer NOT NULL,
                 codigoServicio integer NOT NULL,
                 cantidadVendida integer NOT NULL,
                 PRIMARY KEY(noFactura)
@@ -26,28 +26,46 @@ class Ventas:
         con.commit()
 
     def leerVenta(self):
-        noFactura=input("Nombre: ")
-        noIdentificacionCliente=input("Número de identificación del cliente: ").ljust(10)
-        codigoServicio=input("Apellido: ")
-        cantidadVendida=input("Direccion: ")
+        noFactura=input("noFactura: ")
+        noIdentificacionCliente=input("Número de identificación del cliente (Tiene que estar registrado): ").ljust(10)
+        codigoServicio=input("Código del servicio a vender: ")
+        cantidadVendida=input("Cantidad a vender: ")
         Venta=(noFactura,noIdentificacionCliente,codigoServicio,cantidadVendida)
         return Venta
 
     def añadirServicioAVender(self,con,venta):
         cursorObj=con.cursor()
-        insertar="INSERT INTO servicios VALUES(?,?,?,?,?,?,?,?)"
+        insertar="INSERT INTO Ventas VALUES(?,?,?,?)"
         cursorObj.execute(insertar,venta)
         con.commit()
+        print("Cliente agregado.")
 
-    def consultarTablaVentas():
-        return
+    # Consultar registro por factura
+    def consultarTablaVentas(self,con,noFactura):
+        try:
+            cursorObj=con.cursor()
+            consultar = 'SELECT * FROM Ventas WHERE noFactura="'+noFactura+'"'
+            cursorObj.execute(consultar)
+            filas = cursorObj.fetchall()
+
+            if not filas:
+                print("Venta no encontrada")
+            else:
+                print(filas)
+                return filas
+        except Exception as e:
+                    print(f"Error al buscar la venta! {e}")
 
     def consultarCantidadVendidaTotal(self,con,codigoServicio):
-        cursorObj=con.cursor()
-        consulta = 'SELECT sum(cantidadVendida) FROM Ventas WHERE codigoServicio="'+codigoServicio+'"'
-        cursorObj.execute(consulta)
-        cantidadVendidaTotal=cursorObj.fetchall()
-        return cantidadVendidaTotal
+        try:
+            cursorObj=con.cursor()
+            consulta = 'SELECT sum(cantidadVendida) FROM Ventas WHERE codigoServicio="'+codigoServicio+'"'
+            cursorObj.execute(consulta)
+            resultado = cursorObj.fetchone()
+            cantidadVendidaTotal = resultado[0] if resultado[0] is not None else 0 #esto es importante, no se porque
+            return cantidadVendidaTotal
+        except Exception as e:
+                    print(f"Error al buscar la suma de ventas! {e}")
 
     # Borra un registro
     def borrarRegistroTablaVentas(self, con):
@@ -63,19 +81,18 @@ class Ventas:
             con.rollback()
 
     # Borrar toda la tabla de ventas
-    def borrarTablaServicios(self, con):
+    def borrarTablaVentas(self, con):
         try:
-            with con.cursor() as cursorObj:
-                borrar = 'DROP TABLE IF EXISTS servicios'
-                print("Sentencia = ", borrar)
-                cursorObj.execute(borrar)
-                con.commit()
-                print("Tabla 'servicios' borrada exitosamente.")
+            cursorObj=con.cursor()
+            borrar = 'DROP TABLE IF EXISTS Ventas'
+            cursorObj.execute(borrar)
+            con.commit()
+            print("Tabla 'ventas' borrada exitosamente.")
         except Exception as e:
             print(f"Error al borrar la tabla 'servicios': {e}")
 
     #imprimir una factura
-    def imprimirFactura(self,con,cliente,venta):
+    def imprimirFactura(self,con,venta,cliente,servicio):
         # Configuración del correo
         correo_origen = 'satlanacional@gmail.com'
         correo_smtp = 'smtp.gmail.com'
@@ -86,26 +103,26 @@ class Ventas:
 
         # Obtener el destinatario y el mensaje
         correo_destino = input('Introduce el correo del destinatario: ')
-        asunto = "Factura de venta no."+venta[0]
+        asunto = f"Factura de venta no.{venta[0]}"
         mensaje = f'''
         TRANSPORTES LA NACIONAL
 
-        Cliente
-            Identificacion: 
-            Nombre:
-            Apellido:
-            Direccion: 
-            Telefono:
-            Correo Electronico: 
         
-        Viaje Transporte:
-            Codigo Servicio:
-            Nombre:
-            Origen:
-            Destino:
-            Precio Venta:
-            Hora Salida:  
-            Cantidad: 
+        Cliente
+            Identificacion: {cliente[0]}
+            Nombre: {cliente[1]}
+            Apellido: {cliente[2]}
+            Direccion: {cliente[3]}
+            Telefono: {cliente[4]}
+            Correo Electronico: {cliente[5]}
+        
+        Transporte:
+            Codigo Servicio: {servicio[0]}
+            Nombre: {servicio[1]}
+            Origen: {servicio[2]}
+            Destino: {servicio[3]}
+            Precio Venta: {servicio[4]}
+            fecha: {servicio[5]}
                 '''
 
         # Crear el mensaje

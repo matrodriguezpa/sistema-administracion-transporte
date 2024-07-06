@@ -128,7 +128,6 @@ class Servicios:
 
     # Consultar un dato especifico de servicio
     def consultarTablaServicios3(self,con,tipoDato,codigoServicio):
-        
         try:
             cursorObj = con.cursor()
             consultar = 'SELECT '+tipoDato+' FROM Servicios WHERE codigoServicio = "'+codigoServicio+'"'
@@ -162,20 +161,20 @@ class Servicios:
         print("La sumatoria de los precios de venta es: ", suma)
         return suma
 
-    # Consultar registro por nombre
-    def consultarTablaServicios6(self,con,datoConsulta):
+    # Consultar registro por codigoServicio
+    def consultarTablaServicios6(self,con,codigoServicio):
         
         try:
             cursorObj=con.cursor()
-            consultar = 'SELECT * FROM Servicios WHERE nombre="'+datoConsulta+'"'
+            consultar = 'SELECT * FROM Servicios WHERE codigoServicio="'+codigoServicio+'"'
             cursorObj.execute(consultar)
-            filas = cursorObj.fetchall()
+            servicio = cursorObj.fetchall()
 
-            if not filas:
+            if not servicio:
                 print("Datos inexistentes")
             else:
                 print("Coincidencias:")
-                for row in filas:
+                for row in servicio:
                     cs = row[0]
                     nom = row[1]
                     ori = row[2]
@@ -185,6 +184,7 @@ class Servicios:
                     puestos = row[6]
                     kilos = row[7]
                     print("La información del servicio es:", cs, nom, ori, des, pv, fecha, "|", puestos, "|", kilos)
+            return servicio
         except Exception as e:
                     print(f"Error al buscar el servicio! {e}")
 

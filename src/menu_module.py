@@ -33,60 +33,93 @@ class menu:
             5. Consultar suma de los precios de venta de los servicios.
             6. Consultar registro por nombre.
             7. Consultar registro por letra inicial.
-            8. Borrar venta
-            9. Imprimir factura.
-            10. Volver.
+            8. Borrar venta.
+            9. Borrar tabla ventas.
+            10. Imprimir factura.
+            11. Volver.
 
             Seleccione una opción:  ''')
 
             if opcionVentas == '1':
-                ventaConstruida=objVentas.leerVenta()
-                while True:
-                    
-                    # Preguntar si es de pasajeros o encomienda
+                # Preguntar si es de pasajeros o encomienda
+                salirValidacionVenta = False
+                while not salirValidacionVenta:
                     while True:
                         opcionTipo=input('''
                             1.Pasajero
                             2.Encomienda
+                                         
                             Selecione el tipo de servicio: 
                             ''')
                         if opcionTipo=="1":
-                            cantidadMaxDato = "cantidadMaxPuestos"
+                            tipoDatoCantidadMax = "cantidadMaxPuestos"
+                            break
                         elif opcionTipo=="2":
-                            cantidadMaxDato = "cantidadMaxKilos"
-                        break
+                            tipoDatoCantidadMax = "cantidadMaxKilos"
+                            break
+
+                    cancelar = input("¿Cancelar el ingreso de datos? (s/n):").lower()
+                    if cancelar== "s": 
+                        salirValidacionVenta = True
+
+                    #Se ingresan los datos de la venta!
+                    ventaConstruida=objVentas.leerVenta()
 
                     #si el número de identificación no existe, no lo acepta
-                    while True:
-                        existeCliente = objClientes.consultarTablaClientes2(con)
-                        if existeCliente[0]== ventaConstruida[0]:
-                            break
-                        else:
-                            print("Intente otra otra vez")
+                    existeCliente = str(objClientes.consultarTablaClientes1(miConexion,"noIdentificacionCliente",ventaConstruida[1]))
+                    if existeCliente == ventaConstruida[1]:
+                        print("Cliente valido")
+                        salirValidacionVenta = True
+                    else:
+                        print("Cliente no econtrado, compruebe los datos ingresados o si el cliente esta registrado.")
+                        salirValidacionVenta = True
 
-                     #si cantidadMaxima (Puestos o Kilos) > cantidadVendidaTotal+cantidadVender, no lo acepta.
-                    while True:
-                        cantidadVender=input("Cantidad a vender: ")
-                        try:
-                            #consultar el dato de la capacidad máxima puestosMaximos / kilosMaximos del registro
-                            cantidadMaxima=objServicios.consultarTablaServicios0(cantidadMaxDato)
-                            #consular lo que ya se ha vendido
-                            cantidadVendidaTotal=objVentas.ConsultarCantidadVendidaTotal(con,objServicios)
-                            
-                            if cantidadMaxima == cantidadVendidaTotal:
-                                print("No hay más puestos disponibles, intente con otro servicio.")
-                            if (cantidadMaxima>cantidadVendidaTotal+cantidadVender):
-                                break
-                            else:
-                                print("Intente otra vez, puestos disponibles: "+cantidadMaxima-cantidadVendidaTotal)
-                        except:print("Puestos disponibles exedidos, ingrese una cantidad menor.")
-                    break
+                    #consuta la cantidad que se quiere vender
+                    #consultar la capacidad máxima de puestos o kilos del servicio
+                    #consular lo que ya se ha vendido del servicio
+
+                    cantidadVender = int(ventaConstruida[3])
+                    codigoServicio = ventaConstruida[2]
+
+                    capacidadMaxima=int(objServicios.consultarTablaServicios3(miConexion,tipoDatoCantidadMax,codigoServicio))
+                    cantidadVendidaTotal=int(objVentas.consultarCantidadVendidaTotal(miConexion,codigoServicio))
+
+                    #Comprueba la disponibilidad
+                    if int(cantidadVender) <= 0:
+                        print("La cantidad a vender no puede ser cero o negativa, ingrese una cantidad valida.")
+                        salirValidacionVenta = True
+                    elif capacidadMaxima == cantidadVendidaTotal:
+                        print("No hay más puestos disponibles, intente con otro servicio.")
+                        salirValidacionVenta = True
+                    elif (capacidadMaxima > (cantidadVendidaTotal+cantidadVender) ):
+                        print("Venta valida")
+                        salirValidacionVenta
+                    else:
+                        print("Puestos disponibles exedidos, ingrese una cantidad menor.")
+                        print("Intente otra vez, puestos disponibles:",capacidadMaxima-cantidadVendidaTotal)
+                        salirValidacionVenta = True
+     
+                #Todos los datos son validos y se añade la venta
                 objVentas.añadirServicioAVender(miConexion,ventaConstruida)
+
                 while True:
-                    opcionFactura = input("¿Imprimir factura? (S/N): ")
-                    if opcionFactura.upper() == "S":
-                        objVentas.imprimirFactura()
-                    break
+                    opcionFactura = input("¿Imprimir factura? (s/n): ").lower()
+
+                    if opcionFactura== "s":
+                        noFactura = ventaConstruida[0]
+                        noIdentificacionClientes = ventaConstruida[1]
+                        codigoServicio = ventaConstruida[2]
+
+                        venta = objVentas.consultarTablaVentas(miConexion,noFactura)[0]
+                        cliente = objClientes.consultarTablaClientes3(miConexion,noIdentificacionClientes)[0]
+                        servicio = objServicios.consultarTablaServicios6(miConexion,codigoServicio)[0]
+
+                        objVentas.imprimirFactura(miConexion,venta,cliente,servicio)
+                        break
+                    else:
+                        print("Impresion de factura cancelada.")
+                        break
+
             elif opcionVentas == '2':       
                 confirmacion = input(f"¿Estás seguro de que deseas borrar el registro? (s/n): ").lower()
                 if confirmacion != 's':
@@ -109,7 +142,7 @@ class menu:
             elif opcionVentas == '9':
                 salirVentas = True
             elif opcionVentas == '10':
-                salirVentas = True
+                objVentas.borrarTablaVentas(miConexion)
             else:
                 print("Opción no válida. Por favor, seleccione una opción válida.")
 
@@ -122,7 +155,7 @@ class menu:
             2. Consultar todos los clientes.
             3. Consultar un dato de un cliente.
             4. Consultar cuantos servicios hay en total. 
-            5. Consultar registro por nombre.
+            5. Consultar registro por noIdentificacionCliente.
             6. Consultar registro por letra inicial del nombre.
             7. Actualizar dato de un cliente.
             8. Borra un cliente.

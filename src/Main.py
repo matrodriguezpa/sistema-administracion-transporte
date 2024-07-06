@@ -13,7 +13,7 @@ def connect_data_base():
         print(e)
 
 def close_data_base(con):
-    con.close()
+    con.close
 
 def main():
     miConexion=connect_data_base()
