@@ -56,6 +56,101 @@ class Ventas:
         except Exception as e:
                     print(f"Error al buscar la venta! {e}")
 
+    # Consultar todos los registros
+    def consultarTablaVentas1(self, con):
+        cursorObj = con.cursor()
+        consultar = 'SELECT * FROM ventas'
+        cursorObj.execute(consultar)
+        filas = cursorObj.fetchall()
+
+        if not filas:
+            print("Tabla vacia.")
+        else:
+            print("Los registro de la tabla ventas son:")
+            n=1
+            for row in filas:
+                nF = row[0]
+                id = row[1]
+                cs = row[2]
+                can = row[3]
+                print(n,"|",nF,id,cs,can)
+                n=n+1
+
+
+    # Consultar registro por noFactura
+    def consultarTablaVentas5(self,con,noFactura):
+        
+        try:
+            cursorObj=con.cursor()
+            consultar = 'SELECT * FROM Ventas WHERE noFactura="'+noFactura+'"'
+            cursorObj.execute(consultar)
+            servicio = cursorObj.fetchall()
+
+            if not servicio:
+                print("Datos inexistentes")
+            else:
+                print("Coincidencias:")
+                for row in servicio:
+                    cs = row[0]
+                    nom = row[1]
+                    ori = row[2]
+                    des = row[3]
+                    print("La información de la venta  es:", cs, nom, ori, des)
+            return servicio
+        except Exception as e:
+                    print(f"Error al buscar la venta, {e}")
+
+    # Consultar un dato especifico de servicio
+    def consultarTablaVentas2(self,con,tipoDato,noFactura):
+        try:
+            cursorObj = con.cursor()
+            consultar = 'SELECT '+tipoDato+' FROM Ventas WHERE noFactura = "'+noFactura+'"'
+            cursorObj.execute(consultar)
+            datoConsultado = cursorObj.fetchone()
+            
+            if datoConsultado:
+                print("El dato",tipoDato,"del registro",noFactura,"es",datoConsultado[0])
+                return datoConsultado[0]
+            else:
+                print("Dato inexistente")
+                return None
+        except Exception as e:
+                    print(f"Error al buscar el servicio! {e}")
+
+        # Consultar cuantos registros hay en total
+    def consultarTablaVentas3(self,con):
+        cursorObj=con.cursor()
+        consultar = "SELECT COUNT(*) FROM Ventas"
+        cursorObj.execute(consultar)
+        total = cursorObj.fetchone()[0]
+        print("La cantidad de registros en la tabla Ventas es: ", total)
+        return total
+    
+    # Consultar registros por letra inicial
+    def consultarTablaVentas6(self,con):
+
+        try:
+            tipoDato = input("Dato a buscar: ")
+            datoConsulta = input("Datos que coincidan: ")
+
+            cursorObj = con.cursor()
+            consultar = f"SELECT * FROM Ventas WHERE {tipoDato} LIKE '{datoConsulta}%'"
+            cursorObj.execute(consultar)
+            filas = cursorObj.fetchall()
+
+            if not filas:
+                print("Dato inexistente")
+            else:
+                print("Coincidencias:")
+                for row in filas:
+                    cs = row[0]
+                    nom = row[1]
+                    ori = row[2]
+                    des = row[3]
+                    print("La información de la venta es:", cs, nom, ori, des)
+        except Exception as e:
+                    print(f"Error al buscar la venta! {e}")
+
     def consultarCantidadVendidaTotal(self,con,codigoServicio):
         try:
             cursorObj=con.cursor()
@@ -66,6 +161,7 @@ class Ventas:
             return cantidadVendidaTotal
         except Exception as e:
                     print(f"Error al buscar la suma de ventas! {e}")
+                    
 
     # Borra un registro
     def borrarRegistroTablaVentas(self, con):

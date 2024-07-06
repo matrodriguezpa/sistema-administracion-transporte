@@ -30,13 +30,12 @@ class menu:
             2. Consultar todas las ventas.
             3. Consultar un dato de una venta.
             4. Consultar cuantos servicios hay en total. 
-            5. Consultar suma de los precios de venta de los servicios.
-            6. Consultar registro por nombre.
-            7. Consultar registro por letra inicial.
-            8. Borrar venta.
-            9. Borrar tabla ventas.
-            10. Imprimir factura.
-            11. Volver.
+            5. Consultar registro por número de factura.
+            6. Consultar registro por letra inicial.
+            7. Borrar venta.
+            8. Borrar tabla ventas.
+            9. Imprimir factura.
+            10. Volver.
 
             Seleccione una opción:  ''')
 
@@ -57,10 +56,8 @@ class menu:
                         elif opcionTipo=="2":
                             tipoDatoCantidadMax = "cantidadMaxKilos"
                             break
-
-                    cancelar = input("¿Cancelar el ingreso de datos? (s/n):").lower()
-                    if cancelar== "s": 
-                        salirValidacionVenta = True
+                        else:
+                            print("Seleccione una opcion valida.")
 
                     #Se ingresan los datos de la venta!
                     ventaConstruida=objVentas.leerVenta()
@@ -69,7 +66,6 @@ class menu:
                     existeCliente = str(objClientes.consultarTablaClientes1(miConexion,"noIdentificacionCliente",ventaConstruida[1]))
                     if existeCliente == ventaConstruida[1]:
                         print("Cliente valido")
-                        salirValidacionVenta = True
                     else:
                         print("Cliente no econtrado, compruebe los datos ingresados o si el cliente esta registrado.")
                         salirValidacionVenta = True
@@ -93,56 +89,66 @@ class menu:
                         salirValidacionVenta = True
                     elif (capacidadMaxima > (cantidadVendidaTotal+cantidadVender) ):
                         print("Venta valida")
-                        salirValidacionVenta
                     else:
                         print("Puestos disponibles exedidos, ingrese una cantidad menor.")
                         print("Intente otra vez, puestos disponibles:",capacidadMaxima-cantidadVendidaTotal)
                         salirValidacionVenta = True
-     
-                #Todos los datos son validos y se añade la venta
-                objVentas.añadirServicioAVender(miConexion,ventaConstruida)
+                    
+                    #Todos los datos son validos y se añade la venta
+                    objVentas.añadirServicioAVender(miConexion,ventaConstruida)
 
-                while True:
-                    opcionFactura = input("¿Imprimir factura? (s/n): ").lower()
+                    while True:
+                        opcionFactura = input("¿Imprimir factura? (s/n): ").lower()
 
-                    if opcionFactura== "s":
-                        noFactura = ventaConstruida[0]
-                        noIdentificacionClientes = ventaConstruida[1]
-                        codigoServicio = ventaConstruida[2]
+                        if opcionFactura== "s":
+                            noFactura = ventaConstruida[0]
+                            noIdentificacionClientes = ventaConstruida[1]
+                            codigoServicio = ventaConstruida[2]
 
-                        venta = objVentas.consultarTablaVentas(miConexion,noFactura)[0]
-                        cliente = objClientes.consultarTablaClientes3(miConexion,noIdentificacionClientes)[0]
-                        servicio = objServicios.consultarTablaServicios6(miConexion,codigoServicio)[0]
+                            venta = objVentas.consultarTablaVentas(miConexion,noFactura)[0]
+                            cliente = objClientes.consultarTablaClientes3(miConexion,noIdentificacionClientes)[0]
+                            servicio = objServicios.consultarTablaServicios6(miConexion,codigoServicio)[0]
 
-                        objVentas.imprimirFactura(miConexion,venta,cliente,servicio)
-                        break
-                    else:
-                        print("Impresion de factura cancelada.")
-                        break
+                            objVentas.imprimirFactura(miConexion,venta,cliente,servicio)
+                            break
+                        else:
+                            print("Impresion de factura cancelada.")
+                            break
+                    
+                    salirValidacionVenta = True
 
             elif opcionVentas == '2':       
+                objVentas.consultarTablaVentas1(miConexion)
+            elif opcionVentas == '3':     
+                dato =  input("inserte el nombre del dato a consultar: ")
+                noFactura = input("inserte el número de factura: ")
+                objVentas.consultarTablaVentas2(miConexion,dato,noFactura)
+            elif opcionVentas == '4':
+                objVentas.consultarTablaVentas3(miConexion)
+            elif opcionVentas == '5':
+                noFactura = input("inserte el número de factura: ")
+                objVentas.consultarTablaVentas5(miConexion,noFactura)
+            elif opcionVentas == '6':
+                objVentas.consultarTablaVentas6(miConexion)
+            elif opcionVentas == '7':
                 confirmacion = input(f"¿Estás seguro de que deseas borrar el registro? (s/n): ").lower()
                 if confirmacion != 's':
                     print("Operación cancelada.")
                     return
-                objVentas.borrarRegistroTablaVentas()
-            elif opcionVentas == '3':     
-                objVentas.consultarTablaVentas()  
-                objVentas.imprimirFactura()
-            elif opcionVentas == '4':
-                salirVentas = True
-            elif opcionVentas == '5':
-                salirVentas = True
-            elif opcionVentas == '6':
-                salirVentas = True
-            elif opcionVentas == '7':
-                salirVentas = True
+                objVentas.borrarRegistroTablaVentas(miConexion)
             elif opcionVentas == '8':
-                salirVentas = True
-            elif opcionVentas == '9':
-                salirVentas = True
-            elif opcionVentas == '10':
                 objVentas.borrarTablaVentas(miConexion)
+            elif opcionVentas == '9':
+                facturaVenta = input("Inserte no.factura:")
+                venta = objVentas.consultarTablaVentas(miConexion,facturaVenta)[0]
+                noIdentificacionClientes = venta[1]
+                codigoServicio = venta[2]
+                cliente = objClientes.consultarTablaClientes3(miConexion,noIdentificacionClientes)[0]
+                servicio = objServicios.consultarTablaServicios6(miConexion,codigoServicio)[0]
+
+                objVentas.imprimirFactura(miConexion,venta,cliente,servicio)
+            elif opcionVentas == '10':
+                salirVentas = True
             else:
                 print("Opción no válida. Por favor, seleccione una opción válida.")
 
