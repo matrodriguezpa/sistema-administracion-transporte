@@ -26,74 +26,163 @@ class Clientes:
     
     # Escribir un cliente para insertar luego
     def leerCliente(self):
-        noIdentificacionCliente=input("Número de identificación del cliente: ")
-        noIdentificacionCliente=noIdentificacionCliente.ljust(10)
+
+        noIdentificacionCliente=input("Número de identificación del cliente: ").ljust(10)
         nombre=input("Nombre: ")
         apellido=input("Apellido: ")
         direccion=input("Direccion: ")
         telefono=input("Teléfono: ")
         correoElectronico=input("Correo Electrónico: ")
+
         cliente=(noIdentificacionCliente,nombre,apellido,direccion,telefono,correoElectronico)
-        print("La tupla Cliente es :",cliente)
         return cliente
 
     # Inserta un registro
     def insertarTablaClientes(self,con,miCliente):
+
         cursorObj=con.cursor()
-        insertar="INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?)"
+        insertar="INSERT INTO clientes VALUES(?,?,?,?,?,?)"
         cursorObj.execute(insertar,miCliente)
         con.commit()
+        print("Cliente agregado.")
     
-    # Consultar todos los registros
-    def consultarTablaClientes(self,con):
-        cursorObj=con.cursor()
+    # Consultar todos los clientes
+    def consultarTablaClientes(self, con):
+        cursorObj = con.cursor()
         consultar = 'SELECT * FROM Clientes'
         cursorObj.execute(consultar)
         filas = cursorObj.fetchall()
-        for fila in filas:
-            print("La información del cliente es:", fila)
+
+        if not filas:
+            print("Tabla vacia.")
+        else:
+            print("Los registro de la tabla clientes son:")
+            n=1
+            for row in filas:
+                id = row[0]
+                nom = row[1]
+                ape = row[2]
+                dir = row[3]
+                tel = row[4]
+                cor = row[5]
+                print(n,"|",id,"|",nom,ape,"|",dir,"|",tel,"|",cor)
+                n=n+1
     
-    # Consultar un dato especifico de un registro
-    def consultarTablaServicios2(self,con):
-        dato = input("Dato a consultar: ")
-        codigoServicio = input("Código del dato: ")
-
+    # Consultar un dato de un cliente
+    def consultarTablaClientes1(self,con,tipoDato,noIdentificacionCliente):
+        try:
+            cursorObj = con.cursor()
+            consultar = 'SELECT '+tipoDato+' FROM Clientes WHERE noIdentificacionCliente = "'+noIdentificacionCliente+'"'
+            cursorObj.execute(consultar)
+            datoConsultado = cursorObj.fetchone()
+            
+            if datoConsultado:
+                print("El dato",tipoDato,"del registro",noIdentificacionCliente,"es",datoConsultado[0])
+                return datoConsultado[0]
+            else:
+                print("Dato inexistente")
+                return None
+        except Exception as e:
+                    print(f"Error al buscar el servicio! {e}")
+        
+    # Consultar cuantos registros hay en total 
+    def consultarTablaSClientes2(self,con):
         cursorObj=con.cursor()
-        consultar = f'SELECT {dato} FROM servicios WHERE codigoServicio = {codigoServicio}'
+        consultar = "SELECT COUNT(*) FROM Clientes"
         cursorObj.execute(consultar)
-        resultado = cursorObj.fetchone()
-        return resultado[0]
+        total = cursorObj.fetchone()[0]
+        print("La cantidad de registros en la tabla Clientes es: ", total)
+        return total
+    
+    # Consultar registro por nombre
+    def consultarTablaClientes3(self,con,datoConsulta):
+        try:
+            cursorObj=con.cursor()
+            consultar = 'SELECT * FROM Clientes WHERE nombre="'+datoConsulta+'"'
+            cursorObj.execute(consultar)
+            filas = cursorObj.fetchall()
 
-    # Actualizar dato de un registro
-    def actualizarTablaClienteNombre(self,con):
-        noIdentificacionCliente=input("Numero de identificacion del cliente: ")
-        nombre=input("Nuevo Nombre: ")
-        cursorObj=con.cursor()
-        actualizar='UPDATE clientes SET nombre="'+nombre+'" WHERE noIdentificacionCliente='+noIdentificacionCliente
-        cursorObj.execute(actualizar)
-        con.commit()
+            if not filas:
+                print("Datos inexistentes")
+            else:
+                print("Coincidencias:")
+                n=1
+                for row in filas:
+                    id = row[0]
+                    nom = row[1]
+                    ape = row[2]
+                    dir = row[3]
+                    tel = row[4]
+                    cor = row[5]
+                    print(n,"|",id,"|",nom,ape,"|",dir,"|",tel,"|",cor)
+                    n=n+1
+        except Exception as e:
+                    print(f"Error al buscar el servicio! {e}")
+    
+    # Consultar registros por letra inicial del nombre
+    def consultarTablaClientes4(self,con,datoConsulta):
+        try:
+            cursorObj = con.cursor()
+            consultar = f"SELECT * FROM Clientes WHERE nombre LIKE '{datoConsulta}%'"
+            cursorObj.execute(consultar)
+            filas = cursorObj.fetchall()
 
-    # Borra un registro
-    def borrarRegistroTablaServicios(self, con):
-        codigoServicio = input("Código del servicio a borrar: ")
+            if not filas:
+                print("Dato inexistente")
+            else:
+                print("Coincidencias:")
+                n=1
+                for row in filas:
+                    id = row[0]
+                    nom = row[1]
+                    ape = row[2]
+                    dir = row[3]
+                    tel = row[4]
+                    cor = row[5]
+                    print(n,"|",id,"|",nom,ape,"|",dir,"|",tel,"|",cor)
+                    n=n+1
+        except Exception as e:
+                    print(f"Error al buscar el servicio! {e}")
+
+    # Actualizar dato de un cliente
+    def actualizarTablaServicios(self, con):
+
+        noIdentificacionCliente = input("Código del servicio a actualizar: ")
+        dato = input("Nombre del dato: ")
+        valorActualizado = input("Dato actualizado: ")
+
+        actualizar = 'UPDATE Clientes SET '+dato+' = "'+valorActualizado+'" WHERE noIdentificacionCliente = "'+noIdentificacionCliente+'"'
         try:
             cursorObj= con.cursor()
-            borrar = 'DELETE FROM servicios WHERE codigoServicio = %s'
-            cursorObj.execute(borrar, (codigoServicio,))
+            cursorObj.execute(actualizar)
             con.commit()
-            print("Registro borrado exitosamente.")
         except Exception as e:
-            print(f"Error al borrar el registro: {e}")
+            print(f"Error al actualizar el registro: {e}")
             con.rollback()
 
-    # Borrar toda la tabla de servicios
-    def borrarTablaServicios(self, con):
+    # Borra un registro
+    def borrarRegistroTablaClientes(self, con, objClientes,noIdentificacionCliente):
         try:
-            with con.cursor() as cursorObj:
-                borrar = 'DROP TABLE IF EXISTS servicios'
-                print("Sentencia = ", borrar)
+            cursorObj= con.cursor()
+            existeCliente = str(objClientes.consultarTablaClientes1(con,"noIdentificacionCliente",noIdentificacionCliente))
+            if existeCliente == noIdentificacionCliente:
+                borrar = 'DELETE FROM Clientes WHERE noIdentificacionCliente = "'+noIdentificacionCliente+'"'
                 cursorObj.execute(borrar)
                 con.commit()
-                print("Tabla 'servicios' borrada exitosamente.")
+                print("Acción borrar registro ejecutada")
+            else:
+                print("El registro que intenta eliminar no existe.")
         except Exception as e:
-            print(f"Error al borrar la tabla 'servicios': {e}")
+            print(f"Error al borrar el registro! {e}")
+            con.rollback()
+
+    # Borrar toda la tabla de clientes
+    def borrarTablaClientes(self, con):
+        try:
+            cursorObj = con.cursor()
+            borrar = 'DROP TABLE IF EXISTS Clientes'
+            cursorObj.execute(borrar)
+            con.commit()
+            print("Tabla 'Clientes' borrada exitosamente.")
+        except Exception as e:
+            print(f"Error al borrar la tabla 'Clientes': {e}")

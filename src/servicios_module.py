@@ -51,7 +51,7 @@ class Servicios:
                 print("Error: La hora de salida debe estar en el formato HH:MM:SS.")
 
         cantidadMaxPuestos=input("Cantidad de puestos: ")
-        cantidadMaxKilos=input("Peso que puede llevar: ")
+        cantidadMaxKilos=input("Peso que puede llevar (Kg): ")
 
         servicio=(codigoServicio,nombre,origen,destino,precioVenta,horaSalida,cantidadMaxPuestos,cantidadMaxKilos)
         return servicio
@@ -62,6 +62,7 @@ class Servicios:
         insertar="INSERT INTO servicios VALUES(?,?,?,?,?,?,?,?)"
         cursorObj.execute(insertar,miServicio)
         con.commit()
+        print("Servicio insertado.")
     
     # Consultar todos los registros
     def consultarTablaServicios(self, con):
@@ -70,19 +71,22 @@ class Servicios:
         cursorObj.execute(consultar)
         filas = cursorObj.fetchall()
 
-        print("Los registro de la tabla servicio son:")
-        n=1
-        for row in filas:
-            cs = row[0]
-            nom = row[1]
-            ori = row[2]
-            des = row[3]
-            pre = row[4]
-            fec = row[5]
-            pue = row[6]
-            kil = row [7]
-            print(n,"|",cs,nom,ori,des,"| $",pre,"|",fec,"|",pue,"|",kil)
-            n=n+1
+        if not filas:
+            print("Tabla vacia.")
+        else:
+            print("Los registro de la tabla servicio son:")
+            n=1
+            for row in filas:
+                cs = row[0]
+                nom = row[1]
+                ori = row[2]
+                des = row[3]
+                pre = row[4]
+                fec = row[5]
+                pue = row[6]
+                kil = row [7]
+                print(n,"|",cs,nom,ori,des,"| $",pre,"|",fec,"|",pue,"|",kil)
+                n=n+1
 
     # Consultar la fecha y hora de salida de todos los registros
     def consultarTablaServicios1(self,con):
@@ -91,14 +95,17 @@ class Servicios:
         cursorObj.execute(consultar)
         filas = cursorObj.fetchall()
         
-        for row in filas:
-            cs = row[0]
-            nom = row[1]
-            ori = row[2]
-            des = row[3]
-            fecha = row[4] 
-            hora = row[5]  
-            print(cs,nom,ori,des,"|",fecha,"|",hora)
+        if not filas:
+            print("Tabla vacia.")
+        else:
+            for row in filas:
+                cs = row[0]
+                nom = row[1]
+                ori = row[2]
+                des = row[3]
+                fecha = row[4] 
+                hora = row[5]  
+                print(cs,nom,ori,des,"|",fecha,"|",hora)
 
     # Consultar los puestos máximos y peso máximos de todos los registros 
     def consultarTablaServicios2(self,con):
@@ -107,33 +114,43 @@ class Servicios:
         cursorObj.execute(consultar)
         filas=cursorObj.fetchall()
 
-        for row in filas:
-            cs=row[0]
-            nom=row[1]
-            ori=row[2]
-            des=row[3]
-            puestos=row[6]
-            kilos=row[7]
-            print(cs,nom,ori,des,"|",puestos,"|",kilos)
+        if not filas:
+            print("Tabla vacia.")
+        else:
+            for row in filas:
+                cs=row[0]
+                nom=row[1]
+                ori=row[2]
+                des=row[3]
+                puestos=row[6]
+                kilos=row[7]
+                print(cs,nom,ori,des,"|",puestos,"|",kilos)
 
-    # Consultar un dato especifico de un registro
+    # Consultar un dato especifico de servicio
     def consultarTablaServicios3(self,con,tipoDato,codigoServicio):
         
-        cursorObj=con.cursor()
-        consultar = "SELECT "+tipoDato+" FROM servicios WHERE codigoServicio ="+codigoServicio
-        cursorObj.execute(consultar)
-        datoConsultado = cursorObj.fetchone()[0]
-
-        print ("El dato",tipoDato,"del registro",codigoServicio,"es", datoConsultado)
-        return datoConsultado
+        try:
+            cursorObj = con.cursor()
+            consultar = 'SELECT '+tipoDato+' FROM Servicios WHERE codigoServicio = "'+codigoServicio+'"'
+            cursorObj.execute(consultar)
+            datoConsultado = cursorObj.fetchone()
+            
+            if datoConsultado:
+                print("El dato",tipoDato,"del registro",codigoServicio,"es",datoConsultado[0])
+                return datoConsultado[0]
+            else:
+                print("Dato inexistente")
+                return None
+        except Exception as e:
+                    print(f"Error al buscar el servicio! {e}")
     
-    # Consultar cuantos registros en total hay en la base de datos
+    # Consultar cuantos registros hay en total
     def consultarTablaServicios4(self,con):
         cursorObj=con.cursor()
         consultar = "SELECT COUNT(*) FROM servicios"
         cursorObj.execute(consultar)
         total = cursorObj.fetchone()[0]
-        print("La cantidad de registros en la base de datos es: ", total)
+        print("La cantidad de registros en la tabla Servicios es: ", total)
         return total
 
     # Consultar suma de los precios de venta
@@ -146,54 +163,59 @@ class Servicios:
         return suma
 
     # Consultar registro por nombre
-    def consultarTablaServicios6(self,con):
-        tipoDato=input("Dato a buscar: ")
-        datoConsulta=input("Datos que coincidan: ")
+    def consultarTablaServicios6(self,con,datoConsulta):
+        
+        try:
+            cursorObj=con.cursor()
+            consultar = 'SELECT * FROM Servicios WHERE nombre="'+datoConsulta+'"'
+            cursorObj.execute(consultar)
+            filas = cursorObj.fetchall()
 
-        cursorObj=con.cursor()
-        consultar = 'SELECT * FROM Servicios WHERE '+tipoDato+'="'+datoConsulta+'"'
-        cursorObj.execute(consultar)
-        filas = cursorObj.fetchall()
-
-        if not filas:
-            print("Dato inexistente")
-        else:
-            print("Coincidencias:")
-            for row in filas:
-                cs = row[0]
-                nom = row[1]
-                ori = row[2]
-                des = row[3]
-                pv = row[4]
-                fecha = row[5]
-                puestos = row[6]
-                kilos = row[7]
-                print("La información del servicio es:", cs, nom, ori, des, pv, fecha, "|", puestos, "|", kilos)
+            if not filas:
+                print("Datos inexistentes")
+            else:
+                print("Coincidencias:")
+                for row in filas:
+                    cs = row[0]
+                    nom = row[1]
+                    ori = row[2]
+                    des = row[3]
+                    pv = row[4]
+                    fecha = row[5]
+                    puestos = row[6]
+                    kilos = row[7]
+                    print("La información del servicio es:", cs, nom, ori, des, pv, fecha, "|", puestos, "|", kilos)
+        except Exception as e:
+                    print(f"Error al buscar el servicio! {e}")
 
     # Consultar registros por letra inicial
     def consultarTablaServicios7(self,con):
-        tipoDato = input("Dato a buscar: ")
-        datoConsulta = input("Datos que coincidan: ")
 
-        cursorObj = con.cursor()
-        consultar = f"SELECT * FROM Servicios WHERE {tipoDato} LIKE '{datoConsulta}%'"
-        cursorObj.execute(consultar)
-        filas = cursorObj.fetchall()
+        try:
+            tipoDato = input("Dato a buscar: ")
+            datoConsulta = input("Datos que coincidan: ")
 
-        if not filas:
-            print("Dato inexistente")
-        else:
-            print("Coincidencias:")
-            for row in filas:
-                cs = row[0]
-                nom = row[1]
-                ori = row[2]
-                des = row[3]
-                pv = row[4]
-                fecha = row[5]
-                puestos = row[6]
-                kilos = row[7]
-                print("La información del servicio es:", cs, nom, ori, des, pv, fecha, "|", puestos, "|", kilos)
+            cursorObj = con.cursor()
+            consultar = f"SELECT * FROM Servicios WHERE {tipoDato} LIKE '{datoConsulta}%'"
+            cursorObj.execute(consultar)
+            filas = cursorObj.fetchall()
+
+            if not filas:
+                print("Dato inexistente")
+            else:
+                print("Coincidencias:")
+                for row in filas:
+                    cs = row[0]
+                    nom = row[1]
+                    ori = row[2]
+                    des = row[3]
+                    pv = row[4]
+                    fecha = row[5]
+                    puestos = row[6]
+                    kilos = row[7]
+                    print("La información del servicio es:", cs, nom, ori, des, pv, fecha, "|", puestos, "|", kilos)
+        except Exception as e:
+                    print(f"Error al buscar el servicio! {e}")
     
     # Actualiza un dato de un registro de la trabla de servicios
     def actualizarTablaServicios(self, con):
@@ -214,15 +236,8 @@ class Servicios:
             con.rollback()
 
     # Borra un registro
-    def borrarRegistroTablaServicios(self, con, objServicio):
+    def borrarRegistroTablaServicios(self, con, objServicio,codigoServicio):
         
-        codigoServicio = input("Código del servicio a borrar: ")
-        confirmacion = input(f"¿Estás seguro de que deseas borrar el registro {codigoServicio}? (s/n): ").lower()
-        
-        if confirmacion != 's':
-            print("Operación cancelada.")
-            return
-
         try:
             cursorObj= con.cursor()
             existeServicio = str(objServicio.consultarTablaServicios3(con,"codigoServicio",codigoServicio))
@@ -239,12 +254,6 @@ class Servicios:
 
     # Borrar toda la tabla de servicios
     def borrarTablaServicios(self, con):
-        confirmacion = input("¿Estás seguro de que deseas borrar toda la tabla 'servicios'? (s/n): ").lower()
-        
-        if confirmacion != 's':
-            print("Operación cancelada.")
-            return
-        
         try:
             cursorObj=con.cursor()
             borrar = 'DROP TABLE IF EXISTS servicios'
