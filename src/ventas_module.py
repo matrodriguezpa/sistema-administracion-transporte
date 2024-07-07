@@ -117,7 +117,7 @@ class Ventas:
         except Exception as e:
                     print(f"Error al buscar el servicio! {e}")
 
-        # Consultar cuantos registros hay en total
+    # Consultar cuantos registros hay en total
     def consultarTablaVentas3(self,con):
         cursorObj=con.cursor()
         consultar = "SELECT COUNT(*) FROM Ventas"
@@ -126,28 +126,25 @@ class Ventas:
         print("La cantidad de registros en la tabla Ventas es: ", total)
         return total
     
-    # Consultar registros por letra inicial
-    def consultarTablaVentas6(self,con):
-
+    # Consultar registros por dato
+    def consultarTablaVentas6(self,con,dato,consulta):
         try:
-            tipoDato = input("Dato a buscar: ")
-            datoConsulta = input("Datos que coincidan: ")
-
             cursorObj = con.cursor()
-            consultar = f"SELECT * FROM Ventas WHERE {tipoDato} LIKE '{datoConsulta}%'"
+            consultar = 'SELECT * FROM Ventas WHERE '+dato+'="'+consulta+'"'
             cursorObj.execute(consultar)
-            filas = cursorObj.fetchall()
+            consulta = cursorObj.fetchall()
 
-            if not filas:
+            if not consulta:
                 print("Dato inexistente")
             else:
                 print("Coincidencias:")
-                for row in filas:
+                for row in consulta:
                     cs = row[0]
                     nom = row[1]
                     ori = row[2]
                     des = row[3]
                     print("La información de la venta es:", cs, nom, ori, des)
+                return consulta
         except Exception as e:
                     print(f"Error al buscar la venta! {e}")
 

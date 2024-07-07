@@ -27,20 +27,18 @@ class menu:
         while not salirVentas:
 
             opcionVentas = input('''
-            MODULO VENTAS
+            MÓDULO VENTAS
             1. Vender un servicio.
             2. Consultar todas las ventas.
             3. Consultar un dato de una venta.
             4. Consultar cuantos servicios hay en total. 
             5. Consultar registro por número de factura.
-            6. Consultar registro por nombre del cliente.
-            6. Consultar registro por letra inicial del nombre del cliente.
-            6. Consultar registro por nombre del servicio.
-            6. Consultar registro por letra inicial del nombre del servicio.
-            7. Borrar venta.
-            8. Borrar tabla ventas.
-            9. Imprimir factura.
-            10. Volver.
+            6. Consultar registros por número de identificacion del cliente.
+            7. Consultar registros por código del servicio.
+            8. Borrar venta.
+            9. Borrar tabla ventas.
+            10. Imprimir factura.
+            11. Volver.
 
             Seleccione una opción:  ''')
 
@@ -147,32 +145,44 @@ class menu:
             elif opcionVentas == '5':
                 noFactura = input("inserte el número de factura: ")
                 objVentas.consultarTablaVentas5(miConexion,noFactura)
+
             elif opcionVentas == '6':
-                objVentas.consultarTablaVentas6(miConexion)
+                # Consultar registros por id del cliente.
+                idConsulta = input("Inserte el número de identificación del cliente: ")
+                objVentas.consultarTablaVentas6(miConexion,"noIdentificacionCliente",idConsulta)
+
             elif opcionVentas == '7':
+                # Consultar registros por codigo del servicio.
+                csConsulta = input("Inserte el codigo del serivicio: ")
+                objVentas.consultarTablaVentas6(miConexion,"codigoServicio",csConsulta)
+
+            elif opcionVentas == '8':
                 confirmacion = input(f"¿Estás seguro de que deseas borrar el registro? (s/n): ").lower()
                 if confirmacion != 's':
                     print("Operación cancelada.")
                     return
                 objVentas.borrarRegistroTablaVentas(miConexion)
-            elif opcionVentas == '8':
-                objVentas.borrarTablaVentas(miConexion)
+                
             elif opcionVentas == '9':
-                facturaVenta = input("Inserte no.factura:")
 
+                confirmacion = input(f"¿Estás seguro de que deseas la tabla ventas? (s/n): ").lower()
+                if confirmacion != 's':
+                    print("Operación cancelada.")
+                    return
+                objVentas.borrarTablaVentas(miConexion)
+
+            elif opcionVentas == '10':
+
+                facturaVenta = input("Inserte no.factura:")
                 venta = objVentas.consultarTablaVentas(miConexion,facturaVenta)[0]
                 noIdentificacionCliente = str(venta[1])
                 codigoServicio = str(venta[2])
-
-                cliente = objClientes.consultarTablaClientes3(miConexion,noIdentificacionCliente)
-                servicio = objServicios.consultarTablaServicios6(miConexion,codigoServicio)
-
-                print(venta)
-                print(cliente)
-                print(servicio)
+                cliente = objClientes.consultarTablaClientes3(miConexion,noIdentificacionCliente)[0]
+                servicio = objServicios.consultarTablaServicios6(miConexion,codigoServicio)[0]
 
                 objVentas.imprimirFactura(miConexion,venta,cliente,servicio)
-            elif opcionVentas == '10':
+
+            elif opcionVentas == '11':
                 salirVentas = True
             else:
                 print("Opción no válida. Por favor, seleccione una opción válida.")
@@ -181,7 +191,7 @@ class menu:
         salirClientes = False
         while not salirClientes:
             opcionClientes = input('''
-            MODULO CLIENTES
+            MÓDULO CLIENTES
             1. Inserta un nuevo cliente.
             2. Consultar todos los clientes.
             3. Consultar un dato de un cliente.
@@ -247,7 +257,7 @@ class menu:
 
         while not salirServicios:
             opcionServicios = input('''
-            MODULO SERVICIOS
+            MÓDULO SERVICIOS
             1. Inserta un servicio
             2. Consultar todos los servicios.
             3. Consultar la fecha y hora de salida de todos los servicios.

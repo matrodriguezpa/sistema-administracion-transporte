@@ -126,14 +126,14 @@ class Clientes:
             cursorObj = con.cursor()
             consultar = f"SELECT * FROM Clientes WHERE nombre LIKE '{datoConsulta}%'"
             cursorObj.execute(consultar)
-            filas = cursorObj.fetchall()
+            consulta = cursorObj.fetchall()
 
-            if not filas:
+            if not consulta:
                 print("Dato inexistente")
             else:
                 print("Coincidencias:")
                 n=1
-                for row in filas:
+                for row in consulta:
                     id = row[0]
                     nom = row[1]
                     ape = row[2]
@@ -142,6 +142,7 @@ class Clientes:
                     cor = row[5]
                     print(n,"|",id,"|",nom,ape,"|",dir,"|",tel,"|",cor)
                     n=n+1
+                return consulta
         except Exception as e:
                     print(f"Error al buscar el servicio! {e}")
 
