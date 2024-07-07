@@ -38,7 +38,7 @@ class Ventas:
         insertar="INSERT INTO Ventas VALUES(?,?,?,?)"
         cursorObj.execute(insertar,venta)
         con.commit()
-        print("Cliente agregado.")
+        print("Venta agregada.")
 
     # Consultar registro por factura
     def consultarTablaVentas(self,con,noFactura):
@@ -100,16 +100,16 @@ class Ventas:
         except Exception as e:
                     print(f"Error al buscar la venta, {e}")
 
-    # Consultar un dato especifico de servicio
-    def consultarTablaVentas2(self,con,tipoDato,noFactura):
+    # Consultar un dato especifico de una venta
+    def consultarTablaVentas2(self,con,dato,noFactura):
         try:
             cursorObj = con.cursor()
-            consultar = 'SELECT '+tipoDato+' FROM Ventas WHERE noFactura = "'+noFactura+'"'
+            consultar = 'SELECT '+dato+' FROM Ventas WHERE noFactura="'+noFactura+'"'
             cursorObj.execute(consultar)
             datoConsultado = cursorObj.fetchone()
             
             if datoConsultado:
-                print("El dato",tipoDato,"del registro",noFactura,"es",datoConsultado[0])
+                print("El dato",dato,"del registro",noFactura,"es",datoConsultado[0])
                 return datoConsultado[0]
             else:
                 print("Dato inexistente")
