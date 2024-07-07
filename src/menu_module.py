@@ -33,7 +33,10 @@ class menu:
             3. Consultar un dato de una venta.
             4. Consultar cuantos servicios hay en total. 
             5. Consultar registro por número de factura.
-            6. Consultar registro por letra inicial.
+            6. Consultar registro por nombre del cliente.
+            6. Consultar registro por letra inicial del nombre del cliente.
+            6. Consultar registro por nombre del servicio.
+            6. Consultar registro por letra inicial del nombre del servicio.
             7. Borrar venta.
             8. Borrar tabla ventas.
             9. Imprimir factura.
@@ -156,11 +159,17 @@ class menu:
                 objVentas.borrarTablaVentas(miConexion)
             elif opcionVentas == '9':
                 facturaVenta = input("Inserte no.factura:")
+
                 venta = objVentas.consultarTablaVentas(miConexion,facturaVenta)[0]
-                noIdentificacionClientes = venta[1]
-                codigoServicio = venta[2]
-                cliente = objClientes.consultarTablaClientes3(miConexion,noIdentificacionClientes)[0]
-                servicio = objServicios.consultarTablaServicios6(miConexion,codigoServicio)[0]
+                noIdentificacionCliente = str(venta[1])
+                codigoServicio = str(venta[2])
+
+                cliente = objClientes.consultarTablaClientes3(miConexion,noIdentificacionCliente)
+                servicio = objServicios.consultarTablaServicios6(miConexion,codigoServicio)
+
+                print(venta)
+                print(cliente)
+                print(servicio)
 
                 objVentas.imprimirFactura(miConexion,venta,cliente,servicio)
             elif opcionVentas == '10':
