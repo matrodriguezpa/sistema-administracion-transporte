@@ -3,8 +3,8 @@ import sys # Para cerrar el programa desde la interfáz
 class menu:
     def menuPrincipal(self):
         return input('''
-             ____        _      _____  
-            / ___|      / \    |_   _| 
+             ____        _     _______ 
+            / ___|      / \   |__   __| 
            | (___      / _ \     | |   
             \___ \    / /_\ \    | |   
             ____) |  / _____ \   | |   
