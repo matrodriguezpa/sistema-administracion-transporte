@@ -1,6 +1,5 @@
 # Sistema de administración de transporte - La nacional
-
-Este proyecto es una aplicación para gestionar los servicios ofrecidos y clientes, así como para la venta de servicios a clientes y la impresión de facturas. 
+Este proyecto es una aplicación para gestionar los servicios ofrecidos, los clientes y la venta de estos servicios a clientes, así como la impresión de facturas. 
 
 ## Características
 
@@ -46,7 +45,7 @@ Este módulo permite gestionar una base de datos de clientes.
 
 Este módulo permite vender servicios a clientes y gestionar ventas.
 
-- **Gestión de ventas**:
+- **Base de datos de ventas**:
     - Número de factura
     - Identificación del cliente
     - Identificación del producto
@@ -55,20 +54,19 @@ Este módulo permite vender servicios a clientes y gestionar ventas.
 - **Funcionalidades**:
     - Vender servicios a un cliente
     - Quitar servicios si el cliente se arrepiente
-
-### Módulo de Impresión de Factura
-
-Este módulo permite imprimir el soporte de la venta.
+    - imprimir el soporte de la venta.
+    - Enviar la factura en un correo electrónico al cliente.
 
 - **Impresión de soporte de venta**:
     - **Encabezado**:
         - Número de venta
+    - **Datos de cliente**:
         - Nombre del cliente
         - Apellido del cliente
         - Dirección del cliente
         - Teléfono del cliente
-    - **Cuerpo de la factura**:
-        - Nombre del producto
+    - **Datos del servicio**:
+        - Nombre del servicio
         - Hora de salida (HH:MM:SS)
         - Cantidad
         - Precio unitario
@@ -78,33 +76,11 @@ Este módulo permite imprimir el soporte de la venta.
 
 *Nota: No se puede ofrecer un servicio que combine puestos y peso.*
 
-### Funcionalidad Adicional
+## Instalación y uso
 
-- Enviar un correo electrónico al cliente (si el desarrollo lo permite).
-
-## Instalación
-
-1. Clona el repositorio: `git clone https://github.com/tu_usuario/gestion-servicios-clientes.git`
-2. Navega al directorio del proyecto: `cd gestion-servicios-clientes`
-
-## Uso
-
-1. Ejecuta la aplicación: `npm start` o `python main.py`
-2. Accede a la aplicación en tu navegador web en `http://localhost:3000` o el puerto configurado.
-
-## Contribución
-
-1. Haz un fork del repositorio.
-2. Crea una nueva rama: `git checkout -b mi-rama-de-caracteristica`
-3. Realiza tus cambios y haz commits: `git commit -am 'Agrega nueva característica'`
-4. Envía tus cambios a tu fork: `git push origin mi-rama-de-caracteristica`
-5. Crea un Pull Request en el repositorio original.
-
-## Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para obtener más detalles.
+1. Clona el repositorio: `git clone https://github.com/MatRodriguezPa/Sistema-Administracion-Transporte
+2. Ejecuta la aplicación: `main.py`
 
 ---
-
 *Desarrollado por Mateo Rodríguez Palacios(https://github.com/MatRodriguezPa)*
  
