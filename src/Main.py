@@ -24,4 +24,5 @@ def main():
     miMenu.menu(miConexion,miServicio,miVenta,miCliente,miMenu)
     
     close_data_base(miConexion)
+
 main()

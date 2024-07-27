@@ -24,15 +24,29 @@ class Ventas:
                 '''
         cursorObj.execute(crear)
         con.commit()
+        
+    def leerVenta(self, miCon, miVenta):
+        # Genera el número de la factura automáticamente
+        noFactura = 1
+        while True:
+            result = miVenta.consultarTablaVentas(miCon, str(noFactura))
+            
+            if result is None:
+                print("Número de la factura generado:", noFactura)
+                break
+            if str(result[0]) == str(noFactura):
+                 pass
+            else :
+                print("Número de la factura generado:", noFactura)
+                break
+            noFactura += 1
 
-    def leerVenta(self):
-        noFactura=input("noFactura: ")
-        noIdentificacionCliente=input("Número de identificación del cliente (Tiene que estar registrado): ").ljust(10)
-        codigoServicio=input("Código del servicio a vender: ")
-        cantidadVendida=input("Cantidad a vender: ")
-        Venta=(noFactura,noIdentificacionCliente,codigoServicio,cantidadVendida)
+        noIdentificacionCliente = input("Número de identificación del cliente (Tiene que estar registrado): ").ljust(10)
+        codigoServicio = input("Código del servicio a vender: ")
+        cantidadVendida = input("Cantidad a vender: ")
+        Venta = (str(noFactura), noIdentificacionCliente, codigoServicio, cantidadVendida)
         return Venta
-
+    
     def añadirServicioAVender(self,con,venta):
         cursorObj=con.cursor()
         insertar="INSERT INTO Ventas VALUES(?,?,?,?)"
@@ -51,8 +65,8 @@ class Ventas:
             if not filas:
                 print("Venta no encontrada")
             else:
-                print(filas)
-                return filas
+                print(filas[0])
+                return filas[0]
         except Exception as e:
                     print(f"Error al buscar la venta! {e}")
 
@@ -115,7 +129,7 @@ class Ventas:
                 print("Dato inexistente")
                 return None
         except Exception as e:
-                    print(f"Error al buscar el servicio! {e}")
+                    print(f"Error al buscar la vena! {e}")
 
     # Consultar cuantos registros hay en total
     def consultarTablaVentas3(self,con):
@@ -161,12 +175,11 @@ class Ventas:
                     
 
     # Borra un registro
-    def borrarRegistroTablaVentas(self, con):
-        codigoServicio = input("Código del servicio a borrar: ")
+    def borrarRegistroTablaVentas(self, con,noFactura):
         try:
             cursorObj= con.cursor()
             borrar = 'DELETE FROM servicios WHERE codigoServicio = %s'
-            cursorObj.execute(borrar, (codigoServicio,))
+            cursorObj.execute(borrar, (noFactura,))
             con.commit()
             print("Registro borrado exitosamente.")
         except Exception as e:

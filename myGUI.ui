@@ -43,8 +43,8 @@
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0">
      <widget class="QTabWidget" name="main">
       <property name="enabled">
        <bool>true</bool>
@@ -105,12 +105,12 @@
           </column>
           <column>
            <property name="text">
-            <string>Precio de venta</string>
+            <string>Precio</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Hora de salida</string>
+            <string>Fecha</string>
            </property>
           </column>
           <column>
@@ -210,7 +210,7 @@
       </widget>
      </widget>
     </item>
-    <item>
+    <item row="1" column="1">
      <widget class="QFrame" name="sideaBar">
       <property name="minimumSize">
        <size>
@@ -268,6 +268,18 @@
                <height>30</height>
               </size>
              </property>
+             <property name="inputMask">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string notr="true"/>
+             </property>
+             <property name="maxLength">
+              <number>32767</number>
+             </property>
+             <property name="placeholderText">
+              <string>Código</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -277,6 +289,9 @@
                <width>200</width>
                <height>30</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>Nombre</string>
              </property>
             </widget>
            </item>
@@ -288,6 +303,9 @@
                <height>30</height>
               </size>
              </property>
+             <property name="placeholderText">
+              <string>Origen</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -298,10 +316,26 @@
                <height>30</height>
               </size>
              </property>
+             <property name="placeholderText">
+              <string>Destino</string>
+             </property>
             </widget>
            </item>
            <item>
-            <widget class="QDateEdit" name="salida">
+            <widget class="QLineEdit" name="precio">
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Precio</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDateEdit" name="fecha">
              <property name="maximumSize">
               <size>
                <width>200</width>
@@ -318,6 +352,9 @@
                <height>30</height>
               </size>
              </property>
+             <property name="placeholderText">
+              <string>Puestos</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -327,6 +364,9 @@
                <width>200</width>
                <height>30</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>Kilos</string>
              </property>
             </widget>
            </item>
@@ -342,6 +382,9 @@
                <height>30</height>
               </size>
              </property>
+             <property name="placeholderText">
+              <string>Identificación</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -351,6 +394,9 @@
                <width>200</width>
                <height>30</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>Nombre</string>
              </property>
             </widget>
            </item>
@@ -362,6 +408,9 @@
                <height>30</height>
               </size>
              </property>
+             <property name="placeholderText">
+              <string>Apellido</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -371,6 +420,9 @@
                <width>200</width>
                <height>30</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>Teléfono</string>
              </property>
             </widget>
            </item>
@@ -385,6 +437,9 @@
              <property name="text">
               <string/>
              </property>
+             <property name="placeholderText">
+              <string>Dirección</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -398,6 +453,9 @@
              <property name="text">
               <string/>
              </property>
+             <property name="placeholderText">
+              <string>Correo</string>
+             </property>
             </widget>
            </item>
           </layout>
@@ -405,22 +463,15 @@
          <widget class="QWidget" name="agregarVenta">
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QLineEdit" name="noFactura">
-             <property name="maximumSize">
-              <size>
-               <width>200</width>
-               <height>30</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLineEdit" name="noIdentificacionVenta">
              <property name="maximumSize">
               <size>
                <width>200</width>
                <height>30</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>Identificación</string>
              </property>
             </widget>
            </item>
@@ -431,6 +482,9 @@
                <width>200</width>
                <height>30</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>Código</string>
              </property>
             </widget>
            </item>
@@ -444,6 +498,38 @@
              </property>
              <property name="text">
               <string/>
+             </property>
+             <property name="placeholderText">
+              <string>Cantidad</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="titulo_2">
+             <property name="minimumSize">
+              <size>
+               <width>160</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>160</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Calibri</family>
+               <pointsize>6</pointsize>
+               <italic>true</italic>
+              </font>
+             </property>
+             <property name="text">
+              <string>*El No. de factura se genera automáticamente</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -473,7 +559,121 @@
       </layout>
      </widget>
     </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QWidget" name="header" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>160</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>35</height>
+       </size>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QComboBox" name="comboBox">
+         <property name="placeholderText">
+          <string>Dato a buscar</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Opción uno</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Nuevo elemento</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Nuevo elemento</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Etc</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="placeholderText">
+          <string>Buscar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDialogButtonBox" name="buttonBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>110</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="standardButtons">
+          <set>QDialogButtonBox::Discard|QDialogButtonBox::Ok</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Eliminar registro</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Borrar Tabla</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Imprimir factura</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
+   <zorder>sideaBar</zorder>
+   <zorder>main</zorder>
+   <zorder>header</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -511,6 +711,7 @@
     <addaction name="actionAcerca_de_SAT"/>
     <addaction name="separator"/>
     <addaction name="actionDocumentaci_n"/>
+    <addaction name="actionDocumentaci_n_de_usuario"/>
    </widget>
    <widget class="QMenu" name="menuVista">
     <property name="title">
@@ -538,7 +739,7 @@
   </widget>
   <action name="actionDocumentaci_n">
    <property name="text">
-    <string>Documentación</string>
+    <string>Documentación técnica</string>
    </property>
   </action>
   <action name="actionDeshacer">
@@ -604,6 +805,11 @@
   <action name="actionAcerca_de_SAT">
    <property name="text">
     <string>Acerca de SAT</string>
+   </property>
+  </action>
+  <action name="actionDocumentaci_n_de_usuario">
+   <property name="text">
+    <string>Documentación usuario</string>
    </property>
   </action>
  </widget>
