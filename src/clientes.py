@@ -35,11 +35,11 @@ class Clientes:
         return cliente
 
     # inserta un registro
-    def insertarTablaClientes(self, con, miCliente):
-        objetoCursor = con.cursor()
+    def insertarTablaClientes(self, objetoConexion, miCliente):
+        objetoCursor = objetoConexion.cursor()
         insertar = "INSERT INTO clientes VALUES(?,?,?,?,?,?)"
         objetoCursor.execute(insertar, miCliente)
-        con.commit()
+        objetoConexion.commit()
         print("Nuevo cliente agregado.")
 
     # consultar todos los registros

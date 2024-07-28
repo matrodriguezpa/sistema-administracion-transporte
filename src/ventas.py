@@ -138,58 +138,57 @@ class Ventas:
         print("Tabla ventas borrada exitosamente.")
 
     # imprimir una factura
-    def imprimirFactura(self,con,venta,cliente,servicio):
+    def imprimirFactura(self,miVenta,miCliente,miServicio):
         # Configuración del correo
-        correo_origen = 'satlanacional@gmail.com'
-        correo_smtp = 'smtp.gmail.com'
-        puerto_smtp = 587
+        correoRemitente = "satlanacional@gmail.com"
+        correoSMTP = "smtp.gmail.com"
+        puertoSMTP = 587
 
         # Obtener la contraseña de aplicación de manera segura
-        contraseña = getpass.getpass('Introduce tu contraseña de aplicación de Google: ')
+        contraseña = getpass.getpass("Introduce tu contraseña de aplicación de Google: ")
 
         # Obtener el destinatario y el mensaje
-        correo_destino = input('Introduce el correo del destinatario: ')
-        asunto = f"Factura de venta no.{venta[0]}"
-        mensaje = f'''
-        TRANSPORTES LA NACIONAL
+        correoDestinatario = miCliente[5]
+        asunto = f"Comprobante de venta de la factura no.{miVenta[0]}"
 
+        mensaje = f'''
+                COOPERATIVA DE TRANSPORTES LA NACIONAL
+        Img.png
+
+        Número de venta:{miVenta[0]}
+        Nombre completo del cliente: {miCliente[1],miCliente[2]}  
+        Dirección del cliente: {miCliente[3]}
+        Teléfono del cliente: {miCliente[4]}
         
-        Cliente
-            Identificacion: {cliente[0]}
-            Nombre: {cliente[1]}
-            Apellido: {cliente[2]}
-            Direccion: {cliente[3]}
-            Telefono: {cliente[4]}
-            Correo Electronico: {cliente[5]}
-        
-        Transporte:
-            Codigo Servicio: {servicio[0]}
-            Nombre: {servicio[1]}
-            Origen: {servicio[2]}
-            Destino: {servicio[3]}
-            Precio Venta: {servicio[4]}
-            fecha: {servicio[5]}
-                '''
+        Nombre del producto: {miServicio[1]}
+        Hora de salida:  {miServicio[5]}
+        Cantidad: {miVenta[3]}
+        Precio unitario: {miServicio[4]}
+        Precio según la cantidad: {miServicio[4]*miVenta[3]}
+
+        Pie final: 
+        Precio total: {miServicio[4]*miVenta[3]}
+        '''
 
         # Crear el mensaje
         msg = MIMEMultipart()
-        msg['From'] = correo_origen
-        msg['To'] = correo_destino
+        msg['From'] = correoRemitente
+        msg['To'] = correoDestinatario
         msg['Subject'] = asunto
         msg.attach(MIMEText(mensaje, 'plain'))
 
         try:
             # Conectar al servidor SMTP
-            server = smtplib.SMTP(correo_smtp, puerto_smtp)
-            server.starttls()
-            server.login(correo_origen, contraseña)
+            servidor = smtplib.SMTP(correoSMTP, puertoSMTP)
+            servidor.starttls()
+            servidor.login(correoRemitente, contraseña)
 
             # Enviar el correo
-            server.sendmail(correo_origen, correo_destino, msg.as_string())
+            servidor.sendmail(correoRemitente, correoDestinatario, msg.as_string())
             print('Correo enviado exitosamente')
 
         except Exception as e:
             print(f'Ocurrió un error: {e}')
 
         finally:
-            server.quit()
+            servidor.quit()
