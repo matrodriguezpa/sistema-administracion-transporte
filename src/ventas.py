@@ -36,7 +36,7 @@ class Ventas:
 
     def añadirServicioAVender(self, objetoCursor, miVenta):
         objetoCursor = objetoCursor.cursor()
-        insertar = "INSERT INTO Ventas VALUES(?,?,?,?)"
+        insertar = "INSERT INTO ventas VALUES(?,?,?,?)"
         objetoCursor.execute(insertar, miVenta)
         objetoCursor.commit()
         return "Venta agregada."
@@ -44,7 +44,7 @@ class Ventas:
     # Consultar registro por factura
     def consultarTablaVentas1(self, objetoConexion, noFactura):
         objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT * FROM Ventas WHERE noFactura={noFactura}"
+        consultar = f"SELECT * FROM ventas WHERE noFactura={noFactura}"
         objetoCursor.execute(consultar)
         resultadoConsulta = objetoCursor.fetchall()[0]
         if not resultadoConsulta:
@@ -66,12 +66,11 @@ class Ventas:
                 print(n,"|",nf,id,cs,can)
 
     # consultar registro por noFactura
-    def consultarTablaVentas3(self,con,noFactura):
+    def consultarTablaVentas3(self, con, noFactura):
         cursorObj=con.cursor()
-        consultar = f"SELECT * FROM Ventas WHERE noFactura="'+noFactura+'"'
+        consultar = f"SELECT * FROM ventas WHERE noFactura='{noFactura}'"
         cursorObj.execute(consultar)
         resultadosConsulta = cursorObj.fetchall()
-
         if not resultadosConsulta:
             print("Datos inexistentes")
         else:
@@ -81,58 +80,45 @@ class Ventas:
             return resultadosConsulta
 
     # Consultar un dato especifico de una venta
-    def consultarTablaVentas4(self,con,dato,noFactura):
-        try:
-            cursorObj = con.cursor()
-            consultar = 'SELECT '+dato+' FROM Ventas WHERE noFactura="'+noFactura+'"'
-            cursorObj.execute(consultar)
-            datoConsultado = cursorObj.fetchone()
-
-            if datoConsultado:
-                print("El dato",dato,"del registro",noFactura,"es",datoConsultado[0])
-                return datoConsultado[0]
-            else:
-                print("Dato inexistente")
-                return None
-        except Exception as e:
-            print(f"Error al buscar la vena! {e}")
+    def consultarTablaVentas4(self, objetoConexion, dato, noFactura):
+        objetoCursor = objetoConexion.cursor()
+        consultar = f"SELECT {dato} FROM ventas WHERE noFactura = '{noFactura}'"
+        objetoCursor.execute(consultar)
+        resultadoConsulta = objetoCursor.fetchone()[0]
+        if not resultadoConsulta:
+            print("Dato inexistente")
+        else:
+            return resultadoConsulta
 
     # Consultar cuantos registros hay en total
-    def consultarTablaVentas5(self,con):
-        cursorObj=con.cursor()
-        consultar = "SELECT COUNT(*) FROM Ventas"
+    def consultarTablaVentas5(self, con):
+        cursorObj = con.cursor()
+        consultar = "SELECT COUNT(*) FROM ventas"
         cursorObj.execute(consultar)
         total = cursorObj.fetchone()[0]
         return total
 
     # Consultar registros por dato
-    def consultarTablaVentas6(self,con,dato,consulta):
-        try:
-            cursorObj = con.cursor()
-            consultar = 'SELECT * FROM Ventas WHERE '+dato+'="'+consulta+'"'
-            cursorObj.execute(consultar)
-            consulta = cursorObj.fetchall()
+    def consultarTablaVentas6(self, objetoConexion, dato, resultadosConsulta):
+        objetoCursor = objetoConexion.cursor()
+        consultar = f"SELECT * FROM ventas WHERE {dato} = '{resultadosConsulta}'"
+        objetoCursor.execute(consultar)
+        resultadosConsulta = objetoCursor.fetchall()
+        if not resultadosConsulta:
+            print("Dato inexistente")
+        else:
+            print("Coincidencias:")
+            for n, (nf,id,cs,can) in enumerate (resultadosConsulta, start = 1):
+                print(n,"|",nf,id,cs,can)
+            return resultadosConsulta
 
-            if not consulta:
-                print("Dato inexistente")
-            else:
-                print("Coincidencias:")
-                for row in consulta:
-                    cs = row[0]
-                    nom = row[1]
-                    ori = row[2]
-                    des = row[3]
-                    print("La información de la venta es:", cs, nom, ori, des)
-                return consulta
-        except Exception as e:
-            print(f"Error al buscar la venta! {e}")
-
-    def consultarCantidadVendidaTotal(self,objetoConexion,codigoServicio):
+    # Consultar el total de ventas
+    def consultarCantidadVendidaTotal(self, objetoConexion, codigoServicio):
         objetoCursor=objetoConexion.cursor()
-        consulta = 'SELECT sum(cantidadVendida) FROM Ventas WHERE codigoServicio="'+codigoServicio+'"'
+        consulta = "SELECT sum(cantidadVendida) FROM ventas WHERE codigoServicio = '{codigoServicio}'"
         objetoCursor.execute(consulta)
-        resultado = objetoCursor.fetchone()
-        cantidadVendidaTotal = resultado[0] #if resultado[0] is not None else 0 #esto es importante, no se porque
+        resultadosConsulta = objetoCursor.fetchone()
+        cantidadVendidaTotal = resultadosConsulta[0] #if resultado[0] is not None else 0 #esto es importante, no se porque
         return cantidadVendidaTotal
 
     # Borra un registro
@@ -146,7 +132,7 @@ class Ventas:
     # Borrar toda la tabla de ventas
     def borrarTablaVentas(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
-        borrar = "DROP TABLE IF EXISTS Ventas"
+        borrar = "DROP TABLE IF EXISTS ventas"
         objetoCursor.execute(borrar)
         objetoConexion.commit()
         print("Tabla ventas borrada exitosamente.")
