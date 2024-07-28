@@ -13,7 +13,6 @@ class Servicios:
         cantidadMaxPuestos = None
         cantidadMaxKilos = None
 
-
     # crear la tabla servicios si no existe
     def crearTablaServicios(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
@@ -30,7 +29,6 @@ class Servicios:
                 """
         objetoCursor.execute(crear)
         objetoConexion.commit()
-
 
     # escribir un servicio para insertar luego
     def leerServicio(self):
@@ -56,7 +54,6 @@ class Servicios:
         servicio = (codigoServicio,nombre,origen,destino,precioVenta,horaSalida,puestosMaximo,kilosMaximo)
         return servicio
 
-
     # inserta un registro
     def insertarServicio(self, objetoConexion, miServicio):
         objetoCursor = objetoConexion.cursor()
@@ -65,58 +62,52 @@ class Servicios:
         objetoConexion.commit()
         print("Nuevo servicio insertado.")
 
-
     # consultar todos los registros
     def consultarTablaServicios1(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
         consultar = "SELECT * FROM servicios"
         objetoCursor.execute(consultar)
-        filasConsultadas = objetoCursor.fetchall()
-        if not filasConsultadas:
+        resultadosConsulta = objetoCursor.fetchall()
+        if not resultadosConsulta:
             print("Tabla vacia.")
         else:
             print("Los registros de la tabla servicio son: \n")
-            for row in filasConsultadas:
-                cod, nom, ori, des, pre, fec, pue, kil = row
-                print(cod,nom,ori,des,"|$",pre,"|",fec,"|",pue,"|",kil)
-
+            for n, (cs, nom, ori, des, pv, fecha, puestos, kilos) in enumerate(resultadosConsulta, start=1):
+                print(f"{n}. | {cs}, {nom}, {ori}, {des}, {pv}, {fecha}| {puestos} puestos | {kilos} kilos")
 
     # consultar la fecha y hora de salida de todos los registros
     def consultarTablaServicios2(self, objetoConexion):
         objetoCursor=objetoConexion.cursor()
-        consultar = "SELECT codigoServicio, nombre, origen, destino, date(horaSalida), time(horaSalida) FROM servicios"
+        consultar = "SELECT codigoServicio, nombre, origen, date(horaSalida), time(horaSalida) FROM servicios"
         objetoCursor.execute(consultar)
-        filasConsultadas = objetoCursor.fetchall()
-        if not filasConsultadas:
+        resultadosConsulta = objetoCursor.fetchall()
+        if not resultadosConsulta:
             print("Tabla vacia.")
         else:
-            for row in filasConsultadas:
-                cs,nom,ori,des,fecha,hora = row 
-                print(cs,nom,ori,des,"|",fecha,"|",hora)
-
+            print("Los registros de la tabla servicio son: \n")
+            for n, (cs, nom, ori, fecha,hora ) in enumerate(resultadosConsulta, start=1):
+                print(f"{n}. | {cs}, {nom}, {ori} | {fecha} {hora}")
 
     # consultar los puestos máximos y peso máximos de todos los registros
     def consultarTablaServicios3(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
         consultar = "SELECT codigoServicio, nombre, origen, destino, cantidadMaxPuestos, cantidadMaxKilos FROM servicios"
         objetoCursor.execute(consultar)
-        filasConsultadas = objetoCursor.fetchall()
-        if not filasConsultadas:
+        resultadosConsulta = objetoCursor.fetchall()
+        if not resultadosConsulta:
             print("Tabla vacia.")
         else:
-            for row in filasConsultadas:
-                cs,nom,ori,des,puestos,kilos = row 
-                print(cs,nom,ori,des,"|",puestos,"|",kilos)
+            print("Los registros de la tabla servicio son: \n")
+            for n, (cs, nom, ori, des, puestos, kilos) in enumerate(resultadosConsulta, start=1):
+                print(f"{n}. | {cs}, {nom}, {ori}, {des} | {puestos} puestos | {kilos} kilos")
 
-
-    # consultar un dato especifico de servicio
-    def consultarTablaServicios4(self, objetoConexion, tipoDato, codigoServicio):
+    # consultar un dato de un servicio
+    def consultarTablaServicios4(self, objetoConexion, dato, codigoServicio):
         objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT {tipoDato} FROM Servicios WHERE codigoServicio = '{codigoServicio}'"
+        consultar = f"SELECT {dato} FROM Servicios WHERE codigoServicio = '{codigoServicio}'"
         objetoCursor.execute(consultar)
         datoConsultado = objetoCursor.fetchone()[0]
         return datoConsultado
-
 
     # consultar cuantos registros hay en total
     def consultarTablaServicios5(self, con):
@@ -126,7 +117,6 @@ class Servicios:
         totalRegistros = cursorObj.fetchone()[0]
         return totalRegistros
 
-
     # consultar suma de los precios de venta
     def consultarTablaServicios6(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
@@ -135,63 +125,54 @@ class Servicios:
         sumaPrecios = objetoCursor.fetchone()[0]
         return sumaPrecios
 
-
     # consultar registro por nombre
-    def consultarTablaServicios7(self,objetoConexion,datoConsultado):
+    def consultarTablaServicios7(self,objetoConexion,nombre):
         objetoCursor=objetoConexion.cursor()
-        consultar = f"SELECT * FROM servicios WHERE nombre = '{datoConsultado}'"
+        consultar = f"SELECT * FROM servicios WHERE nombre = '{nombre}'"
         objetoCursor.execute(consultar)
-        filasConsultadas = objetoCursor.fetchall()
-        if not filasConsultadas:
+        resultadosBusqueda = objetoCursor.fetchall()
+        if not resultadosBusqueda:
             print("Busqueda fallida, no se encontraron coincidencias.")
         else:
             print("Coincidencias de busqueda: \n")
-            for row in filasConsultadas:
-                cs, nom,ori,des,pv,fecha,puestos,kilos = row
-                print("La información del servicio es:",cs,nom,ori,des,pv,fecha,"|",puestos,"|",kilos)
+            for n, (cs, nom, ori, des, pv, fecha, puestos, kilos) in enumerate(resultadosBusqueda, start=1):
+                print(f"{n}. | {cs}, {nom}, {ori}, {des}, {pv}, {fecha}| {puestos} puestos | {kilos} kilos")
 
-
-    # consultar registros por letra inicial
-    def consultarTablaServicios8(self, objetoConexion, datoConsultado):
+    # consultar registros por letra inicial del nombre
+    def consultarTablaServicios8(self, objetoConexion, letraInicial):
         objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT * FROM servicios WHERE nombre LIKE '{datoConsultado}%'"
+        consultar = f"SELECT * FROM servicios WHERE nombre LIKE '{letraInicial}%'"
         objetoCursor.execute(consultar)
-        filasConsultadas = objetoCursor.fetchall()
-        if not filasConsultadas:
+        resultados = objetoCursor.fetchall()
+        if not resultados:
             print("Dato inexistente")
         else:
-            print("Coincidencias de busqueda: \n")
-            for row in filasConsultadas:
-                cs,nom,ori,des,pv,fecha,puestos,kilos = row
-                print("La información del servicio es:",cs,nom,ori,des,pv,fecha,"|",puestos,"|",kilos)
+            print("Coincidencias de búsqueda: \n")
+            for n, (cs, nom, ori, des, pv, fecha, puestos, kilos) in enumerate(resultados, start=1):
+                print(f"{n}. | {cs}, {nom}, {ori}, {des}, {pv}, {fecha}| {puestos} puestos | {kilos} kilos")
 
-
-    # actualiza un dato de un registro de la trabla de servicios
-    def actualizarTablaServicios(self, objetoConexion, tipoDato, codigoServicio, datoActualizar):
+    # actualiza nombre de un registro de la trabla de servicios
+    def actualizarTablaServicios(self, objetoConexion, nuevoNombre, codigoServicio):
         objetoCursor = objetoConexion.cursor()
-        actualizar = f"UPDATE servicios SET {tipoDato} = '{datoActualizar}' WHERE codigoServicio = '{codigoServicio}'"
+        actualizar = f"UPDATE servicios SET nombre = '{nuevoNombre}' WHERE codigoServicio = '{codigoServicio}'"
         if objetoCursor.rowcount == 0:
             print("El registro que intenta actualizar no existe.")
         else:
             objetoCursor.execute(actualizar)
-            # si el de dato actualizado es 'codigoServicio', también actualiza la tabla de Ventas.
-            if tipoDato == "codigoServicio":
-                actualizarEnVentas = f"UPDATE ventas SET codigoServicio = '{datoActualizar}' WHERE codigoServicio = '{codigoServicio}'"
-                objetoCursor.execute(actualizarEnVentas)
             objetoConexion.commit()
-
 
     # borra un registro
     def borrarRegistroTablaServicios(self, objetoConexion, codigoServicio):
         objetoCursor = objetoConexion.cursor()
         borrar = f"DELETE FROM servicios WHERE codigoServicio = '{codigoServicio}'"
+        objetoCursor.execute(borrar)
+        #si el cursor esta vacio
         if objetoCursor.rowcount == 0:
             print("El registro que intenta eliminar no existe.")
             objetoConexion.rollback()
         else:
-            objetoCursor.execute(borrar)
             objetoConexion.commit()
-
+            print("Acción borrar registro ejecutada")
 
     # borrar toda la tabla de servicios
     def borrarTablaServicios(self, objetoConexion):

@@ -1,5 +1,5 @@
-
 class Clientes:
+
     def __init__(self):
         noIdentificacionCliente = None
         nombre = None
@@ -8,185 +8,129 @@ class Clientes:
         telefono = None
         correoElectronico = None
 
-    # Crear la tabla servicios si no existe
-    def crearTablaClientes(self,con):
-        cursorObj=con.cursor()
-        crear='''CREATE TABLE IF NOT EXISTS Clientes(
+    # crear la tabla servicios si no existe
+    def crearTablaClientes(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
+        crear = """CREATE TABLE IF NOT EXISTS Clientes(
                 noIdentificacionCliente integer NOT NULL,
                 nombre text NOT NULL,
                 apellido text NOT NULL,
                 direccion text NOT NULL,
                 telefono integer NOT NULL,
                 correoElectronico text NOT NULL,
-                PRIMARY KEY(noIdentificacionCliente)
-                )
-                '''
-        cursorObj.execute(crear)
-        con.commit()
-    
-    # Escribir un cliente para insertar luego
-    def leerCliente(self):
-        noIdentificacionCliente=input("Número de identificación del cliente: ").ljust(10)
-        nombre=input("Nombre: ")
-        apellido=input("Apellido: ")
-        direccion=input("Direccion: ")
-        telefono=input("Teléfono: ")
-        correoElectronico=input("Correo Electrónico: ")
+                PRIMARY KEY(noIdentificacionCliente))
+                """
+        objetoCursor.execute(crear)
+        objetoConexion.commit()
 
-        cliente=(noIdentificacionCliente,nombre,apellido,direccion,telefono,correoElectronico)
+    # escribir un cliente para insertar luego
+    def leerCliente(self):
+        noIdentificacionCliente = input("Número de identificación del cliente: ").ljust(10)
+        nombre = input("Nombre: ").lower()
+        apellido = input("Apellido: ").lower()
+        direccion = input("Direccion: ").lower()
+        telefono = input("Teléfono: ")
+        correoElectronico = input("Correo Electrónico: ").lower()
+        cliente = (noIdentificacionCliente,nombre,apellido,direccion,telefono,correoElectronico)
         return cliente
 
-    # Inserta un registro
-    def insertarTablaClientes(self,con,mi_cliente):
-        cursorObj=con.cursor()
-        insertar="INSERT INTO clientes VALUES(?,?,?,?,?,?)"
-        cursorObj.execute(insertar,mi_cliente)
+    # inserta un registro
+    def insertarTablaClientes(self, con, miCliente):
+        objetoCursor = con.cursor()
+        insertar = "INSERT INTO clientes VALUES(?,?,?,?,?,?)"
+        objetoCursor.execute(insertar, miCliente)
         con.commit()
-        return "Cliente agregado."
-    
-    # Consultar todos los clientes
-    def consultarTablaClientes(self, con):
-        cursorObj = con.cursor()
-        consultar = 'SELECT * FROM Clientes'
-        cursorObj.execute(consultar)
-        filas = cursorObj.fetchall()
+        print("Nuevo Cliente agregado.")
 
-        if not filas:
+    # consultar todos los registros
+    def consultarTablaClientes1(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
+        consultar = "SELECT * FROM Clientes"
+        objetoCursor.execute(consultar)
+        resultadosBusqueda = objetoCursor.fetchall()
+        if not resultadosBusqueda:
             print("Tabla vacia.")
         else:
-            print("Los registro de la tabla clientes son:")
-            n=1
-            for row in filas:
-                id = row[0]
-                nom = row[1]
-                ape = row[2]
-                dir = row[3]
-                tel = row[4]
-                cor = row[5]
-                print(n,"|",id,"|",nom,ape,"|",dir,"|",tel,"|",cor)
-                n=n+1
-    
-    # Consultar un dato de un cliente
-    def consultarTablaClientes1(self,con,tipoDato,noIdentificacionCliente):
-        try:
-            cursorObj = con.cursor()
-            consultar = 'SELECT '+tipoDato+' FROM Clientes WHERE noIdentificacionCliente = "'+noIdentificacionCliente+'"'
-            cursorObj.execute(consultar)
-            datoConsultado = cursorObj.fetchone()
-            
-            if datoConsultado:
-                print("El dato",tipoDato,"del registro",noIdentificacionCliente,"es",datoConsultado[0])
-                return datoConsultado[0]
-            else:
-                print("Dato inexistente")
-                return None
-        except Exception as e:
-                    print(f"Error al buscar el servicio! {e}")
-        
-    # Consultar cuantos registros hay en total 
-    def consultarTablaSClientes2(self,con):
-        cursorObj=con.cursor()
+            print("Los registro de la tabla clientes son: ")
+            for n, (id, nom, ape, dir, tel, cor) in enumerate(resultadosBusqueda, start=1):
+                print(f"{n}. | {id}, {nom} {ape}, {dir}, {tel}, {cor}")
+
+    # consultar un dato especifico de un cliente
+    def consultarTablaClientes2(self, objetoConexion, datoBusqueda, noIdentificacionCliente):
+        objetoCursor = objetoConexion.cursor()
+        consultar = f"SELECT {datoBusqueda} FROM Clientes WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
+        objetoCursor.execute(consultar)
+        resultadosBusqueda = objetoCursor.fetchone()[0]
+        if not resultadosBusqueda:
+            print("Dato inexistente")
+        else:
+            print("El dato",datoBusqueda,"del registro",noIdentificacionCliente,"es",resultadosBusqueda)
+            return resultadosBusqueda
+
+    # consultar cuantos registros hay en total
+    def consultarTablaSClientes3(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
         consultar = "SELECT COUNT(*) FROM Clientes"
-        cursorObj.execute(consultar)
-        total = cursorObj.fetchone()[0]
-        print("La cantidad de registros en la tabla Clientes es: ", total)
+        objetoCursor.execute(consultar)
+        total = objetoCursor.fetchone()[0]
         return total
-    
-    # Consultar registro por noIdentificacionCliente
-    def consultarTablaClientes3(self,con,noIdentificacionCliente):
-        try:
-            cursorObj=con.cursor()
-            consultar = 'SELECT * FROM Clientes WHERE noIdentificacionCliente="'+noIdentificacionCliente+'"'
-            cursorObj.execute(consultar)
-            cliente = cursorObj.fetchall()
 
-            if not cliente:
-                print("Datos inexistentes")
-            else:
-                print("Coincidencias:")
-                n=1
-                for row in cliente:
-                    id = row[0]
-                    nom = row[1]
-                    ape = row[2]
-                    dir = row[3]
-                    tel = row[4]
-                    cor = row[5]
-                    print(n,"|",id,"|",nom,ape,"|",dir,"|",tel,"|",cor)
-                    n=n+1
-                return cliente
-        except Exception as e:
-                    print(f"Error al buscar el servicio! {e}")
-    
-    # Consultar registros por letra inicial del nombre
-    def consultarTablaClientes4(self,con,datoConsulta):
-        try:
-            cursorObj = con.cursor()
-            consultar = f"SELECT * FROM Clientes WHERE nombre LIKE '{datoConsulta}%'"
-            cursorObj.execute(consultar)
-            consulta = cursorObj.fetchall()
+    # consultar registro por nombre
+    def consultarTablaClientes3(self,objetoConexion,nombre):
+        objetoCursor=objetoConexion.cursor()
+        consultar = f"SELECT * FROM Clientes WHERE nombre = '{nombre}'"
+        objetoCursor.execute(consultar)
+        resultadosBusqueda = objetoCursor.fetchall()
+        if not resultadosBusqueda:
+            print("Datos inexistentes")
+        else:
+            print("Coincidencias encontradas:")
+            for n, (id, nom, ape, dir, tel, cor) in enumerate(resultadosBusqueda, start=1):
+                print(f"{n}. | {id}, {nom} {ape}, {dir}, {tel}, {cor}")
+            return resultadosBusqueda
 
-            if not consulta:
-                print("Dato inexistente")
-            else:
-                print("Coincidencias:")
-                n=1
-                for row in consulta:
-                    id = row[0]
-                    nom = row[1]
-                    ape = row[2]
-                    dir = row[3]
-                    tel = row[4]
-                    cor = row[5]
-                    print(n,"|",id,"|",nom,ape,"|",dir,"|",tel,"|",cor)
-                    n=n+1
-                return consulta
-        except Exception as e:
-                    print(f"Error al buscar el servicio! {e}")
+    # consultar registros por letra inicial del nombre en la tabla de clientes
+    def consultarTablaClientes4(self, objetoConexion, letraInicial):
+        cursorObj = objetoConexion.cursor()
+        consulta = f"SELECT * FROM Clientes WHERE nombre LIKE '{letraInicial}%'"
+        cursorObj.execute(consulta)
+        resultadosBusqueda = cursorObj.fetchall()
+        if not resultadosBusqueda:
+            print("Dato inexistente")
+        else:
+            print("Coincidencias encontradas:")
+            for n, (id, nom, ape, dir, tel, cor) in enumerate(resultadosBusqueda, start=1):
+                print(f"{n} | {id} | {nom} {ape} | {dir} | {tel} | {cor}")
 
-    # Actualizar dato de un cliente
-    def actualizarTablaClientes(self, con):
-        noIdentificacionCliente = input("Código del servicio a actualizar: ")
-        dato = input("Nombre del dato: ")
-        valorActualizado = input("Dato actualizado: ")
+    # actualiza un dato de un registro de la tabla de clientes
+    def actualizarTablaClientes(self, objetoConexion, tipoDato, noIdentificacionCliente, datoActualizar):
+        objetoCursor = objetoConexion.cursor()
+        actualizar = f"UPDATE Clientes SET {tipoDato} = '{datoActualizar}' WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
+        if objetoCursor.rowcount == 0:
+            print("El registro que intenta actualizar no existe.")
+        else:
+            objetoCursor.execute(actualizar)
+            # si el dato actualizado es 'noIdentificacionCliente', también actualiza la tabla de Ventas
+            if tipoDato == "noIdentificacionCliente":
+                actualizarEnVentas = f"UPDATE Ventas SET noIdentificacionCliente = '{datoActualizar}' WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
+                objetoCursor.execute(actualizarEnVentas)
+            objetoConexion.commit()
 
-        actualizar = 'UPDATE Clientes SET '+dato+' = "'+valorActualizado+'" WHERE noIdentificacionCliente = "'+noIdentificacionCliente+'"'
-        try:
-            cursorObj= con.cursor()
-            cursorObj.execute(actualizar)
-            #Actualiza también la tabla de Ventas
-            if dato == "noIdentificacionCliente":
-                actualizarEnVentas = 'UPDATE Ventas SET noIdentificacionCliente = "'+valorActualizado+'" WHERE noIdentificacionCliente = "'+noIdentificacionCliente+'"'
-                cursorObj.execute(actualizarEnVentas)
-            con.commit()
-        except Exception as e:
-            print(f"Error al actualizar el registro: {e}")
-            con.rollback()
-        
+    # borra un registro
+    def borrarRegistroTablaClientes(self, objetoConexion,noIdentificacionCliente):
+        objetoCursor= objetoConexion.cursor()
+        borrar = f"DELETE FROM clientes WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
+        if objetoCursor.rowcount == 0:
+            print("El registro que intenta eliminar no existe.")
+            objetoConexion.rollback()
+        else:
+            objetoCursor.execute(borrar)
+            objetoConexion.commit()
+            print("Acción borrar registro ejecutada")
 
-    # Borra un registro
-    def borrarRegistroTablaClientes(self, con, objClientes,noIdentificacionCliente):
-        try:
-            cursorObj= con.cursor()
-            existeCliente = str(objClientes.consultarTablaClientes1(con,"noIdentificacionCliente",noIdentificacionCliente))
-            if existeCliente == noIdentificacionCliente:
-                borrar = 'DELETE FROM Clientes WHERE noIdentificacionCliente = "'+noIdentificacionCliente+'"'
-                cursorObj.execute(borrar)
-                con.commit()
-                print("Acción borrar registro ejecutada")
-            else:
-                print("El registro que intenta eliminar no existe.")
-        except Exception as e:
-            print(f"Error al borrar el registro! {e}")
-            con.rollback()
-
-    # Borrar toda la tabla de clientes
-    def borrarTablaClientes(self, con):
-        try:
-            cursorObj = con.cursor()
-            borrar = 'DROP TABLE IF EXISTS Clientes'
-            cursorObj.execute(borrar)
-            con.commit()
-            print("Tabla 'Clientes' borrada exitosamente.")
-        except Exception as e:
-            print(f"Error al borrar la tabla 'Clientes': {e}")
+    # borrar toda la tabla de clientes
+    def borrarTablaClientes(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
+        borrar = 'DROP TABLE IF EXISTS Clientes'
+        objetoCursor.execute(borrar)
+        objetoConexion.commit()
