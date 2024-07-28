@@ -26,7 +26,6 @@ class Clientes:
     
     # Escribir un cliente para insertar luego
     def leerCliente(self):
-
         noIdentificacionCliente=input("Número de identificación del cliente: ").ljust(10)
         nombre=input("Nombre: ")
         apellido=input("Apellido: ")
@@ -38,13 +37,12 @@ class Clientes:
         return cliente
 
     # Inserta un registro
-    def insertarTablaClientes(self,con,miCliente):
-
+    def insertarTablaClientes(self,con,mi_cliente):
         cursorObj=con.cursor()
         insertar="INSERT INTO clientes VALUES(?,?,?,?,?,?)"
-        cursorObj.execute(insertar,miCliente)
+        cursorObj.execute(insertar,mi_cliente)
         con.commit()
-        print("Cliente agregado.")
+        return "Cliente agregado."
     
     # Consultar todos los clientes
     def consultarTablaClientes(self, con):
@@ -147,8 +145,7 @@ class Clientes:
                     print(f"Error al buscar el servicio! {e}")
 
     # Actualizar dato de un cliente
-    def actualizarTablaServicios(self, con):
-
+    def actualizarTablaClientes(self, con):
         noIdentificacionCliente = input("Código del servicio a actualizar: ")
         dato = input("Nombre del dato: ")
         valorActualizado = input("Dato actualizado: ")
@@ -157,10 +154,15 @@ class Clientes:
         try:
             cursorObj= con.cursor()
             cursorObj.execute(actualizar)
+            #Actualiza también la tabla de Ventas
+            if dato == "noIdentificacionCliente":
+                actualizarEnVentas = 'UPDATE Ventas SET noIdentificacionCliente = "'+valorActualizado+'" WHERE noIdentificacionCliente = "'+noIdentificacionCliente+'"'
+                cursorObj.execute(actualizarEnVentas)
             con.commit()
         except Exception as e:
             print(f"Error al actualizar el registro: {e}")
             con.rollback()
+        
 
     # Borra un registro
     def borrarRegistroTablaClientes(self, con, objClientes,noIdentificacionCliente):

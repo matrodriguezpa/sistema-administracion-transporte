@@ -47,12 +47,17 @@ class Ventas:
         Venta = (str(noFactura), noIdentificacionCliente, codigoServicio, cantidadVendida)
         return Venta
     
-    def añadirServicioAVender(self,con,venta):
-        cursorObj=con.cursor()
-        insertar="INSERT INTO Ventas VALUES(?,?,?,?)"
-        cursorObj.execute(insertar,venta)
+
+    def añadirServicioAVender(self,con,mi_venta):
+
+        mi_cursor=con.cursor()
+        insertar = "INSERT INTO Ventas VALUES(?,?,?,?)"
+
+        mi_cursor.execute(insertar,mi_venta)
         con.commit()
-        print("Venta agregada.")
+
+        return "Venta agregada."
+
 
     # Consultar registro por factura
     def consultarTablaVentas(self,con,noFactura):
