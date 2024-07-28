@@ -1,4 +1,3 @@
-
 import smtplib
 import getpass
 from email.mime.multipart import MIMEMultipart
@@ -12,121 +11,83 @@ class Ventas:
         codigoServicio = None
         cantidadVendida = None
 
-    def crearTablaVentas(self,con):
-        cursorObj=con.cursor()
-        crear='''CREATE TABLE IF NOT EXISTS Ventas(
+    def crearTablaVentas(self, con):
+        cursorObj = con.cursor()
+        crear = """CREATE TABLE IF NOT EXISTS Ventas(
                 noFactura integer NOT NULL,
                 noIdentificacionCliente integer NOT NULL,
                 codigoServicio integer NOT NULL,
                 cantidadVendida integer NOT NULL,
-                PRIMARY KEY(noFactura)
-                )
-                '''
+                PRIMARY KEY(noFactura))"""
         cursorObj.execute(crear)
         con.commit()
-        
-    def leerVenta(self, miCon, miVenta):
+
+    def leerVenta(self, objetoConexion, objetoVentas):
         # Genera el número de la factura automáticamente
         noFactura = 1
-        while True:
-            result = miVenta.consultarTablaVentas(miCon, str(noFactura))
-            
-            if result is None:
-                print("Número de la factura generado:", noFactura)
-                break
-            if str(result[0]) == str(noFactura):
-                 pass
-            else :
-                print("Número de la factura generado:", noFactura)
-                break
+        while objetoVentas.consultarTablaVentas(objetoConexion, str(noFactura)) is not None:
             noFactura += 1
-
+        print(f"Número de factura generado{noFactura}")
         noIdentificacionCliente = input("Número de identificación del cliente (Tiene que estar registrado): ").ljust(10)
         codigoServicio = input("Código del servicio a vender: ")
         cantidadVendida = input("Cantidad a vender: ")
         Venta = (str(noFactura), noIdentificacionCliente, codigoServicio, cantidadVendida)
         return Venta
-    
 
-    def añadirServicioAVender(self,con,mi_venta):
-
-        mi_cursor=con.cursor()
+    def añadirServicioAVender(self, objetoCursor, miVenta):
+        objetoCursor = objetoCursor.cursor()
         insertar = "INSERT INTO Ventas VALUES(?,?,?,?)"
-
-        mi_cursor.execute(insertar,mi_venta)
-        con.commit()
-
+        objetoCursor.execute(insertar, miVenta)
+        objetoCursor.commit()
         return "Venta agregada."
 
-
     # Consultar registro por factura
-    def consultarTablaVentas(self,con,noFactura):
-        try:
-            cursorObj=con.cursor()
-            consultar = 'SELECT * FROM Ventas WHERE noFactura="'+noFactura+'"'
-            cursorObj.execute(consultar)
-            filas = cursorObj.fetchall()
-
-            if not filas:
-                print("Venta no encontrada")
-            else:
-                print(filas[0])
-                return filas[0]
-        except Exception as e:
-                    print(f"Error al buscar la venta! {e}")
+    def consultarTablaVentas1(self, objetoConexion, noFactura):
+        objetoCursor = objetoConexion.cursor()
+        consultar = f"SELECT * FROM Ventas WHERE noFactura={noFactura}"
+        objetoCursor.execute(consultar)
+        resultadoConsulta = objetoCursor.fetchall()[0]
+        if not resultadoConsulta:
+            print("Venta no encontrada.")
+        else:
+            return resultadoConsulta
 
     # Consultar todos los registros
-    def consultarTablaVentas1(self, con):
-        cursorObj = con.cursor()
-        consultar = 'SELECT * FROM ventas'
-        cursorObj.execute(consultar)
-        filas = cursorObj.fetchall()
-
-        if not filas:
+    def consultarTablaVentas2(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
+        consultar = "SELECT * FROM ventas"
+        objetoCursor.execute(consultar)
+        resultadosConsulta = objetoCursor.fetchall()
+        if not resultadosConsulta:
             print("Tabla vacia.")
         else:
             print("Los registro de la tabla ventas son:")
-            n=1
-            for row in filas:
-                nF = row[0]
-                id = row[1]
-                cs = row[2]
-                can = row[3]
-                print(n,"|",nF,id,cs,can)
-                n=n+1
+            for n, (nf,id,cs,can) in enumerate (resultadosConsulta, start = 1):
+                print(n,"|",nf,id,cs,can)
 
+    # consultar registro por noFactura
+    def consultarTablaVentas3(self,con,noFactura):
+        cursorObj=con.cursor()
+        consultar = f"SELECT * FROM Ventas WHERE noFactura="'+noFactura+'"'
+        cursorObj.execute(consultar)
+        resultadosConsulta = cursorObj.fetchall()
 
-    # Consultar registro por noFactura
-    def consultarTablaVentas5(self,con,noFactura):
-        
-        try:
-            cursorObj=con.cursor()
-            consultar = 'SELECT * FROM Ventas WHERE noFactura="'+noFactura+'"'
-            cursorObj.execute(consultar)
-            servicio = cursorObj.fetchall()
-
-            if not servicio:
-                print("Datos inexistentes")
-            else:
-                print("Coincidencias:")
-                for row in servicio:
-                    cs = row[0]
-                    nom = row[1]
-                    ori = row[2]
-                    des = row[3]
-                    print("La información de la venta  es:", cs, nom, ori, des)
-            return servicio
-        except Exception as e:
-                    print(f"Error al buscar la venta, {e}")
+        if not resultadosConsulta:
+            print("Datos inexistentes")
+        else:
+            print("Coincidencias:")
+            for n, (nf,id,cs,can) in enumerate (resultadosConsulta, start = 1):
+                print(n,"|",nf,id,cs,can)
+            return resultadosConsulta
 
     # Consultar un dato especifico de una venta
-    def consultarTablaVentas2(self,con,dato,noFactura):
+    def consultarTablaVentas4(self,con,dato,noFactura):
         try:
             cursorObj = con.cursor()
             consultar = 'SELECT '+dato+' FROM Ventas WHERE noFactura="'+noFactura+'"'
             cursorObj.execute(consultar)
             datoConsultado = cursorObj.fetchone()
-            
+
             if datoConsultado:
                 print("El dato",dato,"del registro",noFactura,"es",datoConsultado[0])
                 return datoConsultado[0]
@@ -134,17 +95,16 @@ class Ventas:
                 print("Dato inexistente")
                 return None
         except Exception as e:
-                    print(f"Error al buscar la vena! {e}")
+            print(f"Error al buscar la vena! {e}")
 
     # Consultar cuantos registros hay en total
-    def consultarTablaVentas3(self,con):
+    def consultarTablaVentas5(self,con):
         cursorObj=con.cursor()
         consultar = "SELECT COUNT(*) FROM Ventas"
         cursorObj.execute(consultar)
         total = cursorObj.fetchone()[0]
-        print("La cantidad de registros en la tabla Ventas es: ", total)
         return total
-    
+
     # Consultar registros por dato
     def consultarTablaVentas6(self,con,dato,consulta):
         try:
@@ -165,44 +125,33 @@ class Ventas:
                     print("La información de la venta es:", cs, nom, ori, des)
                 return consulta
         except Exception as e:
-                    print(f"Error al buscar la venta! {e}")
+            print(f"Error al buscar la venta! {e}")
 
-    def consultarCantidadVendidaTotal(self,con,codigoServicio):
-        try:
-            cursorObj=con.cursor()
-            consulta = 'SELECT sum(cantidadVendida) FROM Ventas WHERE codigoServicio="'+codigoServicio+'"'
-            cursorObj.execute(consulta)
-            resultado = cursorObj.fetchone()
-            cantidadVendidaTotal = resultado[0] if resultado[0] is not None else 0 #esto es importante, no se porque
-            return cantidadVendidaTotal
-        except Exception as e:
-                    print(f"Error al buscar la suma de ventas! {e}")
-                    
+    def consultarCantidadVendidaTotal(self,objetoConexion,codigoServicio):
+        objetoCursor=objetoConexion.cursor()
+        consulta = 'SELECT sum(cantidadVendida) FROM Ventas WHERE codigoServicio="'+codigoServicio+'"'
+        objetoCursor.execute(consulta)
+        resultado = objetoCursor.fetchone()
+        cantidadVendidaTotal = resultado[0] #if resultado[0] is not None else 0 #esto es importante, no se porque
+        return cantidadVendidaTotal
 
     # Borra un registro
-    def borrarRegistroTablaVentas(self, con,noFactura):
-        try:
-            cursorObj= con.cursor()
-            borrar = 'DELETE FROM servicios WHERE codigoServicio = %s'
-            cursorObj.execute(borrar, (noFactura,))
-            con.commit()
-            print("Registro borrado exitosamente.")
-        except Exception as e:
-            print(f"Error al borrar el registro: {e}")
-            con.rollback()
+    def borrarRegistroTablaVentas(self, objetoConexion, noFactura):
+        objetoCursor = objetoConexion.cursor()
+        borrar = f"DELETE FROM ventas WHERE noFactura = '{noFactura}'"
+        objetoCursor.execute(borrar)
+        objetoConexion.commit()
+        print("Registro borrado exitosamente.")
 
     # Borrar toda la tabla de ventas
-    def borrarTablaVentas(self, con):
-        try:
-            cursorObj=con.cursor()
-            borrar = 'DROP TABLE IF EXISTS Ventas'
-            cursorObj.execute(borrar)
-            con.commit()
-            print("Tabla 'ventas' borrada exitosamente.")
-        except Exception as e:
-            print(f"Error al borrar la tabla 'servicios': {e}")
+    def borrarTablaVentas(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
+        borrar = "DROP TABLE IF EXISTS Ventas"
+        objetoCursor.execute(borrar)
+        objetoConexion.commit()
+        print("Tabla ventas borrada exitosamente.")
 
-    #imprimir una factura
+    # imprimir una factura
     def imprimirFactura(self,con,venta,cliente,servicio):
         # Configuración del correo
         correo_origen = 'satlanacional@gmail.com'
@@ -248,13 +197,13 @@ class Ventas:
             server = smtplib.SMTP(correo_smtp, puerto_smtp)
             server.starttls()
             server.login(correo_origen, contraseña)
-            
+
             # Enviar el correo
             server.sendmail(correo_origen, correo_destino, msg.as_string())
             print('Correo enviado exitosamente')
-            
+
         except Exception as e:
             print(f'Ocurrió un error: {e}')
-            
+
         finally:
             server.quit()

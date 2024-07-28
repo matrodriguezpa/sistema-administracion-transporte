@@ -16,7 +16,7 @@ class Servicios:
     # crear la tabla servicios si no existe
     def crearTablaServicios(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
-        crear = """CREATE TABLE IF NOT EXISTS servicios(
+        crear = '''CREATE TABLE IF NOT EXISTS servicios(
                 codigoServicio integer NOT NULL,
                 nombre text NOT NULL,
                 origen text NOT NULL,
@@ -26,7 +26,7 @@ class Servicios:
                 cantidadMaxPuestos integer NOT NULL,
                 cantidadMaxKilos integer NOT NULL,
                 PRIMARY KEY(codigoServicio))
-                """
+                '''
         objetoCursor.execute(crear)
         objetoConexion.commit()
 
@@ -104,7 +104,7 @@ class Servicios:
     # consultar un dato de un servicio
     def consultarTablaServicios4(self, objetoConexion, dato, codigoServicio):
         objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT {dato} FROM Servicios WHERE codigoServicio = '{codigoServicio}'"
+        consultar = f"SELECT {dato} FROM servicios WHERE codigoServicio = '{codigoServicio}'"
         objetoCursor.execute(consultar)
         datoConsultado = objetoCursor.fetchone()[0]
         return datoConsultado
