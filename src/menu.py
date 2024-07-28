@@ -1,7 +1,6 @@
 import sys  # para cerrar el programa desde la interfáz y
 import time
 
-
 class Menu:
 
     # menu principal
@@ -24,7 +23,6 @@ class Menu:
             4. Cerrar programa
 
             Seleccione una opción: """)
-
 
     # menu de la tabla servicios
     def menuServicios(self, objetoConexion, objetoServicios):
@@ -162,7 +160,6 @@ class Menu:
             else:
                 print("Opción no válida. Por favor, seleccione una opción válida.")
 
-
     # menu de la tabla clientes
     def menuClientes(self, objetoConexion, objetoClientes):
         salir_menu_clientes = False
@@ -237,7 +234,6 @@ class Menu:
                 salir_menu_clientes = True
             else:
                 print("Opción no válida. Por favor, seleccione una opción válida.")
-
 
     # menu de la tabla ventas
     def menuVentas(self, objetoConexion, objetoServicios, objetoVentas, objetoClientes):
@@ -478,7 +474,6 @@ class Menu:
 
             else:
                 print("Opción no válida. Por favor, seleccione una opción válida.")
-
 
     # generar menu
     def menu(self, objetoConexion, objetoServicios, objetoVentas, objetoClientes, objetoMenu):
