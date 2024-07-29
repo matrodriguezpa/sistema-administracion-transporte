@@ -15,3 +15,8 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
+   menu
+   servicios
+   clientes
+   ventas
+
