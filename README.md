@@ -1,4 +1,4 @@
-# Sistema de administración de transporte - La nacional
+# Sistema de administración de transporte - Cooperativa La nacional
 Este proyecto es una aplicación para gestionar los servicios ofrecidos, los clientes y la venta de estos servicios a clientes, así como la impresión de facturas. 
 
 ## Características
