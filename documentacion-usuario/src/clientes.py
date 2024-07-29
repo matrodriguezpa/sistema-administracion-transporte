@@ -74,10 +74,10 @@ class Clientes:
         total = objetoCursor.fetchone()[0]
         return total
 
-    # consultar registro por nombre
-    def consultarTablaClientes4(self, objetoConexion, nombreConsulta):
+    # consultar registro por dato
+    def consultarTablaClientes4(self, objetoConexion, dato, nombreConsulta):
         objetoCursor=objetoConexion.cursor()
-        consultar = f"SELECT * FROM clientes WHERE nombre = '{nombreConsulta}'"
+        consultar = f"SELECT * FROM clientes WHERE {dato} = '{nombreConsulta}'"
         objetoCursor.execute(consultar)
         resultadosBusqueda = objetoCursor.fetchall()
         if not resultadosBusqueda:
@@ -86,7 +86,8 @@ class Clientes:
             print("Coincidencias encontradas:")
             for n, (id, nom, ape, dir, tel, cor) in enumerate(resultadosBusqueda, start=1):
                 print(f"{n}. | {id}, {nom} {ape}, {dir}, {tel}, {cor}")
-
+        return resultadosBusqueda
+    
     # consultar registros por letra inicial del nombre en la tabla de clientes
     def consultarTablaClientes5(self, objetoConexion, letraInicial):
         objetoConexion = objetoConexion.cursor()
@@ -104,10 +105,10 @@ class Clientes:
     def actualizarTablaClientes(self, objetoConexion, nuevoNombre, noIdentificacionCliente):
         objetoCursor = objetoConexion.cursor()
         actualizar = f"UPDATE clientes SET nombre = '{nuevoNombre}' WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
+        objetoCursor.execute(actualizar)
         if objetoCursor.rowcount == 0:
             print("El registro que intenta actualizar no existe.")
         else:
-            objetoCursor.execute(actualizar)
             objetoConexion.commit()
 
     # borra un registro

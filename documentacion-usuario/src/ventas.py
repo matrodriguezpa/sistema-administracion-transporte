@@ -22,6 +22,7 @@ class Ventas:
         cursorObj.execute(crear)
         con.commit()
 
+    #
     def leerVenta(self, objetoConexion, objetoVentas):
         # Genera el número de la factura automáticamente
         noFactura = 1
@@ -34,6 +35,7 @@ class Ventas:
         Venta = (str(noFactura), noIdentificacionCliente, codigoServicio, cantidadVendida)
         return Venta
 
+    # 
     def añadirServicioAVender(self, objetoCursor, miVenta):
         objetoCursor = objetoCursor.cursor()
         insertar = "INSERT INTO ventas VALUES(?,?,?,?)"
@@ -41,19 +43,8 @@ class Ventas:
         objetoCursor.commit()
         return "Venta agregada."
 
-    # Consultar registro por factura
-    def consultarTablaVentas1(self, objetoConexion, noFactura):
-        objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT * FROM ventas WHERE noFactura={noFactura}"
-        objetoCursor.execute(consultar)
-        resultadoConsulta = objetoCursor.fetchall()[0]
-        if not resultadoConsulta:
-            print("Venta no encontrada.")
-        else:
-            return resultadoConsulta
-
     # Consultar todos los registros
-    def consultarTablaVentas2(self, objetoConexion):
+    def consultarTablaVentas1(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
         consultar = "SELECT * FROM ventas"
         objetoCursor.execute(consultar)
@@ -65,22 +56,8 @@ class Ventas:
             for n, (nf,id,cs,can) in enumerate (resultadosConsulta, start = 1):
                 print(n,"|",nf,id,cs,can)
 
-    # consultar registro por noFactura
-    def consultarTablaVentas3(self, con, noFactura):
-        cursorObj=con.cursor()
-        consultar = f"SELECT * FROM ventas WHERE noFactura='{noFactura}'"
-        cursorObj.execute(consultar)
-        resultadosConsulta = cursorObj.fetchall()
-        if not resultadosConsulta:
-            print("Datos inexistentes")
-        else:
-            print("Coincidencias:")
-            for n, (nf,id,cs,can) in enumerate (resultadosConsulta, start = 1):
-                print(n,"|",nf,id,cs,can)
-            return resultadosConsulta
-
-    # Consultar un dato especifico de una venta
-    def consultarTablaVentas4(self, objetoConexion, dato, noFactura):
+    # Consultar un dato de una venta
+    def consultarTablaVentas2(self, objetoConexion, dato, noFactura):
         objetoCursor = objetoConexion.cursor()
         consultar = f"SELECT {dato} FROM ventas WHERE noFactura = '{noFactura}'"
         objetoCursor.execute(consultar)
@@ -91,7 +68,7 @@ class Ventas:
             return resultadoConsulta
 
     # Consultar cuantos registros hay en total
-    def consultarTablaVentas5(self, con):
+    def consultarTablaVentas3(self, con):
         cursorObj = con.cursor()
         consultar = "SELECT COUNT(*) FROM ventas"
         cursorObj.execute(consultar)
@@ -99,27 +76,18 @@ class Ventas:
         return total
 
     # Consultar registros por dato
-    def consultarTablaVentas6(self, objetoConexion, dato, resultadosConsulta):
+    def consultarTablaVentas4(self, objetoConexion, dato, datoConsulta):
         objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT * FROM ventas WHERE {dato} = '{resultadosConsulta}'"
+        consultar = f"SELECT * FROM ventas WHERE {dato} = '{datoConsulta}'"
         objetoCursor.execute(consultar)
-        resultadosConsulta = objetoCursor.fetchall()
+        resultadosConsulta = objetoCursor.fetchall()[0]
         if not resultadosConsulta:
-            print("Dato inexistente")
+            print("Dato inexistente.")
         else:
             print("Coincidencias:")
             for n, (nf,id,cs,can) in enumerate (resultadosConsulta, start = 1):
                 print(n,"|",nf,id,cs,can)
             return resultadosConsulta
-
-    # Consultar el total de ventas
-    def consultarCantidadVendidaTotal(self, objetoConexion, codigoServicio):
-        objetoCursor=objetoConexion.cursor()
-        consulta = "SELECT sum(cantidadVendida) FROM ventas WHERE codigoServicio = '{codigoServicio}'"
-        objetoCursor.execute(consulta)
-        resultadosConsulta = objetoCursor.fetchone()
-        cantidadVendidaTotal = resultadosConsulta[0] #if resultado[0] is not None else 0 #esto es importante, no se porque
-        return cantidadVendidaTotal
 
     # Borra un registro
     def borrarRegistroTablaVentas(self, objetoConexion, noFactura):

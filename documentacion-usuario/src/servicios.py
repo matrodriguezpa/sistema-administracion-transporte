@@ -110,11 +110,11 @@ class Servicios:
         return datoConsultado
 
     # consultar cuantos registros hay en total
-    def consultarTablaServicios5(self, con):
-        cursorObj = con.cursor()
+    def consultarTablaServicios5(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
         consultar = "SELECT COUNT(*) FROM servicios"
-        cursorObj.execute(consultar)
-        totalRegistros = cursorObj.fetchone()[0]
+        objetoCursor.execute(consultar)
+        totalRegistros = objetoCursor.fetchone()[0]
         return totalRegistros
 
     # consultar suma de los precios de venta
@@ -125,10 +125,10 @@ class Servicios:
         sumaPrecios = objetoCursor.fetchone()[0]
         return sumaPrecios
 
-    # consultar registro por nombre
-    def consultarTablaServicios7(self,objetoConexion,nombre):
+    # consultar registro por dato
+    def consultarTablaServicios7(self,objetoConexion,dato,nombre):
         objetoCursor=objetoConexion.cursor()
-        consultar = f"SELECT * FROM servicios WHERE nombre = '{nombre}'"
+        consultar = f"SELECT * FROM servicios WHERE {dato} = '{nombre}'"
         objetoCursor.execute(consultar)
         resultadosBusqueda = objetoCursor.fetchall()
         if not resultadosBusqueda:
