@@ -6,8 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'SAT'
-copyright = '2024'
+project = 'documentacion-usuario'
+copyright = '2024, Mateo Rodríguez Palacios'
 author = ''
 release = 'v.1.0'
 
@@ -24,5 +24,5 @@ language = 'es'
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'agogo'
+html_theme = 'alabaster'
 html_static_path = ['_static']
