@@ -37,7 +37,7 @@ Métodos
   La informacion de todos los campos de la tabla es devuelta al usuario mediante la funcion ``print()``
 
  
- Para consultar cualquier dato a eleccion del usuario de un servicio en especifico :
+ Para consultar cualquier dato a eleccion del usuario de un cliente en especifico :
 
  .. py:function:: consultarTablaClientes2(objetoConexion,datoConsulta,noIdentificacionCliente)
 
@@ -49,40 +49,28 @@ Métodos
     :return: resultadosBusqueda
     :rtype: String
  
-  El dato consultado es devuelto mediante la variable "DatoConsultado"
+  El dato consultado es devuelto mediante la variable "resultadosBusqueda"
 
  Para consultar el numero de registros que hay en la tabla :
 
- .. py:function:: consultarTablaServicios5(objetoConexion)
+ .. py:function:: consultarTablaClientes3(objetoConexion)
    
     :param objetoConexion: conecta con la base de datos 
-    :return: totalRegistros
+    :return: total
     :rtype: String
 
-  El numero de registros es devuelto mediante la variable "totalRegistros"
+ Para consultar un registro usando el nombre del cliente :
 
- Para consultar la suma de los precios de la venta :
-
- .. py:function:: consultarTablaServicios6(objetoConexion)
-
-    :param objetoConexion: conecta con la base de datos 
-    :return: sumaPrecios
-    :rtype: String
-
-  La suma de los precios es devuelta mediente la variable "sumaPrecios"
-
- Para consultar un registro usando el nombre del mismo :
-
- .. py:function:: consultarTablaServicios7(objetoConexion,nombre)
+ .. py:function:: consultarTablaClientes4(objetoConexion,nombreConsulta)
 
     :param objetoConexion: conecta con la base de datos
-    :param nombre: Indica el nombre de el registro 
+    :param nombreCliente: Indica el nombre de el cliente
      
   Los resultados de la busqueda son devueltos mediante la funcion "print"
 
  Para consultar registros segun la letra inicial del nombre :
 
- .. py:function:: consultarTablaServicios8(objetoConexion,letraInicial)
+ .. py:function:: consultarTablaCientes5(objetoConexion,letraInicial)
 
     :param objetoConexion: conecta con la base de datos
     :param letraInicial: Indica la letra inicial por la cual se hace la busqueda

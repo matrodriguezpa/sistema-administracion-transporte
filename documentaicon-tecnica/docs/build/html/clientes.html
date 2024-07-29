@@ -47,62 +47,53 @@
 </section>
 <section id="metodos">
 <h2>Métodos<a class="headerlink" href="#metodos" title="Link to this heading">¶</a></h2>
-<p>Para crear la tabla que contiene la informacion de los servicios en caso tal de que no exista anteriormente :</p>
 <blockquote>
-<div><dl class="py function">
-<dt class="sig sig-object py" id="crearTablaServicios">
-<span class="sig-name descname"><span class="pre">crearTablaServicios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crearTablaServicios" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
-<dd class="field-odd"><p>conecta con las base de datos</p>
-</dd>
-<dt class="field-even">type kind<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-<dt class="field-odd">return<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<div><p>Para crear la tabla que contiene la informacion de los clientes en caso tal de que no exista anteriormente :</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="crearTablaClientes">
+<span class="sig-name descname"><span class="pre">crearTablaClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crearTablaClientes" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objetoConexion</strong> – conecta con las base de datos</p>
 </dd>
 </dl>
-</div></blockquote>
-<p>«servicio = (codigoServicio, nombre, origen, destino, precioVenta, horaSalida, puestosMaximo, kilosMaximo)»</p>
 </dd></dl>
 
 <p>Para recibir los datos necesarios y los almacena todos en una variable se usa :</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="leerServicio">
-<span class="sig-name descname"><span class="pre">leerServicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leerServicio" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="leerCliente">
+<span class="sig-name descname"><span class="pre">leerCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leerCliente" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>objetoConexion</strong> – conecta con la base de datos</p>
 </dd>
 <dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>DatoConsultado</p>
+<dd class="field-even"><p>cliente</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>String</p>
+<dd class="field-odd"><p>Tuple</p>
 </dd>
 </dl>
 </dd></dl>
 
 <p>Para insertar los datos almacenados en la tabla de servicios :</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="insertarServicio">
-<span class="sig-name descname"><span class="pre">insertarServicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miServicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#insertarServicio" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">insertarTablaCliente(objetoConexion,miCliente</span></span></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>objetoConexion</strong> – conecta con la base de datos</p></li>
-<li><p><strong>miServicio</strong> – donde se almacenan los datos de servicios</p></li>
+<li><p><strong>miCliente</strong> – donde se almacenan los datos del cliente</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<p>Para consultar todos los registros almacenados en la tabla de servicios se usa :</p>
+<p>Para consultar todos los registros almacenados en la tabla de clientes se usa :</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaServicios1">
-<span class="sig-name descname"><span class="pre">consultarTablaServicios1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaServicios1" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="consultarTablaClientes1">
+<span class="sig-name descname"><span class="pre">consultarTablaClientes1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaClientes1" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><dl class="field-list simple">
 <dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
@@ -113,64 +104,36 @@
 <p>La informacion de todos los campos de la tabla es devuelta al usuario mediante la funcion <code class="docutils literal notranslate"><span class="pre">print()</span></code></p>
 </dd></dl>
 
-<p>Para consultar la fecha y hora de salida de los todos los registros de la tabla de crearTablaServicios :</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaServicios2">
-<span class="sig-name descname"><span class="pre">consultarTablaServicios2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaServicios2" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
-<dd class="field-odd"><p>conecta con la  base de datos</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>La informacion de los campos correspondientes a el indice del servicio , el codigo del servicio , nombre del servicio , origen del servicio , fecha y hora del servcio mediante la funcion <code class="docutils literal notranslate"><span class="pre">print</span></code></p>
-</dd></dl>
-
-<p>Para consultar los puestos maximos y el peso maximo de cada servicio se usa:</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaServicios3">
-<span class="sig-name descname"><span class="pre">consultarTablaServicios3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaServicios3" title="Link to this definition">¶</a></dt>
-<dd><blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
-<dd class="field-odd"><p>conecta con la base de datos</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>La informacion de los campos correspondientes a el indice del servicio , codigo del servicio , nombre del servicio, origen , destino , puestos y kilos mediante la funcion <code class="docutils literal notranslate"><span class="pre">print</span></code></p>
-</dd></dl>
-
 <p>Para consultar cualquier dato a eleccion del usuario de un servicio en especifico :</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaServicios4">
-<span class="sig-name descname"><span class="pre">consultarTablaServicios4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dato</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codigoServicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaServicios4" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="consultarTablaClientes2">
+<span class="sig-name descname"><span class="pre">consultarTablaClientes2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datoConsulta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noIdentificacionCliente</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaClientes2" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><dl class="field-list simple">
 <dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
 <dd class="field-odd"><p>conecta con la base de datos</p>
 </dd>
-<dt class="field-even">param dato<span class="colon">:</span></dt>
+<dt class="field-even">param datoConsulta<span class="colon">:</span></dt>
 <dd class="field-even"><p>indica que dato se quiere consultar</p>
 </dd>
 <dt class="field-odd">type kind<span class="colon">:</span></dt>
 <dd class="field-odd"><p>String</p>
 </dd>
-<dt class="field-even">param codigoServicio<span class="colon">:</span></dt>
-<dd class="field-even"><p>indica el codigo del servicio a consultar</p>
+<dt class="field-even">param noIdentificacionCliente<span class="colon">:</span></dt>
+<dd class="field-even"><p>indica el ID del cliente a consultar</p>
 </dd>
 <dt class="field-odd">type kind<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Integer</p>
 </dd>
 <dt class="field-even">return<span class="colon">:</span></dt>
-<dd class="field-even"><p>DatoConsultado</p>
+<dd class="field-even"><p>resultadosBusqueda</p>
 </dd>
 <dt class="field-odd">rtype<span class="colon">:</span></dt>
 <dd class="field-odd"><p>String</p>
 </dd>
 </dl>
 </div></blockquote>
-<p>El dato consultado es devuelto mediante la variable «DatoConsultado»</p>
+<p>El dato consultado es devuelto mediante la variable «resultadosBusqueda»</p>
 </dd></dl>
 
 <p>Para consultar el numero de registros que hay en la tabla :</p>
@@ -309,13 +272,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Modulo de gestion de clientes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#parametros">Parámetros</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#metodos">Métodos</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#crearTablaServicios"><code class="docutils literal notranslate"><span class="pre">crearTablaServicios()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#leerServicio"><code class="docutils literal notranslate"><span class="pre">leerServicio()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#insertarServicio"><code class="docutils literal notranslate"><span class="pre">insertarServicio()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#consultarTablaServicios1"><code class="docutils literal notranslate"><span class="pre">consultarTablaServicios1()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#consultarTablaServicios2"><code class="docutils literal notranslate"><span class="pre">consultarTablaServicios2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#consultarTablaServicios3"><code class="docutils literal notranslate"><span class="pre">consultarTablaServicios3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#consultarTablaServicios4"><code class="docutils literal notranslate"><span class="pre">consultarTablaServicios4()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crearTablaClientes"><code class="docutils literal notranslate"><span class="pre">crearTablaClientes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leerCliente"><code class="docutils literal notranslate"><span class="pre">leerCliente()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#consultarTablaClientes1"><code class="docutils literal notranslate"><span class="pre">consultarTablaClientes1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#consultarTablaClientes2"><code class="docutils literal notranslate"><span class="pre">consultarTablaClientes2()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#consultarTablaServicios5"><code class="docutils literal notranslate"><span class="pre">consultarTablaServicios5()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#consultarTablaServicios6"><code class="docutils literal notranslate"><span class="pre">consultarTablaServicios6()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#consultarTablaServicios7"><code class="docutils literal notranslate"><span class="pre">consultarTablaServicios7()</span></code></a></li>
