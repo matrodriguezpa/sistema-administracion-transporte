@@ -79,23 +79,23 @@ Métodos
 
  Para actualizar el nombre de un registro :
 
- .. py:function:: actualizarTablaServicios(objetoConexion,nuevoNombre,codigoServicio)
+ .. py:function:: actualizarTablaClientes(objetoConexion,nuevoNombre,noIdentificacionCliente)
 
     :param objetoConexion: conecta con la base de datos
     :param nuevoNombre: Indica el nuevo nombre para usar en el registro
-    :param codigoServicio: indica el codigo del servicio a modificar
+    :param noIdentificacionCliente: indica el numero de identificacion del cliente a modificar
 
  Para borrar un registro :
  
- .. py:function:: borrarRegistroTablaServicios(objetoConexion,codigoServicio)
+ .. py:function:: borrarRegistroTablaCliente(objetoConexion,noIdentificacionCliente)
 
     :param objetoConexion: conecta con la base de datos
-    :param codigoServicio: Indica el codigo del servicio a eliminar
+    :param codigoServicio: Indica el noIdentificacionCliente del registro a eliminar
 
   El resultado de el metodo se da al usuario mendiante la funcion "print"
 
  Para borrar la tabla :
 
- .. py:function:: borrarTablaServicios(objetoConexion)
+ .. py:function:: borrarTablaCliente(objetoConexion)
 
     :param objetoConexion: conecta con la base de datos
