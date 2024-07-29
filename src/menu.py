@@ -475,7 +475,7 @@ class Menu:
                         print("Error al borrar la tabla ventas.")
 
             # imprimir una factura
-            elif opcionesVentas == "10":
+            elif opcionesVentas == "9":
                 facturaVenta = input("Inserte el número de la factura a imprimir:")
                 venta = objetoVentas.consultarTablaVentas2(objetoConexion,"noFactura",facturaVenta)
                 noIdentificacionCliente = str(venta[1])
@@ -486,7 +486,7 @@ class Menu:
                 objetoVentas.imprimirFactura(objetoConexion, venta, cliente, servicio)
 
             # salir del menu de ventas
-            elif opcionesVentas == "11":
+            elif opcionesVentas == "10":
                 salirMenuVentas = True
 
             else:
