@@ -7,13 +7,11 @@ Parámetros
 
 Métodos
 -------
-Para crear la tabla que contiene la informacion de los servicios en caso tal de que no exista anteriormente :
+ Para crear la tabla que contiene la informacion de los clientes en caso tal de que no exista anteriormente :
  
- .. py:function:: crearTablaServicios(objetoConexion)
+ .. py:function:: crearTablaClientes(objetoConexion)
 
    :param objetoConexion: conecta con las base de datos
-   :type kind: None
-   :return: None
    
   "servicio = (codigoServicio, nombre, origen, destino, precioVenta, horaSalida, puestosMaximo, kilosMaximo)"
 
