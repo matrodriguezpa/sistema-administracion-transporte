@@ -13,57 +13,40 @@ Métodos
 
    :param objetoConexion: conecta con las base de datos
    
-  "servicio = (codigoServicio, nombre, origen, destino, precioVenta, horaSalida, puestosMaximo, kilosMaximo)"
-
  Para recibir los datos necesarios y los almacena todos en una variable se usa :
 
- .. py:function:: leerServicio(objetoConexion)
+ .. py:function:: leerCliente(objetoConexion)
     
     :param objetoConexion: conecta con la base de datos
-    :return: DatoConsultado
-    :rtype: String
+    :return: cliente
+    :rtype: Tuple
 
  Para insertar los datos almacenados en la tabla de servicios :
 
- .. py:function:: insertarServicio(objetoConexion,miServicio)
+ .. py:function:: insertarTablaCliente(objetoConexion,miCliente
     
     :param objetoConexion: conecta con la base de datos
-    :param miServicio: donde se almacenan los datos de servicios
+    :param miCliente: donde se almacenan los datos del cliente
 
- Para consultar todos los registros almacenados en la tabla de servicios se usa :
+ Para consultar todos los registros almacenados en la tabla de clientes se usa :
 
- .. py:function:: consultarTablaServicios1(objetoConexion)
+ .. py:function:: consultarTablaClientes1(objetoConexion)
 
     :param objetoConexion: conecta con la base de datos 
  
   La informacion de todos los campos de la tabla es devuelta al usuario mediante la funcion ``print()``
 
- Para consultar la fecha y hora de salida de los todos los registros de la tabla de crearTablaServicios :
-
- .. py:function:: consultarTablaServicios2(objetoConexion)
-
-    :param objetoConexion: conecta con la  base de datos
-
-  La informacion de los campos correspondientes a el indice del servicio , el codigo del servicio , nombre del servicio , origen del servicio , fecha y hora del servcio mediante la funcion ``print``
-
- Para consultar los puestos maximos y el peso maximo de cada servicio se usa:
-
- .. py:function:: consultarTablaServicios3(objetoConexion)
-    
-    :param objetoConexion: conecta con la base de datos
-
-  La informacion de los campos correspondientes a el indice del servicio , codigo del servicio , nombre del servicio, origen , destino , puestos y kilos mediante la funcion ``print``
-
+ 
  Para consultar cualquier dato a eleccion del usuario de un servicio en especifico :
 
- .. py:function:: consultarTablaServicios4(objetoConexion,dato,codigoServicio)
+ .. py:function:: consultarTablaClientes2(objetoConexion,datoConsulta,noIdentificacionCliente)
 
     :param objetoConexion: conecta con la base de datos 
-    :param dato: indica que dato se quiere consultar
+    :param datoConsulta: indica que dato se quiere consultar
     :type kind: String
-    :param codigoServicio: indica el codigo del servicio a consultar 
+    :param noIdentificacionCliente: indica el ID del cliente a consultar
     :type kind: Integer 
-    :return: DatoConsultado
+    :return: resultadosBusqueda
     :rtype: String
  
   El dato consultado es devuelto mediante la variable "DatoConsultado"
