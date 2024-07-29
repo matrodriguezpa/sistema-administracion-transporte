@@ -29,7 +29,6 @@ class Menu:
         salirMenuServicios = False
         while not salirMenuServicios:
 
-
             opcionMenuServicios = input("""
             MÓDULO SERVICIOS
             1. Inserta un servicio
@@ -162,17 +161,17 @@ class Menu:
 
     # menu de la tabla clientes
     def menuClientes(self, objetoConexion, objetoClientes):
-        salir_menu_clientes = False
-        while not salir_menu_clientes:
-            opcion_menu_clientes = input("""
+        salirMenuClientes = False
+        while not salirMenuClientes:
+            opcionMenuClientes = input("""
                         MÓDULO CLIENTES
                 1. Inserta un nuevo cliente.
                 2. Consultar todos los clientes.
                 3. Consultar un dato de un cliente.
-                4. Consultar cuantos servicios hay en total. 
-                5. Consultar registro por noIdentificacionCliente.
+                4. Consultar cuantos clientes hay en total. 
+                5. Consultar registro por nombre.
                 6. Consultar registro por letra inicial del nombre.
-                7. Actualizar dato de un cliente.
+                7. Actualizar nombre de un cliente.
                 8. Borra un cliente.
                 9. Borrar toda la tabla de clientes.
                 10. Volver.
@@ -180,69 +179,105 @@ class Menu:
                 Seleccione una opción:  """)
             
             # insertar un nuevo cliente
-            if opcion_menu_clientes == "1":
+            if opcionMenuClientes == "1":
                 clienteCreado = objetoClientes.leerCliente()
                 objetoClientes.insertarTablaClientes(objetoConexion, clienteCreado)
 
             # consultar todos los registros de la tabla clientes
-            elif opcion_menu_clientes == "2":
-                objetoClientes.consultarTablaClientes(objetoConexion)
+            elif opcionMenuClientes == "2":
+                objetoClientes.consultarTablaClientes1(objetoConexion)
 
             # consultar un dato de un cliente
-            elif opcion_menu_clientes == "3":
-                dato = input("Dato a consultar: ")
-                noIdentificacionCliente = input("Número de identificación del cliente: ")
-                objetoClientes.consultarTablaClientes1(objetoConexion, dato, noIdentificacionCliente)
+            elif opcionMenuClientes == "3":
+                salirOpcionesConsulta = False
+                while not salirOpcionesConsulta:
+                    consultaSeleccionada = input("""
+                        1. Nombre
+                        2. Apellido.
+                        3. Dirección.
+                        4. Telefono.
+                        5. Correo Electrónico.
+                        6. Volver.
+                        Seleccione un dato a consultar: """)
+                    opcionesActualizar = {"1": "nombre","2": "apellido","3": "direccion","4": "telefono","5": "correoElectronico"}
+                    noIdentificacionCliente = input("Inserte la identificación del cliente a consultar: ")
 
-            elif opcion_menu_clientes == "4":
-                objetoClientes.consultarTablaSClientes2(objetoConexion)
+                    # Verificar si la opción está en el diccionario
+                    if consultaSeleccionada in opcionesActualizar:
+                        try:
+                            datoConsultado = objetoClientes.consultarTablaClientes2(
+                                objetoConexion, opcionesActualizar[consultaSeleccionada], noIdentificacionCliente)
+                            print("Consulta: El dato",opcionesActualizar[consultaSeleccionada],"del cliente ",noIdentificacionCliente," es ",datoConsultado)
+                        except:
+                            print("Error en la busqueda: Cliente no encontrado.")
+                        salirOpcionesConsulta = True
 
-            elif opcion_menu_clientes == "5":
-                datoConsulta = input("Busqueda: ")
-                objetoClientes.consultarTablaClientes3(objetoConexion, datoConsulta)
+                    # salir de las opciones de consulta
+                    elif consultaSeleccionada == "6":
+                        salirOpcionesConsulta = True
+                    else:
+                        print("Opción inválida, intente otra vez")
 
-            elif opcion_menu_clientes == "6":
-                datoConsulta = input("Búsqueda: ")
-                objetoClientes.consultarTablaClientes4(objetoConexion, datoConsulta)
+            # consultar cuantos clientes hay en total
+            elif opcionMenuClientes == "4":
+                total = objetoClientes.consultarTablaSClientes3(objetoConexion)
+                print(f"El total de registros en la tabla es: {total}")
 
-            elif opcion_menu_clientes == "7":
-                objetoClientes.actualizarTablaClientes(objetoConexion)
+            # buscar clientes por nombre
+            elif opcionMenuClientes == "5":
+                nombreConsulta = input("Nombre a buscar: ").lower()
+                objetoClientes.consultarTablaClientes4(objetoConexion, nombreConsulta)
 
-            elif opcion_menu_clientes == "8":
+            # buscar clientes por letra inicial de nombre
+            elif opcionMenuClientes == "6":
+                letraInicial = input("Búsqueda: ").lower()
+                objetoClientes.consultarTablaClientes5(objetoConexion, letraInicial)
+
+            # actualizar dato de la tabla clientes
+            elif opcionMenuClientes == "7":
+                noIdentificacionCliente= input("Número de identificación del cliente: ")
+                nuevoNombre = input("Nuevo nombre del cliente: ")
+                objetoClientes.actualizarTablaClientes(objetoConexion, nuevoNombre, noIdentificacionCliente)
+
+            # borrar registro de la tabla clientes
+            elif opcionMenuClientes == "8":
                 noIdentificacionCliente = input("Identificación del cliente a borrar: ")
-                confirmacion = input(
-                    f"¿Estás seguro de que deseas borrar el cliente {noIdentificacionCliente}? (s/n): "
-                ).lower()
+                confirmacion = input(f"¿Estás seguro de que deseas borrar el cliente {noIdentificacionCliente}? (s/n): ").lower()
 
                 if confirmacion != "s":
                     print("Operación cancelada.")
                 else:
-                    objetoClientes.borrarRegistroTablaClientes(
-                        objetoConexion, objetoClientes, noIdentificacionCliente
-                    )
+                    try:
+                        objetoClientes.borrarRegistroTablaClientes(
+                            objetoConexion, objetoClientes, noIdentificacionCliente)
+                    except:
+                        print("Error al borrar el registro.")
 
-            elif opcion_menu_clientes == "9":
-                confirmacion = input(
-                    "¿Estás seguro de que deseas borrar toda la tabla 'Clientes'? (s/n): "
-                ).lower()
+            # borrar la tabla clientes
+            elif opcionMenuClientes == "9":
+                confirmacion = input("¿Estás seguro de que deseas borrar toda la tabla 'Clientes'? (s/n): ").lower()
                 if confirmacion != "s":
                     print("Operación cancelada.")
                 else:
-                    objetoClientes.borrarTablaClientes(objetoConexion)
+                    try:
+                        objetoClientes.borrarTablaClientes(objetoConexion)
+                    except:
+                        print("Error al borrar la tabla.")
 
-            elif opcion_menu_clientes == "10":
-                salir_menu_clientes = True
+            # salir del menu de clientes
+            elif opcionMenuClientes == "10":
+                salirMenuClientes = True
+
             else:
                 print("Opción no válida. Por favor, seleccione una opción válida.")
 
     # menu de la tabla ventas
     def menuVentas(self, objetoConexion, objetoServicios, objetoVentas, objetoClientes):
 
-        salir_menu_ventas = False
-        while not salir_menu_ventas:
+        salirMenuVentas = False
+        while not salirMenuVentas:
 
-            opciones_ventas = input(
-                """
+            opcionesVentas = input("""
                         MODULO VENTAS
                 1. Vender un servicio.
                 2. Consultar todas las ventas.
@@ -256,30 +291,25 @@ class Menu:
                 10. Imprimir factura.
                 11. Volver.
 
-                Seleccione una opción:  
-                """
-            )
+                Seleccione una opción:  """)
 
             # comprueba que los datos ingresados esten correctos antes de crear la venta en la base de datos
-            if opciones_ventas == "1":
+            if opcionesVentas == "1":
 
                 # Preguntar si es de pasajeros o encomienda
                 while True:
-                    tipo_carga = input(
-                        """
+                    tipoCarga = input("""
                         1.Pasajero
                         2.Encomienda
                                         
-                        Selecione el tipo de servicio: 
-                        """
-                    )
+                        Selecione el tipo de servicio: """)
 
-                    if tipo_carga == "1":
-                        tipo_dato_carga = "cantidadMaxPuestos"
+                    if tipoCarga == "1":
+                        datoCarga = "cantidadMaxPuestos"
                         break
 
-                    elif tipo_carga == "2":
-                        tipo_dato_carga = "cantidadMaxKilos"
+                    elif tipoCarga == "2":
+                        datoCarga = "cantidadMaxKilos"
                         break
 
                     else:
@@ -321,7 +351,7 @@ class Menu:
                         cantidadVender = int(ventaConstruida[3])  # La cantidad que se quiere vender
                         capacidadMaxima = int(
                             objetoServicios.consultarTablaServicios3(
-                                objetoConexion, tipo_dato_carga, codigoServicio
+                                objetoConexion, datoCarga, codigoServicio
                             )
                         )  # La capacidad máxima de puestos o kilos del servicio
                         cantidadVendidaTotal = int(
@@ -339,7 +369,7 @@ class Menu:
                             validacion_venta = False
 
                         elif capacidadMaxima < (cantidadVendidaTotal + cantidadVender):
-                            print("Espacio de",tipo_dato_carga,"disponible exedido, ingrese una cantidad menor.")
+                            print("Espacio de",datoCarga,"disponible exedido, ingrese una cantidad menor.")
                             print("Disponible:", capacidadMaxima - cantidadVendidaTotal)
                             validacion_venta = False
 
@@ -371,12 +401,12 @@ class Menu:
                         validacion_venta = False
 
             # consultar todas las ventas
-            elif opciones_ventas == "2":
+            elif opcionesVentas == "2":
 
                 objetoVentas.consultarTablaVentas1(objetoConexion)
 
             # consultar un dato de una factura
-            elif opciones_ventas == "3":
+            elif opcionesVentas == "3":
 
                 salir_consulta = False
                 while not salir_consulta:
@@ -417,26 +447,26 @@ class Menu:
                         print("Opcion invalida, intente otra vez")
 
             # consultar cuantos registros en total hay en la tabla ventas
-            elif opciones_ventas == "4":
+            elif opcionesVentas == "4":
                 objetoVentas.consultarTablaVentas3(objetoConexion)
 
             # consultar un registro por número de la Factura
-            elif opciones_ventas == "5":
+            elif opcionesVentas == "5":
                 no_factura = input("inserte el número de factura: ")
                 objetoVentas.consultarTablaVentas5(objetoConexion, no_factura)
 
             # consultar registros por número de identificacion del cliente.
-            elif opciones_ventas == "6":
+            elif opcionesVentas == "6":
                 idConsulta = input("Inserte el número de identificación del cliente: ")
                 objetoVentas.consultarTablaVentas6(objetoConexion, "noIdentificacionCliente", idConsulta)
 
             # consultar registros por código del servicio.
-            elif opciones_ventas == "7":
+            elif opcionesVentas == "7":
                 csConsulta = input("Inserte el codigo del serivicio: ")
                 objetoVentas.consultarTablaVentas6(objetoConexion, "codigoServicio", csConsulta)
 
             # borrar registro de la tabla ventas
-            elif opciones_ventas == "8":
+            elif opcionesVentas == "8":
                 no_factura = input("Inserte el número de factura.")
                 confirmacion = input(f"¿Estás seguro de que deseas borrar el registro? (s/n): ").lower()
 
@@ -447,7 +477,7 @@ class Menu:
                 objetoVentas.borrarRegistroTablaVentas(objetoConexion, no_factura)
 
             # borrar tabla ventas
-            elif opciones_ventas == "9":
+            elif opcionesVentas == "9":
                 confirmacion = input(f"¿Estás seguro de que deseas la tabla ventas? (s/n): ").lower()
 
                 if confirmacion != "s":
@@ -457,7 +487,7 @@ class Menu:
                 objetoVentas.borrarTablaVentas(objetoConexion)
 
             # imprimir una factura
-            elif opciones_ventas == "10":
+            elif opcionesVentas == "10":
                 facturaVenta = input("Inserte el número de la factura a imprimir:")
                 venta = objetoVentas.consultarTablaVentas(objetoConexion, facturaVenta)[0]
                 noIdentificacionCliente = str(venta[1])
@@ -469,8 +499,8 @@ class Menu:
                 objetoVentas.imprimirFactura(objetoConexion, venta, cliente, servicio)
 
             # salir del menu de ventas
-            elif opciones_ventas == "11":
-                salir_menu_ventas = True
+            elif opcionesVentas == "11":
+                salirMenuVentas = True
 
             else:
                 print("Opción no válida. Por favor, seleccione una opción válida.")

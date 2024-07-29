@@ -56,15 +56,14 @@ class Clientes:
                 print(f"{n}. | {id}, {nom} {ape}, {dir}, {tel}, {cor}")
 
     # consultar un dato de un cliente
-    def consultarTablaClientes2(self, objetoConexion, datoBusqueda, noIdentificacionCliente):
+    def consultarTablaClientes2(self, objetoConexion, datoConsulta, noIdentificacionCliente):
         objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT {datoBusqueda} FROM clientes WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
+        consultar = f"SELECT {datoConsulta} FROM clientes WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
         objetoCursor.execute(consultar)
         resultadosBusqueda = objetoCursor.fetchone()[0]
         if not resultadosBusqueda:
             print("Dato inexistente")
         else:
-            print("El dato",datoBusqueda,"del registro",noIdentificacionCliente,"es",resultadosBusqueda)
             return resultadosBusqueda
 
     # consultar cuantos registros hay en total
@@ -76,9 +75,9 @@ class Clientes:
         return total
 
     # consultar registro por nombre
-    def consultarTablaClientes3(self,objetoConexion,nombre):
+    def consultarTablaClientes4(self, objetoConexion, nombreConsulta):
         objetoCursor=objetoConexion.cursor()
-        consultar = f"SELECT * FROM clientes WHERE nombre = '{nombre}'"
+        consultar = f"SELECT * FROM clientes WHERE nombre = '{nombreConsulta}'"
         objetoCursor.execute(consultar)
         resultadosBusqueda = objetoCursor.fetchall()
         if not resultadosBusqueda:
@@ -89,7 +88,7 @@ class Clientes:
                 print(f"{n}. | {id}, {nom} {ape}, {dir}, {tel}, {cor}")
 
     # consultar registros por letra inicial del nombre en la tabla de clientes
-    def consultarTablaClientes4(self, objetoConexion, letraInicial):
+    def consultarTablaClientes5(self, objetoConexion, letraInicial):
         objetoConexion = objetoConexion.cursor()
         consulta = f"SELECT * FROM clientes WHERE nombre LIKE '{letraInicial}%'"
         objetoConexion.execute(consulta)
