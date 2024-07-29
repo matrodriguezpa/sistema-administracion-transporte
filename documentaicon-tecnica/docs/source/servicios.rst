@@ -22,8 +22,8 @@ Métodos
  .. py:function:: leerServicio(objetoConexion)
     
     :param objetoConexion: conecta con la base de datos
-    :return: DatoConsultado
-    :rtype: String
+    :return: servcio
+    :rtype: Tuple
 
  Para insertar los datos almacenados en la tabla de servicios :
 
