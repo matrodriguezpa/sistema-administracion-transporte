@@ -316,50 +316,46 @@ class Menu:
                     else:
                         print("Seleccione una opcion valida.")
 
+                # se realiza una serie de comprobaciones (tres) en los datos ingresados para asegurar que la venta se puede realizar.
                 validacionVenta = True
                 while validacionVenta:
 
                     # se reciben los datos de la venta
                     ventaConstruida = objetoVentas.leerVenta(objetoConexion, objetoVentas)
 
-                    # comprobar que el numero de identificacion y el codigo sean datos numéricos
+                    # Comprobación 1: comprobar que el numero de identificacion y el codigo sean datos numéricos.
                     try:
-                        valor_convertido = int(ventaConstruida[2])
-                        valor_convertido2 = int(ventaConstruida[3])
-                        print("Datos convertido a entero:", valor_convertido,valor_convertido2)
+                        int(ventaConstruida[2])
+                        int(ventaConstruida[3])
                     except ValueError:
                         print("Uno de los datos ingresados no es numérico, intente otra vez.")
-                        validacionVenta = False
-                    if validacionVenta:
                         break  # Salir del bucle si se estableció salirValidacionVenta a True
 
-                    # Comprueba los datos (noIdentificacionCliente, codigoServicio)
-                    # el numero de factura no se necesita comprobar, porque es generado automaticamente
-                    existeCliente = objetoClientes.consultarTablaClientes1(objetoConexion, "noIdentificacionCliente", ventaConstruida[1])
-                    existeServicio = objetoServicios.consultarTablaServicios3(objetoConexion, "codigoServicio", ventaConstruida[2])
+                    #  Comprobación 2: Comprueba que los datos (noIdentificacionCliente, codigoServicio) existan en la tabla cliente y servicios (el numero de factura no se necesita comprobar, porque es generado automaticamente)
+                    try:
+                        existeCliente = objetoClientes.consultarTablaClientes2(objetoConexion, "noIdentificacionCliente", ventaConstruida[1])
+                        existeServicio = objetoServicios.consultarTablaServicios4(objetoConexion, "codigoServicio", ventaConstruida[2])
 
-                    if existeCliente != int(ventaConstruida[1]):
-                        print("Cliente no econtrado, compruebe el dato ingresados o si el cliente esta registrado.")
+                        if existeCliente != int(ventaConstruida[1]):
+                            print("Cliente no econtrado, compruebe el dato ingresados o si el cliente esta registrado.")
+                            validacionVenta = False
+
+                        elif existeServicio != int(ventaConstruida[2]):
+                            print("Servicio no econtrado, compruebe el dato ingresados o si el servicio esta registrado.")
+                            validacionVenta = False
+                    except:
+                        print("Los datos ingresados no existen.")
                         validacionVenta = False
 
-                    elif existeServicio != int(ventaConstruida[2]):
-                        print("Servicio no econtrado, compruebe el dato ingresados o si el servicio esta registrado.")
-                        validacionVenta = False
-
-                    else:
-                        # Comprueba la disponibilidad de Puestos/Kilos
+                    # Comprobación 3: Comprueba que no se exceda la disponibilidad de Puestos/Kilos
+                    try:
                         noFactura = ventaConstruida[2]
                         cantidadVender = int(ventaConstruida[3])  # La cantidad que se quiere vender
-                        capacidadMaxima = int(
-                            objetoServicios.consultarTablaServicios3(
-                                objetoConexion, datoCarga, noFactura
-                            )
-                        )  # La capacidad máxima de puestos o kilos del servicio
-                        cantidadVendidaTotal = int(
-                            objetoVentas.consultarCantidadVendidaTotal(
-                                objetoConexion, noFactura
-                            )
-                        )  # El espacio que ya se ha vendido del servicio
+                        capacidadMaxima = int(objetoServicios.consultarTablaServicios4(objetoConexion, datoCarga, noFactura))  # La capacidad máxima de puestos o kilos del servicio
+                        consultaVenta = objetoVentas.consultarTablaVentas4(objetoConexion, "codigoServicio", ventaConstruida[2])  # El espacio que ya se ha vendido del servicio
+                        cantidadVendidaTotal = 0
+                        for item in consultaVenta:
+                            cantidadVendidaTotal += item[3]
 
                         if cantidadVender <= 0:
                             print("La cantidad a vender no puede ser cero o negativa, ingrese una cantidad valida.")
@@ -373,33 +369,33 @@ class Menu:
                             print("Espacio de",datoCarga,"disponible exedido, ingrese una cantidad menor.")
                             print("Disponible:", capacidadMaxima - cantidadVendidaTotal)
                             validacionVenta = False
+                    except:
+                        print("Error al comprobar la disponibilidad de Puestos/Kilos")
+                    
+                    # todos los datos son validos y se añade la venta.
+                    print("Venta valida, añadiendo datos ingresados.")
+                    objetoVentas.añadirServicioAVender(objetoConexion, ventaConstruida)
 
-                        # Todos los datos son validos y se añade la venta
+                    # pregunta al cliente si quiere recibir factura (que se envia al correo electrónico).
+                    while True:
+                        opcionFactura = input("¿Imprimir factura? (s/n): ").lower()
+                        if opcionFactura == "s":
+
+                            # Se buscan la tupla de datos venta, cliente y servicio para ingresar en la factura.
+                            noFactura = ventaConstruida[0]
+                            noIdentificacionClientes = ventaConstruida[1]
+                            noFactura = ventaConstruida[2]
+
+                            venta = objetoVentas.consultarTablaVentas(objetoConexion, noFactura)[0]
+                            cliente = objetoClientes.consultarTablaClientes3(objetoConexion, noIdentificacionClientes)[0]
+                            servicio = objetoServicios.consultarTablaServicios6(objetoConexion, noFactura)[0]
+
+                            objetoVentas.imprimirFactura(objetoConexion, venta, cliente, servicio)
+                            break
                         else:
-                            print("Venta valida, añadiendo datos ingresados.")
-                            objetoVentas.añadirServicioAVender(objetoConexion, ventaConstruida)
-
-                            while True:
-                                opcionFactura = input("¿Imprimir factura? (s/n): ").lower()
-
-                                if opcionFactura == "s":
-
-                                    # Se buscan la tupla de datos venta, cliente y servicio para ingresar en la factura.
-                                    noFactura = ventaConstruida[0]
-                                    noIdentificacionClientes = ventaConstruida[1]
-                                    noFactura = ventaConstruida[2]
-
-                                    venta = objetoVentas.consultarTablaVentas(objetoConexion, noFactura)[0]
-                                    cliente = objetoClientes.consultarTablaClientes3(objetoConexion, noIdentificacionClientes)[0]
-                                    servicio = objetoServicios.consultarTablaServicios6(objetoConexion, noFactura)[0]
-
-                                    objetoVentas.imprimirFactura(objetoConexion, venta, cliente, servicio)
-                                    break
-
-                                else:
-                                    print("Impresion de factura cancelada.")
-                                    break
-                        validacionVenta = False
+                            print("Impresion de factura cancelada.")
+                            break
+                    validacionVenta = False
 
             # consultar todas las ventas
             elif opcionesVentas == "2":
@@ -425,9 +421,9 @@ class Menu:
                         try:
                             datoConsultado = objetoServicios.consultarTablaVentas2(
                                 objetoConexion, opcionesActualizar[opcionSelecionada], noFactura)
-                            print("Consulta: El dato",opcionesActualizar[opcionSelecionada],"del servicio no.",noFactura," es ",datoConsultado)
+                            print("Consulta: El dato",opcionesActualizar[opcionSelecionada],"la venta no.",noFactura," es ",datoConsultado)
                         except:
-                            print("Error en la busqueda: código de servicio inexistente.")
+                            print("Error en la busqueda: no. de factura inexistente.")
                         salirConsulta = True
                     elif opcionSelecionada == "4":
                         salirConsulta = True
@@ -436,8 +432,8 @@ class Menu:
 
             # consultar cuantos registros en total hay en la tabla ventas
             elif opcionesVentas == "4":
-                total = objetoVentas.consultarTablaVentas3(objetoConexion)
-                print(f"El total de registros es {total}")
+                cantidadVendidaTotal = objetoVentas.consultarTablaVentas3(objetoConexion)
+                print(f"El total de registros es {cantidadVendidaTotal}")
 
             # consultar registros por número de identificacion del cliente.
             elif opcionesVentas == "5":
@@ -453,7 +449,6 @@ class Menu:
             elif opcionesVentas == "7":
                 noFactura = input("Inserte el número de factura.")
                 confirmacion = input(f"¿Estás seguro de que deseas borrar el registro? (s/n): ").lower()
-
                 if confirmacion != "s":
                     print("Operación cancelada.")
                 else:
@@ -465,7 +460,6 @@ class Menu:
             # borrar tabla ventas
             elif opcionesVentas == "8":
                 confirmacion = input(f"¿Estás seguro de que deseas la tabla ventas? (s/n): ").lower()
-
                 if confirmacion != "s":
                     print("Operación cancelada.")
                 else:
@@ -477,7 +471,7 @@ class Menu:
             # imprimir una factura
             elif opcionesVentas == "9":
                 facturaVenta = input("Inserte el número de la factura a imprimir:")
-                venta = objetoVentas.consultarTablaVentas2(objetoConexion,"noFactura",facturaVenta)
+                venta = objetoVentas.consultarTablaVentas4(objetoConexion,"noFactura",facturaVenta)
                 noIdentificacionCliente = str(venta[1])
                 noFactura = str(venta[2])
 

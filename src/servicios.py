@@ -125,7 +125,7 @@ class Servicios:
         sumaPrecios = objetoCursor.fetchone()[0]
         return sumaPrecios
 
-    # consultar registro por dato
+    # consultar registros por dato
     def consultarTablaServicios7(self,objetoConexion,dato,nombre):
         objetoCursor=objetoConexion.cursor()
         consultar = f"SELECT * FROM servicios WHERE {dato} = '{nombre}'"

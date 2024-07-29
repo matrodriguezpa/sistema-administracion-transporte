@@ -121,7 +121,6 @@ class Ventas:
 
         mensaje = f'''
                 COOPERATIVA DE TRANSPORTES LA NACIONAL
-        Img.png
 
         Número de venta:{miVenta[0]}
         Nombre completo del cliente: {miCliente[1],miCliente[2]}  
