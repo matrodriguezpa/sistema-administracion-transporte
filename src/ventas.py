@@ -1,7 +1,7 @@
 import smtplib
-import getpass
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import getpass
 
 class Ventas:
 
@@ -26,7 +26,7 @@ class Ventas:
     def leerVenta(self, objetoConexion, objetoVentas):
         # Genera el número de la factura automáticamente
         noFactura = 1
-        while objetoVentas.consultarTablaVentas(objetoConexion, str(noFactura)) is not None:
+        while objetoVentas.consultarTablaVentas2(objetoConexion,"noFactura",str(noFactura)) is not None:
             noFactura += 1
         print(f"Número de factura generado{noFactura}")
         noIdentificacionCliente = input("Número de identificación del cliente (Tiene que estar registrado): ").ljust(10)
@@ -35,13 +35,13 @@ class Ventas:
         Venta = (str(noFactura), noIdentificacionCliente, codigoServicio, cantidadVendida)
         return Venta
 
-    # 
-    def añadirServicioAVender(self, objetoCursor, miVenta):
-        objetoCursor = objetoCursor.cursor()
+    # añadir venta
+    def añadirServicioAVender(self, objetoConexion, miVenta):
+        objetoCursor = objetoConexion.cursor()
         insertar = "INSERT INTO ventas VALUES(?,?,?,?)"
         objetoCursor.execute(insertar, miVenta)
-        objetoCursor.commit()
-        return "Venta agregada."
+        objetoConexion.commit()
+        print("Nuevo cliente agregado.")
 
     # Consultar todos los registros
     def consultarTablaVentas1(self, objetoConexion):
@@ -61,11 +61,11 @@ class Ventas:
         objetoCursor = objetoConexion.cursor()
         consultar = f"SELECT {dato} FROM ventas WHERE noFactura = '{noFactura}'"
         objetoCursor.execute(consultar)
-        resultadoConsulta = objetoCursor.fetchone()[0]
+        resultadoConsulta = objetoCursor.fetchone()
         if not resultadoConsulta:
-            print("Dato inexistente")
+            return None
         else:
-            return resultadoConsulta
+            return resultadoConsulta[0]
 
     # Consultar cuantos registros hay en total
     def consultarTablaVentas3(self, con):
@@ -80,14 +80,22 @@ class Ventas:
         objetoCursor = objetoConexion.cursor()
         consultar = f"SELECT * FROM ventas WHERE {dato} = '{datoConsulta}'"
         objetoCursor.execute(consultar)
-        resultadosConsulta = objetoCursor.fetchall()[0]
+        resultadosConsulta = objetoCursor.fetchall()
         if not resultadosConsulta:
             print("Dato inexistente.")
         else:
             print("Coincidencias:")
             for n, (nf,id,cs,can) in enumerate (resultadosConsulta, start = 1):
                 print(n,"|",nf,id,cs,can)
-            return resultadosConsulta
+            return resultadosConsulta[0]
+
+    # consultar suma de los ventas de un servicio
+    def consultarTablaVentas5(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
+        consultar = "SELECT SUM(cantidadVendida) FROM ventas"
+        objetoCursor.execute(consultar)
+        sumaVentas = objetoCursor.fetchone()[0]
+        return sumaVentas if sumaVentas is not None else 0
 
     # Borra un registro
     def borrarRegistroTablaVentas(self, objetoConexion, noFactura):
@@ -97,7 +105,7 @@ class Ventas:
         objetoConexion.commit()
         print("Registro borrado exitosamente.")
 
-    # Borrar toda la tabla de ventas
+    # borrar toda la tabla de ventas
     def borrarTablaVentas(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
         borrar = "DROP TABLE IF EXISTS ventas"
@@ -105,36 +113,38 @@ class Ventas:
         objetoConexion.commit()
         print("Tabla ventas borrada exitosamente.")
 
-    # imprimir una factura
-    def imprimirFactura(self,miVenta,miCliente,miServicio):
+    # envia la factura al correo electrónico
+    def imprimirFactura(self, miVenta, miCliente, miServicio):
         # Configuración del correo
-        correoRemitente = "satlanacional@gmail.com"
-        correoSMTP = "smtp.gmail.com"
+        correoRemitente = 'satlanacional@gmail.com'
+        correoSMTP = 'smtp.gmail.com'
         puertoSMTP = 587
+        tiempoEsperaSMTP = 10  # Establecer un tiempo de espera en segundos
 
         # Obtener la contraseña de aplicación de manera segura
         contraseña = getpass.getpass("Introduce tu contraseña de aplicación de Google: ")
 
         # Obtener el destinatario y el mensaje
         correoDestinatario = miCliente[5]
-        asunto = f"Comprobante de venta de la factura no.{miVenta[0]}"
+        asunto = f"Comprobante de venta de la factura no. {miVenta[0]}"
 
+        # Mensaje del correo
+        precioTotal = miServicio[4] * miVenta[3]
         mensaje = f'''
-                COOPERATIVA DE TRANSPORTES LA NACIONAL
-
-        Número de venta:{miVenta[0]}
-        Nombre completo del cliente: {miCliente[1],miCliente[2]}  
+        COOPERATIVA DE TRANSPORTES LA NACIONAL
+        Número de venta: {miVenta[0]}
+        Nombre completo del cliente: {miCliente[1]} {miCliente[2]}
         Dirección del cliente: {miCliente[3]}
         Teléfono del cliente: {miCliente[4]}
         
         Nombre del producto: {miServicio[1]}
-        Hora de salida:  {miServicio[5]}
+        Hora de salida: {miServicio[5]}
         Cantidad: {miVenta[3]}
         Precio unitario: {miServicio[4]}
-        Precio según la cantidad: {miServicio[4]*miVenta[3]}
+        Precio según la cantidad: {precioTotal}
 
         Pie final: 
-        Precio total: {miServicio[4]*miVenta[3]}
+        Precio total: {precioTotal}
         '''
 
         # Crear el mensaje
@@ -145,17 +155,20 @@ class Ventas:
         msg.attach(MIMEText(mensaje, 'plain'))
 
         try:
-            # Conectar al servidor SMTP
-            servidor = smtplib.SMTP(correoSMTP, puertoSMTP)
+            # Conectar al servidor SMTP con tiempo de espera
+            servidor = smtplib.SMTP(correoSMTP, puertoSMTP, timeout=tiempoEsperaSMTP)
             servidor.starttls()
             servidor.login(correoRemitente, contraseña)
 
             # Enviar el correo
             servidor.sendmail(correoRemitente, correoDestinatario, msg.as_string())
-            print('Correo enviado exitosamente')
+            print('Correo enviado exitosamente.')
 
+        except smtplib.SMTPException as e:
+            print(f'Ocurrió un error con el servidor SMTP: {e}')
         except Exception as e:
             print(f'Ocurrió un error: {e}')
 
         finally:
-            servidor.quit()
+            if 'servidor' in locals():
+                servidor.quit()

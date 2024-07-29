@@ -62,7 +62,8 @@ class Clientes:
         objetoCursor.execute(consultar)
         resultadosBusqueda = objetoCursor.fetchone()[0]
         if not resultadosBusqueda:
-            print("Dato inexistente")
+            print("Dato inexistente no a sido encontrado.")
+            return None
         else:
             return resultadosBusqueda
 
@@ -74,10 +75,10 @@ class Clientes:
         total = objetoCursor.fetchone()[0]
         return total
 
-    # consultar registro por nombre
-    def consultarTablaClientes4(self, objetoConexion, nombreConsulta):
+    # consultar registro por dato
+    def consultarTablaClientes4(self, objetoConexion,dato, consulta):
         objetoCursor=objetoConexion.cursor()
-        consultar = f"SELECT * FROM clientes WHERE nombre = '{nombreConsulta}'"
+        consultar = f"SELECT * FROM clientes WHERE {dato} = '{consulta}'"
         objetoCursor.execute(consultar)
         resultadosBusqueda = objetoCursor.fetchall()
         if not resultadosBusqueda:
@@ -86,6 +87,7 @@ class Clientes:
             print("Coincidencias encontradas:")
             for n, (id, nom, ape, dir, tel, cor) in enumerate(resultadosBusqueda, start=1):
                 print(f"{n}. | {id}, {nom} {ape}, {dir}, {tel}, {cor}")
+            return resultadosBusqueda[0]
 
     # consultar registros por letra inicial del nombre en la tabla de clientes
     def consultarTablaClientes5(self, objetoConexion, letraInicial):

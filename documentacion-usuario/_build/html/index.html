@@ -1,106 +1,216 @@
 <!DOCTYPE html>
-
-<html lang="es" data-content_root="./">
+<html  lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Documentación de usuario documentation &#8212; documentación de Documentación de usuario - v.1.0</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
-    <script src="_static/documentation_options.js?v=31db5b1a"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/translations.js?v=d190bf04"></script>
-    <link rel="index" title="Índice" href="genindex.html" />
-    <link rel="search" title="Búsqueda" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
+      <title>Documentación de usuario: SAT La nacional</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
 
-  
-  
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Índice" href="genindex.html" />
+  <link rel="search" title="Búsqueda" href="search.html" />
+  <link rel="next" title="Menú principal de la aplicación" href="menu.html" /> 
+  </head>
 
-  </head><body>
-  
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="#" class="home-link">
+    
+      <span class="site-name">SAT</span>
+    
+  </router-link>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
           
-
-          <div class="body" role="main">
+          <navlinks>
             
-  <section id="documentacion-de-usuario-documentation">
-<h1>Documentación de usuario documentation<a class="headerlink" href="#documentacion-de-usuario-documentation" title="Link to this heading">¶</a></h1>
-<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
-<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
-documentation for details.</p>
-<div class="toctree-wrapper compound">
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Búsqueda rápida</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Búsqueda" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="#contenido">contenido</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="menu.html" class="reference internal ">Menú principal de la aplicación</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="servicios.html" class="reference internal ">Módulo de gestión de servicios</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="clientes.html" class="reference internal ">Módulo de gestión de clientes</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="ventas.html" class="reference internal ">Módulo de gestión de ventas</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="facturas.html" class="reference internal ">Impresión de facturas</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
 </div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+    
+    <li>Documentación de usuario: SAT La nacional</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="next">
+    <a href="menu.html"
+       title="próximo capítulo">Menú principal de la aplicación →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="documentacion-de-usuario-sat-la-nacional">
+<h1>Documentación de usuario: SAT La nacional<a class="headerlink" href="#documentacion-de-usuario-sat-la-nacional" title="Permalink to this heading">¶</a></h1>
+<p><strong>SAT</strong> Es un proyecto de <em>Python</em> para para gestionar los servicios
+ofrecidos, los clientes y la venta de estos servicios a clientes,
+así como la impresión de facturas, espero sea útil.
+<em>Repositorio:</em> <a class="reference external" href="https://github.com/MatRodriguezPa/sistema-administracion-transporte">https://github.com/MatRodriguezPa/sistema-administracion-transporte</a></p>
+<section id="contenido">
+<h2>Contenido<a class="headerlink" href="#contenido" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Menú principal de la aplicación</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="menu.html#menu-de-servicios">Menu de servicios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menu.html#menu-de-clientes">Menu de clientes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="menu.html#menu-de-ventas">Menu de ventas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="servicios.html">Módulo de gestión de servicios</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="servicios.html#insertar">Insertar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="servicios.html#crear">Crear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="servicios.html#id1">Crear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="servicios.html#actualizar">Actualizar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="servicios.html#eliminar">Eliminar</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clientes.html">Módulo de gestión de clientes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clientes.html#insertar">Insertar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clientes.html#crear">Crear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clientes.html#id1">Crear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clientes.html#actualizar">Actualizar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clientes.html#eliminar">Eliminar</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ventas.html">Módulo de gestión de ventas</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ventas.html#insertar">Insertar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ventas.html#crear">Crear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ventas.html#id1">Crear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ventas.html#actualizar">Actualizar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ventas.html#eliminar">Eliminar</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="facturas.html">Impresión de facturas</a></li>
+</ul>
+</div>
+</section>
 </section>
 
 
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">Documentación de usuario</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navegación</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-  </ul></li>
-</ul>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="next">
+    <a href="menu.html"
+       title="próximo capítulo">Menú principal de la aplicación →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Derechos de autor 2024.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
 </div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Búsqueda rápida</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Ir a" />
-    </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &#169;2024, Mateo.
-      
-      |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.4.7</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
+            </div>
+          </div>
+      </page>
+    </div></div>
     
-
     
   </body>
 </html>

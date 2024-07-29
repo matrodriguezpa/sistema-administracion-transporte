@@ -1,17 +1,18 @@
-.. Documentación de usuario documentation master file, created by
-   sphinx-quickstart on Mon Jul 29 09:43:03 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Documentación de usuario: SAT La nacional 
+=========================================
 
-Documentación de usuario documentation
-======================================
+**SAT** Es un proyecto de *Python* para para gestionar los servicios 
+ofrecidos, los clientes y la venta de estos servicios a clientes, 
+así como la impresión de facturas, espero sea útil.
+*Repositorio:* https://github.com/MatRodriguezPa/sistema-administracion-transporte
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
+Contenido
+---------
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
 
+   menu
+   servicios
+   clientes
+   ventas
+   facturas

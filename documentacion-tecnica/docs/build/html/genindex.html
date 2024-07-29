@@ -1,37 +1,146 @@
+
 <!DOCTYPE html>
-
-<html lang="es" data-content_root="./">
+<html  lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Índice &#8212; documentación de SAT - v.1.0</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/agogo.css?v=8513425a" />
-    <script src="_static/documentation_options.js?v=31db5b1a"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/translations.js?v=d190bf04"></script>
-    <link rel="index" title="Índice" href="#" />
-    <link rel="search" title="Búsqueda" href="search.html" /> 
-  </head><body>
-    <div class="header-wrapper" role="banner">
-      <div class="header">
-        <div class="headertitle"><a
-          href="index.html">documentación de SAT - v.1.0</a></div>
-        <div class="rel" role="navigation" aria-label="Related">
-          <a href="#" title="Índice General"
-             accesskey="I">índice</a>
-        </div>
-       </div>
-    </div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Índice</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
 
-    <div class="content-wrapper">
-      <div class="content">
-        <div class="document">
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Índice" href="#" />
+  <link rel="search" title="Búsqueda" href="search.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">SAT</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
             
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Búsqueda rápida</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Búsqueda" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#contents">contents</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="menu.html" class="reference internal ">Modulo de menú</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="servicios.html" class="reference internal ">Módulo gestion de servicios</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="clientes.html" class="reference internal ">Modulo de gestion de clientes</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="ventas.html" class="reference internal ">Modulo de ventas</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="librerias.html" class="reference internal ">Librerias del sistema</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Índice</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
             
 
 <h1 id="index">Índice</h1>
@@ -40,6 +149,7 @@
  <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
+ | <a href="#F"><strong>F</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  
@@ -48,10 +158,19 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
+    actualizarTablaClientes()
+
+      <ul>
+        <li><a href="clientes.html#actualizarTablaClientes">función incorporada</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
     actualizarTablaServicios()
 
       <ul>
-        <li><a href="clientes.html#actualizarTablaServicios">built-in function</a>, <a href="servicios.html#actualizarTablaServicios">[1]</a>
+        <li><a href="servicios.html#actualizarTablaServicios">función incorporada</a>
 </li>
       </ul></li>
   </ul></td>
@@ -61,32 +180,179 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
+    borrarRegistroTablaCliente()
+
+      <ul>
+        <li><a href="clientes.html#borrarRegistroTablaCliente">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
     borrarRegistroTablaServicios()
 
       <ul>
-        <li><a href="clientes.html#borrarRegistroTablaServicios">built-in function</a>, <a href="servicios.html#borrarRegistroTablaServicios">[1]</a>
+        <li><a href="servicios.html#borrarRegistroTablaServicios">función incorporada</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    borrarTablaCliente()
+
+      <ul>
+        <li><a href="clientes.html#borrarTablaCliente">función incorporada</a>
 </li>
       </ul></li>
       <li>
     borrarTablaServicios()
 
       <ul>
-        <li><a href="clientes.html#borrarTablaServicios">built-in function</a>, <a href="servicios.html#borrarTablaServicios">[1]</a>
+        <li><a href="servicios.html#borrarTablaServicios">función incorporada</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    consultarTablaCientes5()
+
+      <ul>
+        <li><a href="clientes.html#consultarTablaCientes5">función incorporada</a>
 </li>
       </ul></li>
       <li>
-    built-in function
+    consultarTablaClientes1()
 
       <ul>
-        <li><a href="clientes.html#actualizarTablaServicios">actualizarTablaServicios()</a>, <a href="servicios.html#actualizarTablaServicios">[1]</a>
+        <li><a href="clientes.html#consultarTablaClientes1">función incorporada</a>
 </li>
-        <li><a href="clientes.html#borrarRegistroTablaServicios">borrarRegistroTablaServicios()</a>, <a href="servicios.html#borrarRegistroTablaServicios">[1]</a>
+      </ul></li>
+      <li>
+    consultarTablaClientes2()
+
+      <ul>
+        <li><a href="clientes.html#consultarTablaClientes2">función incorporada</a>
 </li>
-        <li><a href="clientes.html#borrarTablaServicios">borrarTablaServicios()</a>, <a href="servicios.html#borrarTablaServicios">[1]</a>
+      </ul></li>
+      <li>
+    consultarTablaClientes3()
+
+      <ul>
+        <li><a href="clientes.html#consultarTablaClientes3">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    consultarTablaClientes4()
+
+      <ul>
+        <li><a href="clientes.html#consultarTablaClientes4">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    consultarTablaServicios1()
+
+      <ul>
+        <li><a href="servicios.html#consultarTablaServicios1">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    consultarTablaServicios2()
+
+      <ul>
+        <li><a href="servicios.html#consultarTablaServicios2">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    consultarTablaServicios3()
+
+      <ul>
+        <li><a href="servicios.html#consultarTablaServicios3">función incorporada</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    consultarTablaServicios4()
+
+      <ul>
+        <li><a href="servicios.html#consultarTablaServicios4">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    consultarTablaServicios5()
+
+      <ul>
+        <li><a href="servicios.html#consultarTablaServicios5">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    consultarTablaServicios6()
+
+      <ul>
+        <li><a href="servicios.html#consultarTablaServicios6">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    consultarTablaServicios7()
+
+      <ul>
+        <li><a href="servicios.html#consultarTablaServicios7">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    consultarTablaServicios8()
+
+      <ul>
+        <li><a href="servicios.html#consultarTablaServicios8">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    crearTablaClientes()
+
+      <ul>
+        <li><a href="clientes.html#crearTablaClientes">función incorporada</a>
+</li>
+      </ul></li>
+      <li>
+    crearTablaServicios()
+
+      <ul>
+        <li><a href="servicios.html#crearTablaServicios">función incorporada</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    función incorporada
+
+      <ul>
+        <li><a href="clientes.html#actualizarTablaClientes">actualizarTablaClientes()</a>
+</li>
+        <li><a href="servicios.html#actualizarTablaServicios">actualizarTablaServicios()</a>
+</li>
+        <li><a href="clientes.html#borrarRegistroTablaCliente">borrarRegistroTablaCliente()</a>
+</li>
+        <li><a href="servicios.html#borrarRegistroTablaServicios">borrarRegistroTablaServicios()</a>
+</li>
+        <li><a href="clientes.html#borrarTablaCliente">borrarTablaCliente()</a>
+</li>
+        <li><a href="servicios.html#borrarTablaServicios">borrarTablaServicios()</a>
+</li>
+        <li><a href="clientes.html#consultarTablaCientes5">consultarTablaCientes5()</a>
 </li>
         <li><a href="clientes.html#consultarTablaClientes1">consultarTablaClientes1()</a>
 </li>
         <li><a href="clientes.html#consultarTablaClientes2">consultarTablaClientes2()</a>
+</li>
+        <li><a href="clientes.html#consultarTablaClientes3">consultarTablaClientes3()</a>
+</li>
+        <li><a href="clientes.html#consultarTablaClientes4">consultarTablaClientes4()</a>
 </li>
         <li><a href="servicios.html#consultarTablaServicios1">consultarTablaServicios1()</a>
 </li>
@@ -96,13 +362,13 @@
 </li>
         <li><a href="servicios.html#consultarTablaServicios4">consultarTablaServicios4()</a>
 </li>
-        <li><a href="clientes.html#consultarTablaServicios5">consultarTablaServicios5()</a>, <a href="servicios.html#consultarTablaServicios5">[1]</a>
+        <li><a href="servicios.html#consultarTablaServicios5">consultarTablaServicios5()</a>
 </li>
-        <li><a href="clientes.html#consultarTablaServicios6">consultarTablaServicios6()</a>, <a href="servicios.html#consultarTablaServicios6">[1]</a>
+        <li><a href="servicios.html#consultarTablaServicios6">consultarTablaServicios6()</a>
 </li>
-        <li><a href="clientes.html#consultarTablaServicios7">consultarTablaServicios7()</a>, <a href="servicios.html#consultarTablaServicios7">[1]</a>
+        <li><a href="servicios.html#consultarTablaServicios7">consultarTablaServicios7()</a>
 </li>
-        <li><a href="clientes.html#consultarTablaServicios8">consultarTablaServicios8()</a>, <a href="servicios.html#consultarTablaServicios8">[1]</a>
+        <li><a href="servicios.html#consultarTablaServicios8">consultarTablaServicios8()</a>
 </li>
         <li><a href="clientes.html#crearTablaClientes">crearTablaClientes()</a>
 </li>
@@ -118,98 +384,6 @@
   </ul></td>
 </tr></table>
 
-<h2 id="C">C</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    consultarTablaClientes1()
-
-      <ul>
-        <li><a href="clientes.html#consultarTablaClientes1">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    consultarTablaClientes2()
-
-      <ul>
-        <li><a href="clientes.html#consultarTablaClientes2">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    consultarTablaServicios1()
-
-      <ul>
-        <li><a href="servicios.html#consultarTablaServicios1">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    consultarTablaServicios2()
-
-      <ul>
-        <li><a href="servicios.html#consultarTablaServicios2">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    consultarTablaServicios3()
-
-      <ul>
-        <li><a href="servicios.html#consultarTablaServicios3">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    consultarTablaServicios4()
-
-      <ul>
-        <li><a href="servicios.html#consultarTablaServicios4">built-in function</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    consultarTablaServicios5()
-
-      <ul>
-        <li><a href="clientes.html#consultarTablaServicios5">built-in function</a>, <a href="servicios.html#consultarTablaServicios5">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    consultarTablaServicios6()
-
-      <ul>
-        <li><a href="clientes.html#consultarTablaServicios6">built-in function</a>, <a href="servicios.html#consultarTablaServicios6">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    consultarTablaServicios7()
-
-      <ul>
-        <li><a href="clientes.html#consultarTablaServicios7">built-in function</a>, <a href="servicios.html#consultarTablaServicios7">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    consultarTablaServicios8()
-
-      <ul>
-        <li><a href="clientes.html#consultarTablaServicios8">built-in function</a>, <a href="servicios.html#consultarTablaServicios8">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    crearTablaClientes()
-
-      <ul>
-        <li><a href="clientes.html#crearTablaClientes">built-in function</a>
-</li>
-      </ul></li>
-      <li>
-    crearTablaServicios()
-
-      <ul>
-        <li><a href="servicios.html#crearTablaServicios">built-in function</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -217,7 +391,7 @@
     insertarServicio()
 
       <ul>
-        <li><a href="servicios.html#insertarServicio">built-in function</a>
+        <li><a href="servicios.html#insertarServicio">función incorporada</a>
 </li>
       </ul></li>
   </ul></td>
@@ -230,7 +404,7 @@
     leerCliente()
 
       <ul>
-        <li><a href="clientes.html#leerCliente">built-in function</a>
+        <li><a href="clientes.html#leerCliente">función incorporada</a>
 </li>
       </ul></li>
   </ul></td>
@@ -239,7 +413,7 @@
     leerServicio()
 
       <ul>
-        <li><a href="servicios.html#leerServicio">built-in function</a>
+        <li><a href="servicios.html#leerServicio">función incorporada</a>
 </li>
       </ul></li>
   </ul></td>
@@ -247,56 +421,19 @@
 
 
 
-            <div class="clearer"></div>
           </div>
-        </div>
-      </div>
-        </div>
-        <div class="sidebar">
-          
-          <h3>Tabla de contenido</h3>
-          <ul>
-<li class="toctree-l1"><a class="reference internal" href="menu.html">Modulo de menú</a></li>
-<li class="toctree-l1"><a class="reference internal" href="servicios.html">Módulo gestion de servicios</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clientes.html">Modulo de gestion de clientes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ventas.html">Modulo de ventas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="librerias.html">Librerias del sistema</a></li>
-</ul>
-
-          <search role="search">
-            <h3 style="margin-top: 1.5em;">Búsqueda</h3>
-            <form class="search" action="search.html" method="get">
-                <input type="text" name="q" />
-                <input type="submit" value="Ir a" />
-            </form>
-          </search>
-
-        </div>
-        <div class="clearer"></div>
-      </div>
-    </div>
-
-    <div class="footer-wrapper">
-      <div class="footer">
-        <div class="left">
-          <div role="navigation" aria-label="Related">
-            <a href="#" title="Índice General"
-              >índice</a>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Derechos de autor 2024.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
           </div>
-          <div role="note" aria-label="source link">
-          </div>
-        </div>
-
-        <div class="right">
-          
-    <div class="footer" role="contentinfo">
-    &#169; Copyright 2024.
-      Creado usando <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
-    </div>
-        </div>
-        <div class="clearer"></div>
-      </div>
-    </div>
-
+      </page>
+    </div></div>
+    
+    
   </body>
 </html>

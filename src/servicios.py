@@ -137,6 +137,7 @@ class Servicios:
             print("Coincidencias de busqueda: \n")
             for n, (cs, nom, ori, des, pv, fecha, puestos, kilos) in enumerate(resultadosBusqueda, start=1):
                 print(f"{n}. | {cs}, {nom}, {ori}, {des}, {pv}, {fecha}| {puestos} puestos | {kilos} kilos")
+            return resultadosBusqueda[0]
 
     # consultar registros por letra inicial del nombre
     def consultarTablaServicios8(self, objetoConexion, letraInicial):
