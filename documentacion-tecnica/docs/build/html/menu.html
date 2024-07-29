@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-      <title>Modulo de menú</title>
+      <title>Menú Principal</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -25,7 +25,7 @@
   <link rel="index" title="Índice" href="genindex.html" />
   <link rel="search" title="Búsqueda" href="search.html" />
   <link rel="next" title="Módulo gestion de servicios" href="servicios.html" />
-  <link rel="prev" title="Documentación Técnica: SAT La nacional" href="index.html" /> 
+  <link rel="prev" title="Documentación Técnica: SAT La Nacional" href="index.html" /> 
   </head>
 
   <body>
@@ -78,15 +78,13 @@
         
           <li class="toctree-l1 current">
             
-              <a href="#" class="reference internal current">Modulo de menú</a>
+              <a href="#" class="reference internal current">Menú Principal</a>
             
 
             
               <ul>
                 
-                  <li class="toctree-l2"><a href="#parametros" class="reference internal">Parámetros</a></li>
-                
-                  <li class="toctree-l2"><a href="#metodos" class="reference internal">Métodos</a></li>
+                  <li class="toctree-l2"><a href="#menu-principal" class="reference internal">Menú Principal</a></li>
                 
               </ul>
             
@@ -104,7 +102,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="clientes.html" class="reference internal ">Modulo de gestion de clientes</a>
+              <a href="clientes.html" class="reference internal ">Módulo gestion de clientes</a>
             
 
             
@@ -122,7 +120,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="librerias.html" class="reference internal ">Librerias del sistema</a>
+              <a href="librerias.html" class="reference internal ">Librerías del Sistema</a>
             
 
             
@@ -141,14 +139,14 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Modulo de menú</li>
+    <li>Menú Principal</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
     <a href="index.html"
-       title="capítulo anterior">← Documentación Técnica: SAT La nacional</a>
+       title="capítulo anterior">← Documentación Técnica: SAT La Nacional</a>
   </li>
   <li class="next">
     <a href="servicios.html"
@@ -160,14 +158,112 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="modulo-de-menu">
-<h1>Modulo de menú<a class="headerlink" href="#modulo-de-menu" title="Permalink to this heading">¶</a></h1>
-<section id="parametros">
-<h2>Parámetros<a class="headerlink" href="#parametros" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="metodos">
-<h2>Métodos<a class="headerlink" href="#metodos" title="Permalink to this heading">¶</a></h2>
-</section>
+  <section id="menu-principal">
+<h1>Menú Principal<a class="headerlink" href="#menu-principal" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Menu">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Menu</span></span><a class="headerlink" href="#Menu" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Clase que representa un sistema de administración de transportes con menús para gestionar servicios, clientes y ventas.</p>
+<p><strong>Librerías:</strong></p>
+<ul class="simple">
+<li><p><strong>sys</strong>: Utilizada para cerrar el programa desde la interfaz.</p></li>
+<li><p><strong>time</strong>: Utilizada para pausar el programa, proporcionando una breve demora.</p></li>
+</ul>
+<p><strong>Notas:</strong></p>
+<ul class="simple">
+<li><p>Cada método de menú contiene un bucle para manejar las opciones seleccionadas por el usuario.</p></li>
+<li><p>Las operaciones de CRUD (Crear, Leer, Actualizar, Borrar) se gestionan a través de métodos específicos para servicios, clientes y ventas.</p></li>
+<li><p>Se realizan validaciones para asegurar la integridad de los datos ingresados por el usuario.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Menu.menuPrincipal">
+<span class="sig-prename descclassname"><span class="pre">Menu.</span></span><span class="sig-name descname"><span class="pre">menuPrincipal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Menu.menuPrincipal" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Muestra el menú principal del sistema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>La opción seleccionada por el usuario.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Menu.menuServicios">
+<span class="sig-prename descclassname"><span class="pre">Menu.</span></span><span class="sig-name descname"><span class="pre">menuServicios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoServicios</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Menu.menuServicios" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Muestra el menú para gestionar la tabla de servicios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>objetoServicios</strong> (<em>Clase que maneja la tabla de servicios</em>) – Objeto que maneja las operaciones en la tabla de servicios.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Menu.menuClientes">
+<span class="sig-prename descclassname"><span class="pre">Menu.</span></span><span class="sig-name descname"><span class="pre">menuClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoClientes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Menu.menuClientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Muestra el menú para gestionar la tabla de clientes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>objetoClientes</strong> (<em>Clase que maneja la tabla de clientes</em>) – Objeto que maneja las operaciones en la tabla de clientes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Menu.menuVentas">
+<span class="sig-prename descclassname"><span class="pre">Menu.</span></span><span class="sig-name descname"><span class="pre">menuVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoServicios</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoVentas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoClientes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Menu.menuVentas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Muestra el menú para gestionar la tabla de ventas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>objetoServicios</strong> (<em>Clase que maneja la tabla de servicios</em>) – Objeto que maneja las operaciones en la tabla de servicios.</p></li>
+<li><p><strong>objetoVentas</strong> (<em>Clase que maneja la tabla de ventas</em>) – Objeto que maneja las operaciones en la tabla de ventas.</p></li>
+<li><p><strong>objetoClientes</strong> (<em>Clase que maneja la tabla de clientes</em>) – Objeto que maneja las operaciones en la tabla de clientes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Menu.menu">
+<span class="sig-prename descclassname"><span class="pre">Menu.</span></span><span class="sig-name descname"><span class="pre">menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoServicios</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoVentas</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoClientes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoMenu</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Menu.menu" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Inicia el menú principal y gestiona la creación de tablas y la navegación del usuario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>objetoServicios</strong> (<em>Clase que maneja la tabla de servicios</em>) – Objeto que maneja las operaciones en la tabla de servicios.</p></li>
+<li><p><strong>objetoVentas</strong> (<em>Clase que maneja la tabla de ventas</em>) – Objeto que maneja las operaciones en la tabla de ventas.</p></li>
+<li><p><strong>objetoClientes</strong> (<em>Clase que maneja la tabla de clientes</em>) – Objeto que maneja las operaciones en la tabla de clientes.</p></li>
+<li><p><strong>objetoMenu</strong> (<em>Clase Menu</em>) – Instancia de la clase Menu para manejar la navegación entre menús.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -176,7 +272,7 @@
             <div class="inner"><ul class="page-nav">
   <li class="prev">
     <a href="index.html"
-       title="capítulo anterior">← Documentación Técnica: SAT La nacional</a>
+       title="capítulo anterior">← Documentación Técnica: SAT La Nacional</a>
   </li>
   <li class="next">
     <a href="servicios.html"

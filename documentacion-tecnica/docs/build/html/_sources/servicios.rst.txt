@@ -1,140 +1,154 @@
 Módulo gestion de servicios
 ===========================
 
-Parámetros
-----------
+.. py:class:: Servicios
 
+   Clase para gestionar la tabla servicios de la base de datos.
+
+Atributos
+---------
+- **codigoServicio**: Código único del servicio.
+- **nombre**: Nombre del servicio.
+- **origen**: Ciudad de origen del servicio.
+- **destino**: Ciudad de destino del servicio.
+- **precioVenta**: Precio de venta del servicio.
+- **horaSalida**: Fecha y hora de salida del servicio.
+- **cantidadMaxPuestos**: Cantidad máxima de puestos disponibles.
+- **cantidadMaxKilos**: Peso máximo permitido en kilogramos.
 
 Métodos
 -------
- Para crear la tabla que contiene la informacion de los servicios en caso tal de que no exista anteriormente :
- 
- .. py:function:: crearTablaServicios(objetoConexion)
 
-   :param objetoConexion: conecta con las base de datos
-   :type kind: None
+.. py:function:: Servicios.crearTablaServicios(objetoConexion)
+
+   Crea la tabla 'servicios' en la base de datos si no existe.
+
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
    :return: None
-   
-  "servicio = (codigoServicio, nombre, origen, destino, precioVenta, horaSalida, puestosMaximo, kilosMaximo)"
 
- Para recibir los datos necesarios y los almacena todos en una variable se usa :
+.. py:function:: Servicios.leerServicio()
 
- .. py:function:: leerServicio(objetoConexion)
-    
-    :param objetoConexion: conecta con la base de datos
-    :return: servcio
-    :rtype: Tuple
+   Solicita al usuario los datos de un servicio y los retorna como una tupla.
 
- Para insertar los datos almacenados en la tabla de servicios :
+   :return: Datos del servicio ingresados por el usuario.
+   :rtype: tuple
 
- .. py:function:: insertarServicio(objetoConexion,miServicio)
-    
-    :param objetoConexion: conecta con la base de datos
-    :param miServicio: donde se almacenan los datos de servicios
+.. py:function:: Servicios.insertarServicio(objetoConexion, miServicio)
 
- Para consultar todos los registros almacenados en la tabla de servicios se usa :
+   Inserta un nuevo servicio en la tabla 'servicios'.
 
- .. py:function:: consultarTablaServicios1(objetoConexion)
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param miServicio: Datos del servicio a insertar.
+   :type miServicio: tuple
+   :return: None
 
-    :param objetoConexion: conecta con la base de datos 
- 
-  La informacion de todos los campos de la tabla es devuelta al usuario mediante la funcion ``print()``
+.. py:function:: Servicios.consultarTablaServicios1(objetoConexion)
 
- Para consultar la fecha y hora de salida de los todos los registros de la tabla de crearTablaServicios :
+   Consulta y muestra todos los registros de la tabla 'servicios'.
 
- .. py:function:: consultarTablaServicios2(objetoConexion)
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: None
 
-    :param objetoConexion: conecta con la  base de datos
+.. py:function:: Servicios.consultarTablaServicios2(objetoConexion)
 
-  La informacion de los campos correspondientes a el indice del servicio , el codigo del servicio , nombre del servicio , origen del servicio , fecha y hora del servcio mediante la funcion ``print``
+   Consulta y muestra el código, nombre, origen, fecha y hora de salida de todos los registros.
 
- Para consultar los puestos maximos y el peso maximo de cada servicio se usa:
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: None
 
- .. py:function:: consultarTablaServicios3(objetoConexion)
-    
-    :param objetoConexion: conecta con la base de datos
+.. py:function:: Servicios.consultarTablaServicios3(objetoConexion)
 
-  La informacion de los campos correspondientes a el indice del servicio , codigo del servicio , nombre del servicio, origen , destino , puestos y kilos mediante la funcion ``print``
+   Consulta y muestra los puestos máximos y peso máximo de todos los registros.
 
- Para consultar cualquier dato a eleccion del usuario de un servicio en especifico :
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: None
 
- .. py:function:: consultarTablaServicios4(objetoConexion,dato,codigoServicio)
+.. py:function:: Servicios.consultarTablaServicios4(objetoConexion, dato, codigoServicio)
 
-    :param objetoConexion: conecta con la base de datos 
-    :param dato: indica que dato se quiere consultar
-    :type kind: String
-    :param codigoServicio: indica el codigo del servicio a consultar 
-    :type kind: Integer 
-    :return: DatoConsultado
-    :rtype: String
- 
-  El dato consultado es devuelto mediante la variable "DatoConsultado"
+   Consulta un dato específico de un servicio.
 
- Para consultar el numero de registros que hay en la tabla :
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param dato: Nombre de la columna a consultar.
+   :type dato: str
+   :param codigoServicio: Código del servicio a consultar.
+   :type codigoServicio: int
+   :return: Valor del dato consultado.
+   :rtype: str
 
- .. py:function:: consultarTablaServicios5(objetoConexion)
-   
-    :param objetoConexion: conecta con la base de datos 
-    :return: totalRegistros
-    :rtype: String
+.. py:function:: Servicios.consultarTablaServicios5(objetoConexion)
 
-  El numero de registros es devuelto mediante la variable "totalRegistros"
+   Consulta la cantidad total de registros en la tabla 'servicios'.
 
- Para consultar la suma de los precios de la venta :
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: Cantidad total de registros.
+   :rtype: int
 
- .. py:function:: consultarTablaServicios6(objetoConexion)
+.. py:function:: Servicios.consultarTablaServicios6(objetoConexion)
 
-    :param objetoConexion: conecta con la base de datos 
-    :return: sumaPrecios
-    :rtype: String
+   Consulta la suma de los precios de venta de todos los servicios.
 
-  La suma de los precios es devuelta mediente la variable "sumaPrecios"
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: Suma total de los precios de venta.
+   :rtype: float
 
- Para consultar un registro usando el nombre del mismo :
+.. py:function:: Servicios.consultarTablaServicios7(objetoConexion, dato, nombre)
 
- .. py:function:: consultarTablaServicios7(objetoConexion,nombre)
+   Consulta registros en la tabla 'servicios' filtrados por un dato específico.
 
-    :param objetoConexion: conecta con la base de datos
-    :param nombre: Indica el nombre de el registro 
-     
-  Los resultados de la busqueda son devueltos mediante la funcion "print"
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param dato: Nombre de la columna por la cual filtrar.
+   :type dato: str
+   :param nombre: Valor del dato a buscar.
+   :type nombre: str
+   :return: Primer registro coincidente.
+   :rtype: tuple
 
- Para consultar registros segun la letra inicial del nombre :
+.. py:function:: Servicios.consultarTablaServicios8(objetoConexion, letraInicial)
 
- .. py:function:: consultarTablaServicios8(objetoConexion,letraInicial)
+   Consulta registros en la tabla 'servicios' filtrados por la letra inicial del nombre.
 
-    :param objetoConexion: conecta con la base de datos
-    :param letraInicial: Indica la letra inicial por la cual se hace la busqueda
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param letraInicial: Letra inicial para filtrar los nombres.
+   :type letraInicial: str
+   :return: Lista de registros que cumplen con el filtro.
+   :rtype: list
 
-  Los resultados de la busqueda son devueltos mediante la funcion "print"
+.. py:function:: Servicios.actualizarTablaServicios(objetoConexion, nuevoNombre, codigoServicio)
 
- Para actualizar el nombre de un registro :
+   Actualiza el nombre de un registro en la tabla 'servicios'.
 
- .. py:function:: actualizarTablaServicios(objetoConexion,nuevoNombre,codigoServicio)
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param nuevoNombre: Nuevo nombre para el servicio.
+   :type nuevoNombre: str
+   :param codigoServicio: Código del servicio a actualizar.
+   :type codigoServicio: int
+   :return: None
 
-    :param objetoConexion: conecta con la base de datos
-    :param nuevoNombre: Indica el nuevo nombre para usar en el registro
-    :param codigoServicio: indica el codigo del servicio a modificar
+.. py:function:: Servicios.borrarRegistroTablaServicios(objetoConexion, codigoServicio)
 
- Para borrar un registro :
- 
- .. py:function:: borrarRegistroTablaServicios(objetoConexion,codigoServicio)
+   Elimina un registro de la tabla 'servicios'.
 
-    :param objetoConexion: conecta con la base de datos
-    :param codigoServicio: Indica el codigo del servicio a eliminar
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param codigoServicio: Código del servicio a eliminar.
+   :type codigoServicio: int
+   :return: None
 
-  El resultado de el metodo se da al usuario mendiante la funcion "print"
+.. py:function:: Servicios.borrarTablaServicios(objetoConexion)
 
- Para borrar la tabla :
+   Elimina la tabla 'servicios' de la base de datos.
 
- .. py:function:: borrarTablaServicios(objetoConexion)
-
-    :param objetoConexion: conecta con la base de datos
-
- 
-    
-
-
-
-
-
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: None

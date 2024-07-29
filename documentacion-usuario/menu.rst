@@ -1,11 +1,17 @@
-Menú principal de la aplicación
-===============================
+Menú Principal
+==============
 
-Menu de servicios
------------------
+La función **`menuPrincipal`** proporciona el menú principal del sistema de administración de transportes. Desde este menú, puedes acceder a los módulos principales del sistema. A continuación se detalla cómo navegar y utilizar esta función.
 
-Menu de clientes
-----------------
+1. **Acceder al Menú Principal**
+   ------------------------------
+   Al iniciar el programa, se mostrará el menú principal con las siguientes opciones:
+   
+   1. **Módulo de Gestión de Servicios**  
+   2. **Módulo de Gestión de Clientes**  
+   3. **Módulo de Ventas**  
+   4. **Cerrar Programa**  
 
-Menu de ventas
---------------
+   El menú se muestra de la siguiente manera:
+
+

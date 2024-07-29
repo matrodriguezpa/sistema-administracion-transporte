@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-      <title>Modulo de gestion de clientes</title>
+      <title>Módulo gestion de clientes</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -24,7 +24,7 @@
     
   <link rel="index" title="Índice" href="genindex.html" />
   <link rel="search" title="Búsqueda" href="search.html" />
-  <link rel="next" title="Modulo de ventas" href="ventas.html" />
+  <link rel="next" title="Clase Ventas" href="ventas.html" />
   <link rel="prev" title="Módulo gestion de servicios" href="servicios.html" /> 
   </head>
 
@@ -78,7 +78,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="menu.html" class="reference internal ">Modulo de menú</a>
+              <a href="menu.html" class="reference internal ">Menú Principal</a>
             
 
             
@@ -96,13 +96,13 @@
         
           <li class="toctree-l1 current">
             
-              <a href="#" class="reference internal current">Modulo de gestion de clientes</a>
+              <a href="#" class="reference internal current">Módulo gestion de clientes</a>
             
 
             
               <ul>
                 
-                  <li class="toctree-l2"><a href="#parametros" class="reference internal">Parámetros</a></li>
+                  <li class="toctree-l2"><a href="#atributos" class="reference internal">Atributos</a></li>
                 
                   <li class="toctree-l2"><a href="#metodos" class="reference internal">Métodos</a></li>
                 
@@ -113,7 +113,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="ventas.html" class="reference internal ">Modulo de ventas</a>
+              <a href="ventas.html" class="reference internal ">Clase Ventas</a>
             
 
             
@@ -122,7 +122,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="librerias.html" class="reference internal ">Librerias del sistema</a>
+              <a href="librerias.html" class="reference internal ">Librerías del Sistema</a>
             
 
             
@@ -141,7 +141,7 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Modulo de gestion de clientes</li>
+    <li>Módulo gestion de clientes</li>
   </ul>
   
 
@@ -152,7 +152,7 @@
   </li>
   <li class="next">
     <a href="ventas.html"
-       title="próximo capítulo">Modulo de ventas →</a>
+       title="próximo capítulo">Clase Ventas →</a>
   </li>
 </ul>
   
@@ -160,197 +160,215 @@
 <hr>
           <div class="content" role="main" v-pre>
             
-  <section id="modulo-de-gestion-de-clientes">
-<h1>Modulo de gestion de clientes<a class="headerlink" href="#modulo-de-gestion-de-clientes" title="Permalink to this heading">¶</a></h1>
-<section id="parametros">
-<h2>Parámetros<a class="headerlink" href="#parametros" title="Permalink to this heading">¶</a></h2>
+  <section id="modulo-gestion-de-clientes">
+<h1>Módulo gestion de clientes<a class="headerlink" href="#modulo-gestion-de-clientes" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Clientes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Clientes</span></span><a class="headerlink" href="#Clientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Clase</span> <span class="pre">para</span> <span class="pre">gestionar</span> <span class="pre">la</span> <span class="pre">tabla</span> <span class="pre">clientes</span> <span class="pre">de</span> <span class="pre">la</span> <span class="pre">base</span> <span class="pre">de</span> <span class="pre">datos.</span></span></dt>
+<dd></dd></dl>
+
+<section id="atributos">
+<h2>Atributos<a class="headerlink" href="#atributos" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>noIdentificacionCliente</strong>: Número de identificación del cliente.</p></li>
+<li><p><strong>nombre</strong>: Nombre del cliente.</p></li>
+<li><p><strong>apellido</strong>: Apellido del cliente.</p></li>
+<li><p><strong>direccion</strong>: Dirección del cliente.</p></li>
+<li><p><strong>telefono</strong>: Número de teléfono del cliente.</p></li>
+<li><p><strong>correoElectronico</strong>: Correo electrónico del cliente.</p></li>
+</ul>
 </section>
 <section id="metodos">
 <h2>Métodos<a class="headerlink" href="#metodos" title="Permalink to this heading">¶</a></h2>
-<blockquote>
-<div><p>Para crear la tabla que contiene la informacion de los clientes en caso tal de que no exista anteriormente :</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="crearTablaClientes">
-<span class="sig-name descname"><span class="pre">crearTablaClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crearTablaClientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="Clientes.crearTablaClientes">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">crearTablaClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.crearTablaClientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Crea la tabla “Clientes” en la base de datos si no existe.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> – conecta con las base de datos</p>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Para recibir los datos necesarios y los almacena todos en una variable se usa :</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="leerCliente">
-<span class="sig-name descname"><span class="pre">leerCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leerCliente" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> – conecta con la base de datos</p>
+<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
 </dd>
 <dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>cliente</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
-<p>Para insertar los datos almacenados en la tabla de servicios :</p>
 <dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">insertarTablaCliente(objetoConexion,miCliente</span></span></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="Clientes.leerCliente">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">leerCliente</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.leerCliente" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Solicita al usuario los datos de un cliente y los retorna como una tupla.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Datos del cliente ingresados por el usuario.</p>
+</dd>
+<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.insertarTablaClientes">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">insertarTablaClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miCliente</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.insertarTablaClientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Inserta un nuevo cliente en la tabla “Clientes”.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> – conecta con la base de datos</p></li>
-<li><p><strong>miCliente</strong> – donde se almacenan los datos del cliente</p></li>
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>miCliente</strong> (<em>tuple</em>) – Datos del cliente a insertar.</p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<p>Para consultar todos los registros almacenados en la tabla de clientes se usa :</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaClientes1">
-<span class="sig-name descname"><span class="pre">consultarTablaClientes1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaClientes1" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
-<dd class="field-odd"><p>conecta con la base de datos</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>La informacion de todos los campos de la tabla es devuelta al usuario mediante la funcion <code class="docutils literal notranslate"><span class="pre">print()</span></code></p>
-</dd></dl>
-
-<p>Para consultar cualquier dato a eleccion del usuario de un cliente en especifico :</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaClientes2">
-<span class="sig-name descname"><span class="pre">consultarTablaClientes2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datoConsulta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noIdentificacionCliente</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaClientes2" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
-<dd class="field-odd"><p>conecta con la base de datos</p>
-</dd>
-<dt class="field-even">param datoConsulta<span class="colon">:</span></dt>
-<dd class="field-even"><p>indica que dato se quiere consultar</p>
-</dd>
-<dt class="field-odd">type kind<span class="colon">:</span></dt>
-<dd class="field-odd"><p>String</p>
-</dd>
-<dt class="field-even">param noIdentificacionCliente<span class="colon">:</span></dt>
-<dd class="field-even"><p>indica el ID del cliente a consultar</p>
-</dd>
-<dt class="field-odd">type kind<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Integer</p>
-</dd>
-<dt class="field-even">return<span class="colon">:</span></dt>
-<dd class="field-even"><p>resultadosBusqueda</p>
-</dd>
-<dt class="field-odd">rtype<span class="colon">:</span></dt>
-<dd class="field-odd"><p>String</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>El dato consultado es devuelto mediante la variable «resultadosBusqueda»</p>
-</dd></dl>
-
-<p>Para consultar el numero de registros que hay en la tabla :</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaClientes3">
-<span class="sig-name descname"><span class="pre">consultarTablaClientes3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaClientes3" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> – conecta con la base de datos</p>
 </dd>
 <dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>total</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>String</p>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
-<p>Para consultar un registro usando el nombre del cliente :</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaClientes4">
-<span class="sig-name descname"><span class="pre">consultarTablaClientes4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nombreConsulta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaClientes4" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
-<dd class="field-odd"><p>conecta con la base de datos</p>
+<dt class="sig sig-object py" id="Clientes.consultarTablaClientes1">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">consultarTablaClientes1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.consultarTablaClientes1" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta y muestra todos los registros de la tabla “Clientes”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
 </dd>
-<dt class="field-even">param nombreCliente<span class="colon">:</span></dt>
-<dd class="field-even"><p>Indica el nombre de el cliente</p>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
-</div></blockquote>
-<p>Los resultados de la busqueda son devueltos mediante la funcion «print»</p>
 </dd></dl>
 
-<p>Para consultar registros segun la letra inicial del nombre :</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="consultarTablaCientes5">
-<span class="sig-name descname"><span class="pre">consultarTablaCientes5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">letraInicial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaCientes5" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
-<dd class="field-odd"><p>conecta con la base de datos</p>
-</dd>
-<dt class="field-even">param letraInicial<span class="colon">:</span></dt>
-<dd class="field-even"><p>Indica la letra inicial por la cual se hace la busqueda</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>Los resultados de la busqueda son devueltos mediante la funcion «print»</p>
-</dd></dl>
-
-<p>Para actualizar el nombre de un registro :</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="actualizarTablaClientes">
-<span class="sig-name descname"><span class="pre">actualizarTablaClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevoNombre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noIdentificacionCliente</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#actualizarTablaClientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="Clientes.consultarTablaClientes2">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">consultarTablaClientes2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datoConsulta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noIdentificacionCliente</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.consultarTablaClientes2" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta un dato específico de un cliente.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> – conecta con la base de datos</p></li>
-<li><p><strong>nuevoNombre</strong> – Indica el nuevo nombre para usar en el registro</p></li>
-<li><p><strong>noIdentificacionCliente</strong> – indica el numero de identificacion del cliente a modificar</p></li>
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>datoConsulta</strong> (<em>str</em>) – Nombre de la columna a consultar.</p></li>
+<li><p><strong>noIdentificacionCliente</strong> (<em>int</em>) – Número de identificación del cliente a consultar.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Valor del dato consultado.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
 </dl>
 </dd></dl>
 
-<p>Para borrar un registro :</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="borrarRegistroTablaCliente">
-<span class="sig-name descname"><span class="pre">borrarRegistroTablaCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noIdentificacionCliente</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#borrarRegistroTablaCliente" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param objetoConexion<span class="colon">:</span></dt>
-<dd class="field-odd"><p>conecta con la base de datos</p>
-</dd>
-<dt class="field-even">param codigoServicio<span class="colon">:</span></dt>
-<dd class="field-even"><p>Indica el noIdentificacionCliente del registro a eliminar</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>El resultado de el metodo se da al usuario mendiante la funcion «print»</p>
-</dd></dl>
-
-<p>Para borrar la tabla :</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="borrarTablaCliente">
-<span class="sig-name descname"><span class="pre">borrarTablaCliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#borrarTablaCliente" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="Clientes.consultarTablaSClientes3">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">consultarTablaSClientes3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.consultarTablaSClientes3" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta la cantidad total de registros en la tabla “Clientes”.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> – conecta con la base de datos</p>
+<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Cantidad total de registros.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div></blockquote>
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.consultarTablaClientes4">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">consultarTablaClientes4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dato</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consulta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.consultarTablaClientes4" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta registros en la tabla “Clientes” filtrados por un dato específico.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>dato</strong> (<em>str</em>) – Nombre de la columna por la cual filtrar.</p></li>
+<li><p><strong>consulta</strong> (<em>str</em>) – Valor del dato a buscar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Primer registro coincidente.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.consultarTablaClientes5">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">consultarTablaClientes5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">letraInicial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.consultarTablaClientes5" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta registros en la tabla “Clientes” filtrados por la letra inicial del nombre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>letraInicial</strong> (<em>str</em>) – Letra inicial para filtrar los nombres.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista de registros que cumplen con el filtro.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.actualizarTablaClientes">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">actualizarTablaClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevoNombre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noIdentificacionCliente</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.actualizarTablaClientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Actualiza el nombre de un cliente en la tabla “Clientes”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>nuevoNombre</strong> (<em>str</em>) – Nuevo nombre para el cliente.</p></li>
+<li><p><strong>noIdentificacionCliente</strong> (<em>int</em>) – Número de identificación del cliente a actualizar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.borrarRegistroTablaClientes">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">borrarRegistroTablaClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noIdentificacionCliente</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.borrarRegistroTablaClientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Elimina un registro de la tabla “Clientes”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>noIdentificacionCliente</strong> (<em>int</em>) – Número de identificación del cliente a eliminar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Clientes.borrarTablaClientes">
+<span class="sig-prename descclassname"><span class="pre">Clientes.</span></span><span class="sig-name descname"><span class="pre">borrarTablaClientes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Clientes.borrarTablaClientes" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Elimina la tabla “Clientes” de la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -364,7 +382,7 @@
   </li>
   <li class="next">
     <a href="ventas.html"
-       title="próximo capítulo">Modulo de ventas →</a>
+       title="próximo capítulo">Clase Ventas →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Derechos de autor 2024.

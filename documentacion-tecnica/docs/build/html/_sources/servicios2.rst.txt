@@ -1,9 +1,7 @@
 Módulo gestion de servicios
 ===========================
 
-.. py:class:: Servicios
-
-   Clase para gestionar la tabla servicios de la base de datos.
+Clase para gestionar la tabla servicios de la base de datos.
 
 Atributos
 ---------

@@ -1,101 +1,126 @@
-Modulo de gestion de clientes
-=============================
+Módulo gestion de clientes
+==========================
 
-Parámetros
-----------
+.. py:class:: Clientes
+    Clase para gestionar la tabla clientes de la base de datos.
 
+Atributos
+---------
+- **noIdentificacionCliente**: Número de identificación del cliente.
+- **nombre**: Nombre del cliente.
+- **apellido**: Apellido del cliente.
+- **direccion**: Dirección del cliente.
+- **telefono**: Número de teléfono del cliente.
+- **correoElectronico**: Correo electrónico del cliente.
 
 Métodos
 -------
- Para crear la tabla que contiene la informacion de los clientes en caso tal de que no exista anteriormente :
- 
- .. py:function:: crearTablaClientes(objetoConexion)
 
-   :param objetoConexion: conecta con las base de datos
-   
- Para recibir los datos necesarios y los almacena todos en una variable se usa :
+.. py:function:: Clientes.crearTablaClientes(objetoConexion)
 
- .. py:function:: leerCliente(objetoConexion)
-    
-    :param objetoConexion: conecta con la base de datos
-    :return: cliente
-    :rtype: Tuple
+   Crea la tabla 'Clientes' en la base de datos si no existe.
 
- Para insertar los datos almacenados en la tabla de servicios :
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: None
 
- .. py:function:: insertarTablaCliente(objetoConexion,miCliente
-    
-    :param objetoConexion: conecta con la base de datos
-    :param miCliente: donde se almacenan los datos del cliente
+.. py:function:: Clientes.leerCliente()
 
- Para consultar todos los registros almacenados en la tabla de clientes se usa :
+   Solicita al usuario los datos de un cliente y los retorna como una tupla.
 
- .. py:function:: consultarTablaClientes1(objetoConexion)
+   :return: Datos del cliente ingresados por el usuario.
+   :rtype: tuple
 
-    :param objetoConexion: conecta con la base de datos 
- 
-  La informacion de todos los campos de la tabla es devuelta al usuario mediante la funcion ``print()``
+.. py:function:: Clientes.insertarTablaClientes(objetoConexion, miCliente)
 
- 
- Para consultar cualquier dato a eleccion del usuario de un cliente en especifico :
+   Inserta un nuevo cliente en la tabla 'Clientes'.
 
- .. py:function:: consultarTablaClientes2(objetoConexion,datoConsulta,noIdentificacionCliente)
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param miCliente: Datos del cliente a insertar.
+   :type miCliente: tuple
+   :return: None
 
-    :param objetoConexion: conecta con la base de datos 
-    :param datoConsulta: indica que dato se quiere consultar
-    :type kind: String
-    :param noIdentificacionCliente: indica el ID del cliente a consultar
-    :type kind: Integer 
-    :return: resultadosBusqueda
-    :rtype: String
- 
-  El dato consultado es devuelto mediante la variable "resultadosBusqueda"
+.. py:function:: Clientes.consultarTablaClientes1(objetoConexion)
 
- Para consultar el numero de registros que hay en la tabla :
+   Consulta y muestra todos los registros de la tabla 'Clientes'.
 
- .. py:function:: consultarTablaClientes3(objetoConexion)
-   
-    :param objetoConexion: conecta con la base de datos 
-    :return: total
-    :rtype: String
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: None
 
- Para consultar un registro usando el nombre del cliente :
+.. py:function:: Clientes.consultarTablaClientes2(objetoConexion, datoConsulta, noIdentificacionCliente)
 
- .. py:function:: consultarTablaClientes4(objetoConexion,nombreConsulta)
+   Consulta un dato específico de un cliente.
 
-    :param objetoConexion: conecta con la base de datos
-    :param nombreCliente: Indica el nombre de el cliente
-     
-  Los resultados de la busqueda son devueltos mediante la funcion "print"
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param datoConsulta: Nombre de la columna a consultar.
+   :type datoConsulta: str
+   :param noIdentificacionCliente: Número de identificación del cliente a consultar.
+   :type noIdentificacionCliente: int
+   :return: Valor del dato consultado.
+   :rtype: str
 
- Para consultar registros segun la letra inicial del nombre :
+.. py:function:: Clientes.consultarTablaSClientes3(objetoConexion)
 
- .. py:function:: consultarTablaCientes5(objetoConexion,letraInicial)
+   Consulta la cantidad total de registros en la tabla 'Clientes'.
 
-    :param objetoConexion: conecta con la base de datos
-    :param letraInicial: Indica la letra inicial por la cual se hace la busqueda
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: Cantidad total de registros.
+   :rtype: int
 
-  Los resultados de la busqueda son devueltos mediante la funcion "print"
+.. py:function:: Clientes.consultarTablaClientes4(objetoConexion, dato, consulta)
 
- Para actualizar el nombre de un registro :
+   Consulta registros en la tabla 'Clientes' filtrados por un dato específico.
 
- .. py:function:: actualizarTablaClientes(objetoConexion,nuevoNombre,noIdentificacionCliente)
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param dato: Nombre de la columna por la cual filtrar.
+   :type dato: str
+   :param consulta: Valor del dato a buscar.
+   :type consulta: str
+   :return: Primer registro coincidente.
+   :rtype: tuple
 
-    :param objetoConexion: conecta con la base de datos
-    :param nuevoNombre: Indica el nuevo nombre para usar en el registro
-    :param noIdentificacionCliente: indica el numero de identificacion del cliente a modificar
+.. py:function:: Clientes.consultarTablaClientes5(objetoConexion, letraInicial)
 
- Para borrar un registro :
- 
- .. py:function:: borrarRegistroTablaCliente(objetoConexion,noIdentificacionCliente)
+   Consulta registros en la tabla 'Clientes' filtrados por la letra inicial del nombre.
 
-    :param objetoConexion: conecta con la base de datos
-    :param codigoServicio: Indica el noIdentificacionCliente del registro a eliminar
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param letraInicial: Letra inicial para filtrar los nombres.
+   :type letraInicial: str
+   :return: Lista de registros que cumplen con el filtro.
+   :rtype: list
 
-  El resultado de el metodo se da al usuario mendiante la funcion "print"
+.. py:function:: Clientes.actualizarTablaClientes(objetoConexion, nuevoNombre, noIdentificacionCliente)
 
- Para borrar la tabla :
+   Actualiza el nombre de un cliente en la tabla 'Clientes'.
 
- .. py:function:: borrarTablaCliente(objetoConexion)
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param nuevoNombre: Nuevo nombre para el cliente.
+   :type nuevoNombre: str
+   :param noIdentificacionCliente: Número de identificación del cliente a actualizar.
+   :type noIdentificacionCliente: int
+   :return: None
 
-    :param objetoConexion: conecta con la base de datos
+.. py:function:: Clientes.borrarRegistroTablaClientes(objetoConexion, noIdentificacionCliente)
+
+   Elimina un registro de la tabla 'Clientes'.
+
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :param noIdentificacionCliente: Número de identificación del cliente a eliminar.
+   :type noIdentificacionCliente: int
+   :return: None
+
+.. py:function:: Clientes.borrarTablaClientes(objetoConexion)
+
+   Elimina la tabla 'Clientes' de la base de datos.
+
+   :param objetoConexion: Objeto de conexión a la base de datos.
+   :type objetoConexion: Objeto de conexión
+   :return: None

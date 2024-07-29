@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-      <title>Librerias del sistema</title>
+      <title>Librerías del Sistema</title>
     
           <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
           <link rel="stylesheet" href="_static/theme.css " type="text/css" />
@@ -24,7 +24,7 @@
     
   <link rel="index" title="Índice" href="genindex.html" />
   <link rel="search" title="Búsqueda" href="search.html" />
-  <link rel="prev" title="Modulo de ventas" href="ventas.html" /> 
+  <link rel="prev" title="Clase Ventas" href="ventas.html" /> 
   </head>
 
   <body>
@@ -77,7 +77,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="menu.html" class="reference internal ">Modulo de menú</a>
+              <a href="menu.html" class="reference internal ">Menú Principal</a>
             
 
             
@@ -95,7 +95,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="clientes.html" class="reference internal ">Modulo de gestion de clientes</a>
+              <a href="clientes.html" class="reference internal ">Módulo gestion de clientes</a>
             
 
             
@@ -104,7 +104,7 @@
         
           <li class="toctree-l1 ">
             
-              <a href="ventas.html" class="reference internal ">Modulo de ventas</a>
+              <a href="ventas.html" class="reference internal ">Clase Ventas</a>
             
 
             
@@ -113,19 +113,19 @@
         
           <li class="toctree-l1 current">
             
-              <a href="#" class="reference internal current">Librerias del sistema</a>
+              <a href="#" class="reference internal current">Librerías del Sistema</a>
             
 
             
               <ul>
                 
-                  <li class="toctree-l2"><a href="#base-de-datos" class="reference internal">Base de datos</a></li>
+                  <li class="toctree-l2"><a href="#base-de-datos" class="reference internal">Base de Datos</a></li>
                 
-                  <li class="toctree-l2"><a href="#manejo-de-fechas-de-servicios" class="reference internal">Manejo de fechas de servicios</a></li>
+                  <li class="toctree-l2"><a href="#manejo-de-fechas-y-horas" class="reference internal">Manejo de Fechas y Horas</a></li>
                 
-                  <li class="toctree-l2"><a href="#cerrar-el-programa" class="reference internal">Cerrar el programa</a></li>
+                  <li class="toctree-l2"><a href="#cerrar-el-programa" class="reference internal">Cerrar el Programa</a></li>
                 
-                  <li class="toctree-l2"><a href="#envio-de-correos" class="reference internal">Envio de correos</a></li>
+                  <li class="toctree-l2"><a href="#envio-de-correos" class="reference internal">Envío de Correos</a></li>
                 
               </ul>
             
@@ -144,14 +144,14 @@
   <ul class="breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
     
-    <li>Librerias del sistema</li>
+    <li>Librerías del Sistema</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
     <a href="ventas.html"
-       title="capítulo anterior">← Modulo de ventas</a>
+       title="capítulo anterior">← Clase Ventas</a>
   </li>
 </ul>
   
@@ -160,24 +160,30 @@
           <div class="content" role="main" v-pre>
             
   <section id="librerias-del-sistema">
-<h1>Librerias del sistema<a class="headerlink" href="#librerias-del-sistema" title="Permalink to this heading">¶</a></h1>
+<h1>Librerías del Sistema<a class="headerlink" href="#librerias-del-sistema" title="Permalink to this heading">¶</a></h1>
 <section id="base-de-datos">
-<h2>Base de datos<a class="headerlink" href="#base-de-datos" title="Permalink to this heading">¶</a></h2>
-<p>sql3</p>
+<h2>Base de Datos<a class="headerlink" href="#base-de-datos" title="Permalink to this heading">¶</a></h2>
+<p><strong>sqlite3</strong></p>
+<p>La librería <cite>sqlite3</cite> es una interfaz para la base de datos SQLite, que es un motor de base de datos ligero y autónomo. Esta librería permite crear, conectar y manipular bases de datos SQLite desde aplicaciones Python. Es ideal para aplicaciones pequeñas y medianas que no requieren una base de datos más compleja o con mayores recursos.</p>
 </section>
-<section id="manejo-de-fechas-de-servicios">
-<h2>Manejo de fechas de servicios<a class="headerlink" href="#manejo-de-fechas-de-servicios" title="Permalink to this heading">¶</a></h2>
-<p>datetime</p>
+<section id="manejo-de-fechas-y-horas">
+<h2>Manejo de Fechas y Horas<a class="headerlink" href="#manejo-de-fechas-y-horas" title="Permalink to this heading">¶</a></h2>
+<p><strong>datetime</strong></p>
+<p>La librería <cite>datetime</cite> proporciona clases para manipular fechas y horas en Python. Permite la creación de objetos de fecha y hora, y ofrece funcionalidades para comparar, calcular diferencias y formatear estas entidades. Es ampliamente utilizada para tareas que requieren gestión precisa del tiempo.</p>
 </section>
 <section id="cerrar-el-programa">
-<h2>Cerrar el programa<a class="headerlink" href="#cerrar-el-programa" title="Permalink to this heading">¶</a></h2>
-<p>sys
-time</p>
+<h2>Cerrar el Programa<a class="headerlink" href="#cerrar-el-programa" title="Permalink to this heading">¶</a></h2>
+<p><strong>sys</strong></p>
+<p>La librería <cite>sys</cite> ofrece acceso a algunas variables y funciones que interactúan con el intérprete de Python. Entre sus funcionalidades, permite cerrar el programa usando <cite>sys.exit()</cite>, lo cual es útil para terminar un script de manera controlada.</p>
+<p><strong>time</strong></p>
+<p>La librería <cite>time</cite> proporciona funciones para trabajar con el tiempo. Permite medir el tiempo transcurrido, pausar la ejecución del programa con <cite>time.sleep()</cite>, y manipular datos relacionados con el tiempo. Es útil para tareas que requieren temporización o control de la duración de ciertas operaciones.</p>
 </section>
 <section id="envio-de-correos">
-<h2>Envio de correos<a class="headerlink" href="#envio-de-correos" title="Permalink to this heading">¶</a></h2>
-<p>smtplib
-import getpass</p>
+<h2>Envío de Correos<a class="headerlink" href="#envio-de-correos" title="Permalink to this heading">¶</a></h2>
+<p><strong>smtplib</strong></p>
+<p>La librería <cite>smtplib</cite> define una interfaz para enviar correos electrónicos utilizando el protocolo SMTP (Simple Mail Transfer Protocol). Permite la conexión con un servidor SMTP y el envío de correos electrónicos desde una cuenta configurada.</p>
+<p><strong>getpass</strong></p>
+<p>La librería <cite>getpass</cite> se utiliza para leer contraseñas u otros datos sensibles sin mostrar el texto en la consola. Es útil para solicitar credenciales de manera segura en una aplicación.</p>
 </section>
 </section>
 
@@ -187,7 +193,7 @@ import getpass</p>
             <div class="inner"><ul class="page-nav">
   <li class="prev">
     <a href="ventas.html"
-       title="capítulo anterior">← Modulo de ventas</a>
+       title="capítulo anterior">← Clase Ventas</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; Derechos de autor 2024.
