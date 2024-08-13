@@ -4,7 +4,8 @@ import time
 class Menu:
 
     # menu principal
-    def menuPrincipal(self):
+    @staticmethod
+    def menuPrincipal():
         return input("""
                  ____        _     _______ 
                 / ___|      / \   |__   __| 

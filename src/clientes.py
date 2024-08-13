@@ -1,13 +1,5 @@
 class Clientes:
 
-    def __init__(self):
-        noIdentificacionCliente = None
-        nombre = None
-        apellido = None
-        direccion = None
-        telefono = None
-        correoElectronico = None
-
     # crear la tabla servicios si no existe
     def crearTablaClientes(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()

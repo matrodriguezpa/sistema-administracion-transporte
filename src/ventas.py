@@ -5,12 +5,6 @@ import getpass
 
 class Ventas:
 
-    def __init__(self):
-        noFactura = None
-        noIdentificacionCliente = None
-        codigoServicio = None
-        cantidadVendida = None
-
     def crearTablaVentas(self, con):
         cursorObj = con.cursor()
         crear = """CREATE TABLE IF NOT EXISTS Ventas(
