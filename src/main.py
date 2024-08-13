@@ -5,24 +5,29 @@ from servicios import Servicios
 from clientes import Clientes
 from menu import Menu
 
-def conectar_base_datos():
+
+def conectarBaseDatos():
     try:
         conexion = sqlite3.connect("baseDatos.db")
         return conexion
     except Error as e:
         print(e)
 
-def cerrar_base_datos(conexion):
+
+def cerrarBaseDatos(conexion):
     conexion.close()
 
+
 def main():
-    mi_conexion = conectar_base_datos()
-    mi_servicio = Servicios()
-    mi_cliente = Clientes()
+    miConexion = conectarBaseDatos()
+    miServicio = Servicios()
+    miCliente = Clientes()
     miVenta = Ventas()
-    mi_menu = Menu()
+    miMenu = Menu()
 
-    mi_menu.menu(mi_conexion, mi_servicio, miVenta, mi_cliente, mi_menu)
-    cerrar_base_datos(mi_conexion)
+    miMenu.menu(miConexion, miServicio, miVenta, miCliente, miMenu)
+    cerrarBaseDatos(miConexion)
 
-main()
+
+if __name__ == '__main__':
+    main()
