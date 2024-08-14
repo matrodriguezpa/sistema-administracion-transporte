@@ -1,9 +1,9 @@
 import sqlite3
 from sqlite3 import Error
-from ventas import Ventas
-from servicios import Servicios
-from clientes import Clientes
-from menu import Menu
+from modulos.ventas import Ventas
+from modulos.servicios import Servicios
+from modulos.clientes import Clientes
+from modulos.menu import Menu
 
 
 def conectarBaseDatos():
@@ -20,14 +20,13 @@ def cerrarBaseDatos(conexion):
 
 def main():
     miConexion = conectarBaseDatos()
-    miServicio = Servicios()
-    miCliente = Clientes()
-    miVenta = Ventas()
-    miMenu = Menu()
+    miServicio = Servicios(miConexion)
+    miCliente = Clientes(miConexion)
+    miVenta = Ventas(miConexion)
+    miMenu = Menu(miConexion)
 
     miMenu.menu(miConexion, miServicio, miVenta, miCliente, miMenu)
     cerrarBaseDatos(miConexion)
 
 
-if __name__ == '__main__':
-    main()
+main()
