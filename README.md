@@ -1,5 +1,7 @@
 # Sistema de administración de transporte - Cooperativa La nacional
-Este proyecto es una aplicación para gestionar los servicios ofrecidos, los clientes y la venta de estos servicios a clientes, así como la impresión de facturas. 
+
+Este proyecto es una aplicación para gestionar los servicios ofrecidos, los clientes y la venta de estos servicios a
+clientes, así como la impresión de facturas.
 
 ## Características
 
@@ -54,33 +56,18 @@ Este módulo permite vender servicios a clientes y gestionar ventas.
 - **Funcionalidades**:
     - Vender servicios a un cliente
     - Quitar servicios si el cliente se arrepiente
+
+### Opciones de impresión de soporte de venta:
+
+- **Funcionalidades**:
     - imprimir el soporte de la venta.
     - Enviar la factura en un correo electrónico al cliente.
-
-- **Impresión de soporte de venta**:
-    - **Encabezado**:
-        - Número de venta
-    - **Datos de cliente**:
-        - Nombre del cliente
-        - Apellido del cliente
-        - Dirección del cliente
-        - Teléfono del cliente
-    - **Datos del servicio**:
-        - Nombre del servicio
-        - Hora de salida (HH:MM:SS)
-        - Cantidad
-        - Precio unitario
-        - Precio según la cantidad
-    - **Pie final**:
-        - Precio total
-
-*Nota: No se puede ofrecer un servicio que combine puestos y peso.*
 
 ## Instalación y uso
 
 1. Clona el repositorio: `git clone https://github.com/MatRodriguezPa/Sistema-Administracion-Transporte
-2. Ejecuta la aplicación: `main.py`
+2. Ejecuta la aplicación `SATBash.py` o `SATGUI.py`
 
 ---
-*Desarrollado por Mateo Rodríguez Palacios(https://github.com/MatRodriguezPa)*
+*Desarrollado por Mateo Rodríguez Palacios(https://github.com/matrodriguezpa)*
  
