@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html  lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+      <title>Clase Ventas</title>
+    
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/theme.css " type="text/css" />
+      
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="Índice" href="genindex.html" />
+  <link rel="search" title="Búsqueda" href="search.html" />
+  <link rel="next" title="Librerías del Sistema" href="librerias.html" />
+  <link rel="prev" title="Módulo gestion de clientes" href="clientes.html" /> 
+  </head>
+
+  <body>
+    <div id="app">
+    <div class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">SAT</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Búsqueda rápida</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Búsqueda" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#contents">contents</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 ">
+            
+              <a href="menu.html" class="reference internal ">Menú Principal</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="servicios.html" class="reference internal ">Módulo gestion de servicios</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="clientes.html" class="reference internal ">Módulo gestion de clientes</a>
+            
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current">
+            
+              <a href="#" class="reference internal current">Clase Ventas</a>
+            
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#atributos" class="reference internal">Atributos</a></li>
+                
+                  <li class="toctree-l2"><a href="#metodos" class="reference internal">Métodos</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 ">
+            
+              <a href="librerias.html" class="reference internal ">Librerías del Sistema</a>
+            
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Clase Ventas</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="clientes.html"
+       title="capítulo anterior">← Módulo gestion de clientes</a>
+  </li>
+  <li class="next">
+    <a href="librerias.html"
+       title="próximo capítulo">Librerías del Sistema →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="clase-ventas">
+<h1>Clase Ventas<a class="headerlink" href="#clase-ventas" title="Permalink to this heading">¶</a></h1>
+<p>La clase <cite>Ventas</cite> gestiona las operaciones relacionadas con la tabla de ventas en una base de datos y el envío de facturas por correo electrónico.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="Ventas">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Ventas</span></span><a class="headerlink" href="#Ventas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Maneja la creación, lectura, actualización y eliminación de registros de ventas, así como la capacidad para enviar facturas por correo electrónico.</p>
+</dd></dl>
+
+<section id="atributos">
+<h2>Atributos<a class="headerlink" href="#atributos" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>noFactura</strong>: Número único de la factura para identificar cada venta.</p></li>
+<li><p><strong>noIdentificacionCliente</strong>: Número de identificación del cliente que realiza la compra.</p></li>
+<li><p><strong>codigoServicio</strong>: Código único del servicio que se está vendiendo.</p></li>
+<li><p><strong>cantidadVendida</strong>: Cantidad de unidades del servicio vendidas.</p></li>
+</ul>
+</section>
+<section id="metodos">
+<h2>Métodos<a class="headerlink" href="#metodos" title="Permalink to this heading">¶</a></h2>
+<dl class="py method">
+<dt class="sig sig-object py" id="crearTablaVentas">
+<span class="sig-name descname"><span class="pre">crearTablaVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crearTablaVentas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Crea la tabla <cite>Ventas</cite> en la base de datos si no existe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>con</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="leerVenta">
+<span class="sig-name descname"><span class="pre">leerVenta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoVentas</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leerVenta" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Lee y genera un nuevo registro de venta solicitando al usuario los datos necesarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>objetoVentas</strong> (<a class="reference internal" href="#Ventas" title="Ventas"><em>Ventas</em></a>) – Instancia de la clase que maneja la consulta de ventas.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple de los datos de la venta generada</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="anadirServicioAVender">
+<span class="sig-name descname"><span class="pre">añadirServicioAVender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miVenta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anadirServicioAVender" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Añade un nuevo registro de venta a la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>miVenta</strong> (<em>tuple</em>) – Datos de la venta a insertar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="consultarTablaVentas1">
+<span class="sig-name descname"><span class="pre">consultarTablaVentas1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas1" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta y muestra todos los registros en la tabla <cite>Ventas</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="consultarTablaVentas2">
+<span class="sig-name descname"><span class="pre">consultarTablaVentas2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dato</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noFactura</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas2" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta un dato específico en la tabla <cite>Ventas</cite> basado en el número de factura.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>dato</strong> (<em>str</em>) – El dato a consultar.</p></li>
+<li><p><strong>noFactura</strong> (<em>str</em>) – Número de factura a buscar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El valor del dato consultado o None si no se encuentra.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="consultarTablaVentas3">
+<span class="sig-name descname"><span class="pre">consultarTablaVentas3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas3" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta el número total de registros en la tabla <cite>Ventas</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>con</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Número total de registros en la tabla.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="consultarTablaVentas4">
+<span class="sig-name descname"><span class="pre">consultarTablaVentas4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dato</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datoConsulta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas4" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta registros en la tabla <cite>Ventas</cite> basado en un dato específico.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>dato</strong> (<em>str</em>) – El dato a consultar.</p></li>
+<li><p><strong>datoConsulta</strong> (<em>str</em>) – Valor del dato a buscar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Lista de registros que coinciden con la consulta o None si no se encuentran.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="consultarTablaVentas5">
+<span class="sig-name descname"><span class="pre">consultarTablaVentas5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas5" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta la suma total de las cantidades vendidas en la tabla <cite>Ventas</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>La suma total de las cantidades vendidas o 0 si no hay ventas.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="borrarRegistroTablaVentas">
+<span class="sig-name descname"><span class="pre">borrarRegistroTablaVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noFactura</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#borrarRegistroTablaVentas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Borra un registro específico en la tabla <cite>Ventas</cite> basado en el número de factura.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
+<li><p><strong>noFactura</strong> (<em>str</em>) – Número de factura del registro a borrar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="borrarTablaVentas">
+<span class="sig-name descname"><span class="pre">borrarTablaVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#borrarTablaVentas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Borra toda la tabla <cite>Ventas</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="imprimirFactura">
+<span class="sig-name descname"><span class="pre">imprimirFactura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miVenta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miCliente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miServicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imprimirFactura" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Envía la factura de una venta por correo electrónico.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>miVenta</strong> (<em>tuple</em>) – Datos de la venta.</p></li>
+<li><p><strong>miCliente</strong> (<em>tuple</em>) – Datos del cliente.</p></li>
+<li><p><strong>miServicio</strong> (<em>tuple</em>) – Datos del servicio.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="clientes.html"
+       title="capítulo anterior">← Módulo gestion de clientes</a>
+  </li>
+  <li class="next">
+    <a href="librerias.html"
+       title="próximo capítulo">Librerías del Sistema →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Derechos de autor 2024.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a> 0.9.1.
+</div>
+            </div>
+          </div>
+      </page>
+    </div></div>
+    
+    
+  </body>
+</html>
