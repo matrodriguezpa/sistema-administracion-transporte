@@ -44,7 +44,8 @@ class Clientes:
             objetoConexion.commit()
 
     # consultar registro por dato
-    def consultarTablaClientes4(self, objetoConexion, noIdentificacionCliente):
+
+    def consultarTablaClientes(self, objetoConexion, noIdentificacionCliente):
         objetoCursor = objetoConexion.cursor()
         consultar = f"SELECT * FROM clientes WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
         objetoCursor.execute(consultar)

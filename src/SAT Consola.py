@@ -1,9 +1,10 @@
 import sqlite3
 from sqlite3 import Error
-from modulos.ventas import Ventas
-from modulos.servicios import Servicios
-from modulos.clientes import Clientes
-from modulos.menu import Menu
+from modules.ventas import Ventas
+from modules.servicios import Servicios
+from modules.clientes import Clientes
+from modules.facturas import Facturas
+import modules.menu
 
 
 def conectarBaseDatos():
@@ -19,14 +20,16 @@ def cerrarBaseDatos(conexion):
 
 
 def main():
-    miConexion = conectarBaseDatos()
-    miServicio = Servicios(miConexion)
-    miCliente = Clientes(miConexion)
-    miVenta = Ventas(miConexion)
-    miMenu = Menu(miConexion)
+    conexionBaseDeDatos = conectarBaseDatos()
+    moduloServicios = Servicios(conexionBaseDeDatos)
+    moduloClientes = Clientes(conexionBaseDeDatos)
+    moduloVentas = Ventas(conexionBaseDeDatos)
+    moduloFacturas = Facturas(conexionBaseDeDatos)
+    menuAplicacion = modules.menu
 
-    miMenu.menu(miConexion, miServicio, miVenta, miCliente, miMenu)
-    cerrarBaseDatos(miConexion)
+    # El menù toma la conexiòn a la dase de datos y los modulos del programa
+    menuAplicacion.generarMenu(conexionBaseDeDatos, moduloServicios, moduloVentas, moduloClientes, moduloFacturas)
+    cerrarBaseDatos(conexionBaseDeDatos)
 
 
 main()

@@ -6,6 +6,9 @@ import getpass
 
 class Facturas:
 
+    def __init__(self, objetoConexion):
+        objetoCursor = objetoConexion.cursor()
+
     def imprimirFactura(self, miVenta, miCliente, miServicio):
         mensaje = f'''
         COOPERATIVA DE TRANSPORTES LA NACIONAL
