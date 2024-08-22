@@ -9,7 +9,7 @@ class Clientes:
                 noIdentificacionCliente integer NOT NULL,
                 nombre text NOT NULL,
                 apellido text NOT NULL,
-                direccion text NOT NULL,
+                direccion text NOT NULL ,
                 telefono integer NOT NULL,
                 correoElectronico text NOT NULL,
                 PRIMARY KEY(noIdentificacionCliente))

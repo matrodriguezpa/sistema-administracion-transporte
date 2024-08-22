@@ -9,7 +9,7 @@ class Facturas:
     def __init__(self, objetoConexion):
         objetoCursor = objetoConexion.cursor()
 
-    def imprimirFactura(self, miVenta, miCliente, miServicio):
+    def imprimirFactura(self, objetoVenta, objetoCliente, objetoServicio):
         mensaje = f'''
         COOPERATIVA DE TRANSPORTES LA NACIONAL
         Comprobante de venta de la factura no. {miVenta[0]}
@@ -29,9 +29,10 @@ class Facturas:
         Precio total: {miServicio[4] * miVenta[3]}
         '''
         print(mensaje)
+        return mensaje
 
     # envia la factura al correo electrónico
-    def enviarCorreo(self, miVenta, miCliente, miServicio):
+    def enviarCorreoFactura(self, miVenta, miCliente, miServicio):
         # Configuración del correo
         correoRemitente = 'satlanacional@gmail.com'
         correoSMTP = 'smtp.gmail.com'
@@ -47,22 +48,7 @@ class Facturas:
 
         # Mensaje del correo
         precioTotal = miServicio[4] * miVenta[3]
-        mensaje = f'''
-        COOPERATIVA DE TRANSPORTES LA NACIONAL
-        Número de venta: {miVenta[0]}
-        Nombre completo del cliente: {miCliente[1]} {miCliente[2]}
-        Dirección del cliente: {miCliente[3]}
-        Teléfono del cliente: {miCliente[4]}
-
-        Nombre del producto: {miServicio[1]}
-        Hora de salida: {miServicio[5]}
-        Cantidad: {miVenta[3]}
-        Precio unitario: {miServicio[4]}
-        Precio según la cantidad: {precioTotal}
-
-        Pie final:
-        Precio total: {precioTotal}
-        '''
+        mensaje = imprimirFactura()
 
         # Crear el mensaje
         msg = MIMEMultipart()

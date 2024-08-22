@@ -11,11 +11,12 @@ class Ventas:
         cursorObj.execute(crear)
         con.commit()
 
-    def añadirServicioFactura(self, objetoConexion, objetoVentas):
+    def venderServicio(self, objetoConexion):
         # Genera el número de la factura automáticamente
         noFactura = 1
-        while objetoVentas.consultarTablaVentas2(objetoConexion, "noFactura", str(noFactura)) is not None:
-            noFactura += 1
+        # Consultar la tabla para con eso crear el número de venta
+        # while objetoVentas.consultarTablaVentas(objetoConexion, "noFactura", str(noFactura)) is not None:
+        #   noFactura += 1
         print(f"Número de factura generado{noFactura}")
         noIdentificacionCliente = input("Número de identificación del cliente (Tiene que estar registrado): ").ljust(10)
         codigoServicio = input("Código del servicio a vender: ")
@@ -27,7 +28,7 @@ class Ventas:
         objetoConexion.commit()
         print("Nuevo cliente agregado.")
 
-    def borrarServicioFactura(self, objetoConexion, noFactura):
+    def quitarServicioVendido(self, objetoConexion, noFactura):
         objetoCursor = objetoConexion.cursor()
         borrar = f"DELETE FROM ventas WHERE noFactura = '{noFactura}'"
         objetoCursor.execute(borrar)

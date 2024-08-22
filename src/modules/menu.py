@@ -1,19 +1,19 @@
 import sys  # para cerrar el programa desde la interfáz y
 import time
+import modules.servicios
 
 
 # menu principal
 def menuPrincipal():
-    return input("""
-             ____        _     _______ 
-            / ___|      / \   |__   __| 
-           | (___      / _ \     | |   
-            \___ \    / /_\ \    | |   
-            ____) |  / _____ \   | |   
-           |_____/  /_/     \_\  |_|   
+    return input("""           
+           _____      ___   _______ 
+          / ____|    / _ \ |__   __|       
+          \____ \   / /_\ \   | |   
+           ____) | / _____ \  | |   
+          |_____/ /_/     \_\ |_|  
 
-        SISTEMA DE ADMINISTRACIÓN DE TRANSPORTES 
-                    LA NACIONAL
+    SISTEMA DE ADMINISTRACIÓN DE TRANSPORTES 
+                   LA NACIONAL
 
                 MENU PRINCIPAL
         1. Modulo de gestión de Servicios
@@ -39,15 +39,19 @@ def menuServicios(objetoConexion, objetoServicios):
         Seleccione una opción: """)
 
         if opcionMenuServicios == "1":
+            objetoServicios.crearNuevoServicio(objetoConexion)
             salirMenuServicios = True
 
         elif opcionMenuServicios == "2":
+            objetoServicios.actualizarNombreServicio(objetoConexion)
             salirMenuServicios = True
 
         elif opcionMenuServicios == "3":
+            objetoServicios.actualizarNombreServicio(objetoConexion)
             salirMenuServicios = True
 
         elif opcionMenuServicios == "4":
+            print("Se salio del módulo de Servicios.")
             salirMenuServicios = True
 
         else:
@@ -68,15 +72,18 @@ def menuClientes(objetoConexion, objetoClientes):
                 Seleccione una opción:  """)
 
         if opcionMenuClientes == "1":
+            objetoClientes.crearNuevoCliete(objetoConexion)
             salirMenuClientes = True
 
         elif opcionMenuClientes == "2":
+            objetoClientes.actualizarTablaClientes(objetoConexion)
             salirMenuClientes = True
 
         elif opcionMenuClientes == "3":
+            objetoClientes.consultarTablaClientes(objetoConexion)
             salirMenuClientes = True
-        # salir del menu de clientes
 
+        # salir del menu de clientes
         elif opcionMenuClientes == "4":
             salirMenuClientes = True
 
@@ -85,7 +92,7 @@ def menuClientes(objetoConexion, objetoClientes):
 
 
 # menu de la tabla ventas
-def menuVentas(objetoConexion, objetoServicios, objetoVentas, objetoClientes):
+def menuVentas(objetoConexion, objetoServicios, objetoVentas, objetoClientes, objetoFactura):
     salirMenuVentas = False
     while not salirMenuVentas:
 
@@ -99,9 +106,11 @@ def menuVentas(objetoConexion, objetoServicios, objetoVentas, objetoClientes):
 
         # comprueba que los datos ingresados esten correctos antes de crear la venta en la base de datos
         if opcionesVentas == "1":
+            venderServicio(self, objetoConexion)
             salirMenuVentas = True
 
         if opcionesVentas == "2":
+            quitarServicioVendido(objetoConexion)
             salirMenuVentas = True
 
         # salir del menu de ventas
@@ -113,7 +122,7 @@ def menuVentas(objetoConexion, objetoServicios, objetoVentas, objetoClientes):
 
 
 # menu de facturas
-def menuFacturas(objetoConexion, objetoServicios, objetoVentas, objetoClientes):
+def menuFacturas(objetoConexion, objetoVentas, objetoFactura):
     salirMenuFacturas = False
     while not salirMenuFacturas:
 
@@ -126,13 +135,16 @@ def menuFacturas(objetoConexion, objetoServicios, objetoVentas, objetoClientes):
                 Seleccione una opción:  """)
 
         if opcionesVentas == "1":
+            objetoFactura.imprimirFactura(objetoVentas)
             salirMenuFacturas = True
 
         if opcionesVentas == "2":
+            objetoFactura.enviarCorreoFactura()
             salirMenuFacturas = True
 
         # salir del menu de ventas
         elif opcionesVentas == "3":
+            enviarCorreo(miVenta, miCliente, miServicio)
             salirMenuFacturas = True
 
         else:
@@ -141,7 +153,7 @@ def menuFacturas(objetoConexion, objetoServicios, objetoVentas, objetoClientes):
 
 # Generar menu
 def generarMenu(objetoConexion, objetoServicios, objetoVentas, objetoClientes, objetoFacturas):
-    # a partir del menu principal, llama a los submenus necesarios selecionados por el usuario.
+    # A partir del menu principal, llama a los submenus necesarios selecionados por el usuario.
     while True:
         opcionMenuPrincipal = menuPrincipal()
 
