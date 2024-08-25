@@ -1,10 +1,11 @@
-import sys  # para cerrar el programa desde la interfáz y
-import time
-import modules.servicios
+import time  # Se importa para pausar la ejecución antes de salir del programa.
+import sys  # Se importa para cerrar el programa cuando el usuario lo indica.
+
+import datetime
 
 
 # menu principal
-def menuPrincipal():
+def menu_principal():
     return input("""           
            _____      ___   _______ 
           / ____|    / _ \ |__   __|       
@@ -25,41 +26,166 @@ def menuPrincipal():
         Seleccione una opción: """)
 
 
-# menu de la tabla servicios
-def menuServicios(objetoConexion, objetoServicios):
-    salirMenuServicios = False
-    while not salirMenuServicios:
-        opcionMenuServicios = input("""
+# Menú de la tabla servicios
+
+def menu_servicios(objeto_conexion, objeto_servicios):
+    """Function: Gestión del menú de opciones para la administración de servicios.
+
+    Args:
+        objetoConexion (objeto): Objeto que gestiona la conexión a la base de datos.
+        objetoServicios (objeto): Objeto que contiene los métodos para interactuar con los servicios.
+
+    Opciones:
+        1. Crear un nuevo servicio.
+        2. Actualizar el nombre de un servicio.
+        3. Consultar la información de un servicio.
+        4. Volver al menú principal.
+
+    Returns:
+        None
+    """
+
+    import datetime
+
+    salir_servicios = False
+    while not salir_servicios:
+        # Mostrar el menú de opciones
+        opcion_servicios = input("""
                MÓDULO SERVICIOS
         1. Crear un nuevo servicio
         2. Actualizar el nombre de un servicio.
-        3. Consultar Informaciòn de un servicio
+        3. Consultar Información de un servicio
         4. Volver
 
         Seleccione una opción: """)
 
-        if opcionMenuServicios == "1":
-            objetoServicios.crearNuevoServicio(objetoConexion)
-            salirMenuServicios = True
+        if opcion_servicios == "1":
+            try:
+                # Opción 1: Crear un nuevo servicio
 
-        elif opcionMenuServicios == "2":
-            objetoServicios.actualizarNombreServicio(objetoConexion)
-            salirMenuServicios = True
+                # Validación y asignación de datos
+                codigo_servicio = input("Ingrese el código del servicio (número entero): ")
+                if not codigo_servicio.isdigit():
+                    raise ValueError("El código del servicio debe ser un número entero.")
+                codigo_servicio = int(codigo_servicio)
 
-        elif opcionMenuServicios == "3":
-            objetoServicios.actualizarNombreServicio(objetoConexion)
-            salirMenuServicios = True
+                nombre = input("Ingrese el nombre del servicio: ").strip()
+                if not nombre:
+                    raise ValueError("El nombre del servicio no puede estar vacío.")
 
-        elif opcionMenuServicios == "4":
-            print("Se salio del módulo de Servicios.")
-            salirMenuServicios = True
+                origen = input("Ingrese el origen del servicio: ").strip()
+                if not origen:
+                    raise ValueError("El origen del servicio no puede estar vacío.")
+
+                destino = input("Ingrese el destino del servicio: ").strip()
+                if not destino:
+                    raise ValueError("El destino del servicio no puede estar vacío.")
+
+                precio_venta = input("Ingrese el precio de venta del servicio: ")
+                if not precio_venta.replace('.', '', 1).isdigit() or float(precio_venta) <= 0:
+                    raise ValueError("El precio de venta debe ser un número positivo.")
+                precio_venta = float(precio_venta)
+
+                fecha_str = input("Ingrese la fecha y hora de salida (AAAA:MM:DD:HH:MM:SS): ")
+                try:
+                    hora_salida = datetime.datetime.strptime(fecha_str, "%Y:%m:%d:%H:%M:%S")
+                except ValueError:
+                    raise ValueError("El formato de la fecha y hora es incorrecto.")
+
+                cantidad_max_puestos = input("Ingrese la cantidad máxima de puestos: ")
+                if not cantidad_max_puestos.isdigit() or int(cantidad_max_puestos) <= 0:
+                    raise ValueError("La cantidad máxima de puestos debe ser un número entero positivo.")
+                cantidad_max_puestos = int(cantidad_max_puestos)
+
+                cantidad_max_kilos = input("Ingrese la cantidad máxima de kilos: ")
+                if not cantidad_max_kilos.isdigit() or int(cantidad_max_kilos) < 0:
+                    raise ValueError("La cantidad máxima de kilos debe ser un número entero positivo o cero.")
+                cantidad_max_kilos = int(cantidad_max_kilos)
+
+                # Crear la tupla con los datos validados del servicio
+                print("Los datos ingresados son válidos, creando servicio.")
+                mi_servicio = (
+                    codigo_servicio, nombre, origen, destino, precio_venta, hora_salida, cantidad_max_puestos,
+                    cantidad_max_kilos)
+
+                # Llamada al método para crear un nuevo servicio
+                crear = objeto_servicios.crear_nuevo_servicio(objeto_conexion, mi_servicio)
+                if crear
+                    print("Servicio creado exitosamente.")
+                else
+                    pritn("Creación del servicio fallida")
+                salir_servicios = True
+            except ValueError as e:
+                # Manejo de errores de validación
+                print(f"Error: {e}")
+
+        elif opcion_servicios == "2":
+            try:
+                # Opción 2: Actualizar el nombre de un servicio
+
+                # Validación y asignación del código del servicio
+                codigo_servicio = input("Ingrese el código del servicio (número entero): ")
+                if not codigo_servicio.isdigit():
+                    raise ValueError("El código del servicio debe ser un número entero.")
+                codigo_servicio = int(codigo_servicio)
+
+                # Validación del nuevo nombre del servicio
+                nuevo_nombre = input("Ingrese el nuevo nombre del servicio: ").strip()
+                if not nuevo_nombre:
+                    raise ValueError("El nuevo nombre del servicio no puede estar vacío.")
+
+                # Llamada al método para actualizar el nombre
+                consulta = objeto_servicios.actualizar_nombre(objeto_conexion, codigo_servicio, nuevo_nombre)
+                print("Dato actualizado:", consulta)
+                salir_servicios = True
+
+            except ValueError as e:
+                # Manejo de errores de validación
+                print(f"Error: {e}")
+                print("Por favor, intente nuevamente.")
+
+        elif opcion_servicios == "3":
+            try:
+                # Opción 3: Consultar la información de un servicio
+
+                # Validación y asignación del código del servicio
+                codigo_servicio = input("Ingrese el código del servicio (número entero): ")
+                if not codigo_servicio.isdigit():
+                    raise ValueError("El código del servicio debe ser un número entero.")
+                codigo_servicio = int(codigo_servicio)
+
+                # Llamada al método para consultar la información del servicio
+                consulta = objeto_servicios.consultar_informacion(objeto_conexion, codigo_servicio)
+
+                # Verificación de la consulta
+                if consulta:
+                    print("Dato consultado:", consulta)
+                else:
+                    print(f"No se encontró información para el código de servicio {codigo_servicio}.")
+
+                salir_servicios = True
+
+            except ValueError as e:
+                # Manejo de errores de validación
+                print(f"Error: {e}")
+                print("Por favor, intente nuevamente.")
+
+            except Exception as e:
+                # Manejo de errores inesperados
+                print(f"Error inesperado: {e}")
+
+        elif opcion_servicios == "4":
+            # Opción 4: Volver al menú principal
+            print("Se salió del módulo de Servicios.")
+            salir_servicios = True
 
         else:
+            # Manejo de opción no válida
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
 
 # menu de la tabla clientes
-def menuClientes(objetoConexion, objetoClientes):
+def menu_clientes(objetoConexion, objetoClientes):
     salirMenuClientes = False
     while not salirMenuClientes:
         opcionMenuClientes = input("""
@@ -92,11 +218,11 @@ def menuClientes(objetoConexion, objetoClientes):
 
 
 # menu de la tabla ventas
-def menuVentas(objetoConexion, objetoServicios, objetoVentas, objetoClientes, objetoFactura):
-    salirMenuVentas = False
-    while not salirMenuVentas:
+def menu_ventas(objeto_conexion, objeto_servicios, objeto_clientes, objeto_ventas, objeto_factura):
+    salir_ventas = False
+    while not salir_ventas:
 
-        opcionesVentas = input("""
+        opciones_ventas = input("""
                         MODULO VENTAS
                 1. Vender un servicio.
                 2. Quitar servicio vendido.
@@ -105,24 +231,58 @@ def menuVentas(objetoConexion, objetoServicios, objetoVentas, objetoClientes, ob
                 Seleccione una opción:  """)
 
         # comprueba que los datos ingresados esten correctos antes de crear la venta en la base de datos
-        if opcionesVentas == "1":
-            venderServicio(self, objetoConexion)
-            salirMenuVentas = True
+        if opciones_ventas == "1":
+            while not salir_creacion_factura:
+                codigo_servicio = input("inserte el codigo del servicio a vender")
+                id_cliente = input("inserte la identificacion del cliente.")
+                cantidad = input("Cantidad a vender: ")
 
-        if opcionesVentas == "2":
-            quitarServicioVendido(objetoConexion)
-            salirMenuVentas = True
+                # pregunta el tipo de la venta (transporte o paquete)
+                tipo_venta = input()
+
+                mi_venta = (id_cliente, codigo_servicio, cantidad, tipo_venta)
+
+                print("Consultado información de servicio: ")
+                existe_servicio = objeto_servicios.consultar_informacion(objeto_conexion, objeto_servicios)
+                if existe_servicio:
+                    pass
+                else:
+                    print("No existe el servicio.")
+
+                print("Consultado información de Cliente: ")
+                existe_cliente = objeto_servicios.consultar_informacion(objeto_conexion, objeto_servicios)
+                if existe_cliente:
+                    pass
+                else:
+                    print("No existe el servicio.")
+
+                objeto_ventas.vender_servicio(self, objeto_conexion, mi_servicio, mi_cliente, mi_venta)
+
+            agregar_venta = input("¿Desea agregar otra venta a la factuar? (s/n)").lower()
+            if agregar_venta:
+                salir_creacion_factura = true
+            else:
+                pass
+
+            salir_ventas = True
+
+        if opciones_ventas == "2":
+            quiter = quitarServicioVendido(objeto_conexion, noFactura)
+            if quitar:
+                print("Registro borrado exitosamente.")
+            else:
+                print("No se pudo borrar el servicio.")
+            salir_ventas = True
 
         # salir del menu de ventas
-        elif opcionesVentas == "3":
-            salirMenuVentas = True
-
+        elif opciones_ventas == "3":
+            salir_ventas = True
         else:
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
 
 # menu de facturas
-def menuFacturas(objetoConexion, objetoVentas, objetoFactura):
+def menu_facturas(objetoConexion, objetoVentas, objetoFactura):
     salirMenuFacturas = False
     while not salirMenuFacturas:
 
@@ -151,28 +311,57 @@ def menuFacturas(objetoConexion, objetoVentas, objetoFactura):
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
 
-# Generar menu
-def generarMenu(objetoConexion, objetoServicios, objetoVentas, objetoClientes, objetoFacturas):
-    # A partir del menu principal, llama a los submenus necesarios selecionados por el usuario.
+def generar_menu(objeto_conexion, objeto_servicios, objeto_ventas, objeto_clientes, objeto_facturas):
+    """Genera el menú principal de la aplicación y gestiona la navegación a los submenús correspondientes.
+
+    Args:
+        objeto_conexion (objeto): Objeto que gestiona la conexión a la base de datos.
+        objeto_servicios (objeto): Objeto que contiene los métodos para interactuar con los servicios.
+        objeto_ventas (objeto): Objeto que contiene los métodos para gestionar las ventas.
+        objeto_clientes (objeto): Objeto que contiene los métodos para gestionar los clientes.
+        objeto_facturas (objeto): Objeto que contiene los métodos para gestionar las facturas.
+
+    Funcionalidad:
+        - Presenta un menú principal al usuario.
+        - Según la opción seleccionada, llama al submenú correspondiente:
+            1. Menú de Servicios
+            2. Menú de Clientes
+            3. Menú de Ventas
+            4. Menú de Facturas
+            5. Cerrar el programa
+        - Valida la opción seleccionada y maneja opciones inválidas.
+
+    Returns:
+        None
+    """
+
+    # Bucle infinito que mantiene el menú activo hasta que el usuario decide salir.
     while True:
-        opcionMenuPrincipal = menuPrincipal()
+        # Se llama a la función que muestra el menú principal y se obtiene la opción seleccionada.
+        opcion_principal = menu_principal()
 
-        if opcionMenuPrincipal == "1":
-            menuServicios(objetoConexion, objetoServicios)
+        if opcion_principal == "1":
+            # Llama al submenú de servicios.
+            menu_servicios(objeto_conexion, objeto_servicios)
 
-        elif opcionMenuPrincipal == "2":
-            menuClientes(objetoConexion, objetoClientes)
+        elif opcion_principal == "2":
+            # Llama al submenú de clientes.
+            menu_clientes(objeto_conexion, objeto_clientes)
 
-        elif opcionMenuPrincipal == "3":
-            menuVentas(objetoConexion, objetoServicios, objetoVentas, objetoClientes)
+        elif opcion_principal == "3":
+            # Llama al submenú de ventas.
+            menu_ventas(objeto_conexion, objeto_servicios, objeto_ventas, objeto_clientes)
 
-        elif opcionMenuPrincipal == "4":
-            menuFacturas(objetoConexion, objetoServicios, objetoVentas, objetoClientes)
+        elif opcion_principal == "4":
+            # Llama al submenú de facturas.
+            menu_facturas(objeto_conexion, objeto_servicios, objeto_ventas, objeto_clientes)
 
-        elif opcionMenuPrincipal == "5":
+        elif opcion_principal == "5":
+            # Cierra el programa.
             print("Cerrando el programa.")
-            time.sleep(1)  # se pausa un segundo para que el usuario pueda leer el mensaje antes de que se cierre.
-            sys.exit()
+            time.sleep(1)  # Pausa de un segundo para que el usuario pueda leer el mensaje.
+            sys.exit()  # Sale del programa.
 
         else:
+            # Maneja el caso en que la opción ingresada no es válida.
             print("Opción no válida. Por favor, seleccione una opción válida.")

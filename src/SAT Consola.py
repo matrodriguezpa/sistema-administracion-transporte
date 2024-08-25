@@ -28,7 +28,7 @@ def main():
     menuAplicacion = modules.menu
 
     # El menù toma la conexiòn a la dase de datos y los modulos del programa
-    menuAplicacion.generarMenu(conexionBaseDeDatos, moduloServicios, moduloVentas, moduloClientes, moduloFacturas)
+    menuAplicacion.generar_menu(conexionBaseDeDatos, moduloServicios, moduloVentas, moduloClientes, moduloFacturas)
     cerrarBaseDatos(conexionBaseDeDatos)
 
 

@@ -1,94 +1,106 @@
-from datetime import datetime  # usado para el dato de las horas de salida y fechas
-
-
-from datetime import datetime
-
 class Servicios:
+    """
+    Esta clase representa un servicio con atributos como código, nombre, origen, destino,
+    precio de venta, hora de salida, cantidad máxima de puestos y cantidad máxima de kilos.
+    """
 
-    def __init__(self, objetoConexion):
-        objetoCursor = objetoConexion.cursor()
+    # Atributos de la clase
+    codigo_servicio = None
+    nombre = None
+    origen = None
+    destino = None
+    precio_venta = None
+    hora_salida = None
+    cantidad_max_puestos = None
+    cantidad_max_kilos = None
+
+    def __init__(self, objeto_conexion):
+        """
+        Constructor de la clase Servicio. Crea la tabla 'servicios' en la base de datos si no existe.
+
+        Args:
+            objeto_conexion: Conexión a la base de datos.
+        """
+
+        objeto_cursor = objeto_conexion.cursor()
         crear = '''CREATE TABLE IF NOT EXISTS servicios(
                 codigoServicio integer NOT NULL,
                 nombre text NOT NULL,
                 origen text NOT NULL,
                 destino text NOT NULL,
                 precioVenta integer NOT NULL,
-                horaSalida datetime NOT NULL,
+                horaSalida date NOT NULL,
                 cantidadMaxPuestos integer NOT NULL,
                 cantidadMaxKilos integer NOT NULL,
                 PRIMARY KEY(codigoServicio))
                 '''
-        objetoCursor.execute(crear)
-        objetoConexion.commit()
+        try:
+            objeto_cursor.execute(crear)
+            objeto_conexion.commit()
+        except exception as e:
+            print(f"Error al crear la tabla 'servicios': {e}")
 
-    def crearNuevoServicio(self, objetoConexion):
-        # Validar que el código del servicio sea un número entero
-        while True:
-            try:
-                codigoServicio = int(input("Código del servicio: ").strip())
-                break
-            except ValueError:
-                print("Error: El código del servicio debe ser un número entero.")
+    def crear_nuevo_servicio(self, objetoConexion, miServicio):
+        """Inserta un nuevo servicio en la base de datos.
 
-        nombre = input("Nombre: ").strip().lower()
-        origen = input("Ciudad de Origen: ").strip().lower()
-        destino = input("Ciudad de destino: ").strip().lower()
+        Args:
+            objetoConexion: Conexión a la base de datos.
+            miServicio: Tupla con los datos del servicio (código, nombre, etc.).
 
-        # Validar que el precio de venta sea un número entero
-        while True:
-            try:
-                precioVenta = int(input("Precio de venta: ").strip())
-                break
-            except ValueError:
-                print("Error: El precio de venta debe ser un número entero.")
+        Returns:
+            bool: True si la inserción fue exitosa, False en caso contrario.
+        """
 
-        # Validar el formato de la hora de salida
-        while True:
-            hora = input("Hora de salida (HH:MM:SS): ").strip()
-            fecha = datetime.now().strftime("%Y-%m-%d ")
-            try:
-                horaSalida = datetime.strptime(fecha + hora, "%Y-%m-%d %H:%M:%S")
-                break
-            except ValueError:
-                print("Error: La hora de salida debe estar en el formato 'HH:MM:SS'.")
-
-        # Validar que la cantidad máxima de puestos sea un número entero
-        while True:
-            try:
-                puestosMaximo = int(input("Cantidad de puestos: ").strip())
-                break
-            except ValueError:
-                print("Error: La cantidad de puestos debe ser un número entero.")
-
-        # Validar que la cantidad máxima de kilos sea un número entero
-        while True:
-            try:
-                kilosMaximo = int(input("Peso que puede llevar (Kg): ").strip())
-                break
-            except ValueError:
-                print("Error: El peso máximo debe ser un número entero.")
-
-        miServicio = (codigoServicio, nombre, origen, destino, precioVenta, horaSalida, puestosMaximo, kilosMaximo)
-
-        # Inserción en la base de datos
-        objetoCursor = objetoConexion.cursor()
+        objeto_cursor = objetoConexion.cursor()
         insertar = "INSERT INTO servicios VALUES(?,?,?,?,?,?,?,?)"
-        objetoCursor.execute(insertar, miServicio)
-        objetoConexion.commit()
-        print("Nuevo servicio insertado.")
-
-    def actualizarNombreServicio(self, objetoConexion, nuevoNombre, codigoServicio):
-        objetoCursor = objetoConexion.cursor()
-        actualizar = f"UPDATE servicios SET nombre = '{nuevoNombre}' WHERE codigoServicio = '{codigoServicio}'"
-        if objetoCursor.rowcount == 0:
-            print("El registro que intenta actualizar no existe.")
-        else:
-            objetoCursor.execute(actualizar)
+        try:
+            objeto_cursor.execute(insertar, miServicio)
             objetoConexion.commit()
+            return True
+        except exception as e:
+            print(f"Error al insertar el servicio: {e}")
+            return False
 
-    def consultarInformacionServicio(self, objetoConexion, codigoServicio):
-        objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT * FROM servicios WHERE codigoServicio = '{codigoServicio}'"
-        objetoCursor.execute(consultar)
-        datoConsultado = objetoCursor.fetchone()[0]
-        return datoConsultado
+    def actualizar_nombre(self, objeto_conexion, codigo_servicio, nuevo_nombre):
+        """Actualiza el nombre de un servicio.
+
+        Args:
+            objeto_conexion: Conexión a la base de datos.
+            nuevo_nombre: Nuevo nombre del servicio.
+            codigo_servicio: Código del servicio a actualizar.
+
+        Returns:
+            bool: True si la actualización fue exitosa, False en caso contrario.
+        """
+
+        objeto_cursor = objeto_conexion.cursor()
+        actualizar = "UPDATE servicios SET nombre = ? WHERE codigoServicio = ?"
+        try:
+            objeto_cursor.execute(actualizar, (nuevo_nombre, codigo_servicio))
+            objeto_conexion.commit()
+            return True
+        except exception as e:
+            print(f"Error al actualizar el nombre del servicio: {e}")
+            return False
+
+    def consultar_informacion(self, objetoConexion, codigoServicio):
+        """Consulta la información de un servicio.
+
+        Args:
+            objetoConexion: Conexión a la base de datos.
+            codigoServicio: Código del servicio a consultar.
+
+        Returns:
+            tuple: Tupla con los datos del servicio, o None si no se encuentra.
+        """
+
+        objeto_cursor = objetoConexion.cursor()
+        consultar = "SELECT * FROM servicios WHERE codigoServicio = ?"
+
+        try:
+            objeto_cursor.execute(consultar, (codigoServicio,))
+            resultado = objeto_cursor.fetchone()
+            return resultado
+        except exception as e:
+            print(f"Error al consultar la información del servicio: {e}")
+            return False

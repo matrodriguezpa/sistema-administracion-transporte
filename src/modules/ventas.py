@@ -11,26 +11,24 @@ class Ventas:
         cursorObj.execute(crear)
         con.commit()
 
-    def venderServicio(self, objetoConexion):
-        # Genera el número de la factura automáticamente
-        noFactura = 1
-        # Consultar la tabla para con eso crear el número de venta
-        # while objetoVentas.consultarTablaVentas(objetoConexion, "noFactura", str(noFactura)) is not None:
-        #   noFactura += 1
+    def vender_servicio(self, objetoConexion, mi_venta):
+        noFactura = 1  # Genera el número de la factura automáticamente
         print(f"Número de factura generado{noFactura}")
-        noIdentificacionCliente = input("Número de identificación del cliente (Tiene que estar registrado): ").ljust(10)
-        codigoServicio = input("Código del servicio a vender: ")
-        cantidadVendida = input("Cantidad a vender: ")
-        miVenta = (str(noFactura), noIdentificacionCliente, codigoServicio, cantidadVendida)
+
+        # insertar los datos
         objetoCursor = objetoConexion.cursor()
         insertar = "INSERT INTO ventas VALUES(?,?,?,?)"
-        objetoCursor.execute(insertar, )
+        objetoCursor.execute(insertar, noFactura, mi_venta)
         objetoConexion.commit()
         print("Nuevo cliente agregado.")
 
     def quitarServicioVendido(self, objetoConexion, noFactura):
-        objetoCursor = objetoConexion.cursor()
-        borrar = f"DELETE FROM ventas WHERE noFactura = '{noFactura}'"
-        objetoCursor.execute(borrar)
-        objetoConexion.commit()
-        print("Registro borrado exitosamente.")
+        try:
+            objetoCursor = objetoConexion.cursor()
+            borrar = f"DELETE FROM ventas WHERE noFactura = '{noFactura}'"
+            objetoCursor.execute(borrar)
+            objetoConexion.commit()
+            return True
+        except exception as e:
+            print(f"Error al borrar el servicio vendido: {e}")
+            return False
