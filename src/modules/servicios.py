@@ -40,25 +40,28 @@ class Servicios:
         except exception as e:
             print(f"Error al crear la tabla 'servicios': {e}")
 
-    def crear_nuevo_servicio(self, objetoConexion, miServicio):
+    def crear_nuevo_servicio(self, objeto_conexion, mi_servicio):
         """Inserta un nuevo servicio en la base de datos.
 
         Args:
-            objetoConexion: Conexión a la base de datos.
-            miServicio: Tupla con los datos del servicio (código, nombre, etc.).
+            objeto_conexion: Conexión a la base de datos.
+            mi_servicio: Tupla con los datos del servicio (código, nombre, etc.).
 
         Returns:
             bool: True si la inserción fue exitosa, False en caso contrario.
         """
-
-        objeto_cursor = objetoConexion.cursor()
-        insertar = "INSERT INTO servicios VALUES(?,?,?,?,?,?,?,?)"
         try:
-            objeto_cursor.execute(insertar, miServicio)
-            objetoConexion.commit()
-            return True
-        except exception as e:
-            print(f"Error al insertar el servicio: {e}")
+            objeto_cursor = objeto_conexion.cursor()
+            insertar = "INSERT INTO servicios VALUES(?,?,?,?,?,?,?,?)"
+            objeto_cursor.execute(insertar, mi_servicio)
+            objeto_conexion.commit()
+            if cursor.rowcount > 0:
+                return True
+            else:
+                print(f"Registro {mi_servicio} no pudo ser creado.")
+                return False
+        except Exception as e:
+            print(f"Error al crear el registro: {e}")
             return False
 
     def actualizar_nombre(self, objeto_conexion, codigo_servicio, nuevo_nombre):
@@ -72,15 +75,20 @@ class Servicios:
         Returns:
             bool: True si la actualización fue exitosa, False en caso contrario.
         """
-
-        objeto_cursor = objeto_conexion.cursor()
-        actualizar = "UPDATE servicios SET nombre = ? WHERE codigoServicio = ?"
         try:
-            objeto_cursor.execute(actualizar, (nuevo_nombre, codigo_servicio))
+            cursor = objeto_conexion.cursor()
+            actualizar = "UPDATE servicios SET nombre = ? WHERE codigoServicio = ?"
+            cursor.execute(actualizar, (nuevo_nombre, codigo_servicio))
             objeto_conexion.commit()
-            return True
-        except exception as e:
-            print(f"Error al actualizar el nombre del servicio: {e}")
+
+            # Verificar si alguna fila fue actualizada
+            if cursor.rowcount > 0:
+                return True
+            else:
+                print(f"Registro {codigo_servicio} de la tabla servicios no encontrado.")
+                return False
+        except Exception as e:
+            print(f"Error al actualizar el registro: {e}")
             return False
 
     def consultar_informacion(self, objetoConexion, codigoServicio):
@@ -100,7 +108,11 @@ class Servicios:
         try:
             objeto_cursor.execute(consultar, (codigoServicio,))
             resultado = objeto_cursor.fetchone()
-            return resultado
-        except exception as e:
-            print(f"Error al consultar la información del servicio: {e}")
+            if cursor.rowcount > 0:
+                return resultado[0]
+            else:
+                print(f"Registro {codigo_servicio} de la tabla servicios no encontrado.")
+                return False
+        except Exception as e:
+            print(f"Error al actualizar el registro: {e}")
             return False
