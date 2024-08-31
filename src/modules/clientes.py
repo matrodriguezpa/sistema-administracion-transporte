@@ -1,59 +1,113 @@
-
-
 class Clientes:
+    """
+    Esta clase representa un cliente con atributos como número de identificación, nombre, apellido,
+    dirección, teléfono y correo electrónico.
+    """
 
-    # crear la tabla servicios si no existe
-    def __init__(self, objetoConexion):
-        objetoCursor = objetoConexion.cursor()
-        crear = '''CREATE TABLE IF NOT EXISTS Clientes(
+    # Atributos de la clase
+    no_identificacion_cliente = None
+    nombre = None
+    apellido = None
+    direccion = None
+    telefono = None
+    correo_electronico = None
+
+    def __init__(self, objeto_conexion):
+        """
+        Constructor de la clase Clientes. Crea la tabla 'clientes' en la base de datos si no existe.
+
+        Args:
+            objeto_conexion: Conexión a la base de datos.
+        """
+
+        objeto_cursor = objeto_conexion.cursor()
+        crear = '''CREATE TABLE IF NOT EXISTS clientes(
                 noIdentificacionCliente integer NOT NULL,
                 nombre text NOT NULL,
                 apellido text NOT NULL,
-                direccion text NOT NULL ,
+                direccion text NOT NULL,
                 telefono integer NOT NULL,
                 correoElectronico text NOT NULL,
                 PRIMARY KEY(noIdentificacionCliente))
                 '''
-        objetoCursor.execute(crear)
-        objetoConexion.commit()
+        try:
+            objeto_cursor.execute(crear)
+            objeto_conexion.commit()
+        except Exception as e:
+            print(f"Error al crear la tabla 'clientes': {e}")
 
-    # escribir un cliente para insertar luego
-    def crearNuevoCliete(self, objetoConexion):
-        noIdentificacionCliente = input("Número de identificación del cliente: ").ljust(10)
-        nombre = input("Nombre: ").lower()
-        apellido = input("Apellido: ").lower()
-        direccion = input("Direccion: ").lower()
-        telefono = input("Teléfono: ")
-        correoElectronico = input("Correo Electrónico: ").lower()
-        miCliente = (noIdentificacionCliente, nombre, apellido, direccion, telefono, correoElectronico)
-        # comrobación de datos
-        objetoCursor = objetoConexion.cursor()
-        insertar = "INSERT INTO clientes VALUES(?,?,?,?,?,?)"
-        objetoCursor.execute(insertar, miCliente)
-        objetoConexion.commit()
-        print("Nuevo cliente agregado.")
+    def crear_nuevo_cliente(self, objeto_conexion, mi_cliente):
+        """Inserta un nuevo cliente en la base de datos.
 
-    # actualizar el nombre de un cliente
-    def actualizarDirecciónCliente(self, objetoConexion, nuevoNombre, noIdentificacionCliente):
-        objetoCursor = objetoConexion.cursor()
-        actualizar = f"UPDATE clientes SET nombre = '{nuevoNombre}' WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
-        if objetoCursor.rowcount == 0:
-            print("El registro que intenta actualizar no existe.")
-        else:
-            objetoCursor.execute(actualizar)
-            objetoConexion.commit()
+        Args:
+            objeto_conexion: Conexión a la base de datos.
+            mi_cliente: Tupla con los datos del cliente (número de identificación, nombre, etc.).
 
-    # consultar registro por dato
+        Returns:
+            bool: True si la inserción fue exitosa, False en caso contrario.
+        """
+        try:
+            objeto_cursor = objeto_conexion.cursor()
+            insertar = "INSERT INTO clientes VALUES(?,?,?,?,?,?)"
+            objeto_cursor.execute(insertar, mi_cliente)
+            objeto_conexion.commit()
+            if objeto_cursor.rowcount > 0:
+                return True
+            else:
+                print(f"Registro {mi_cliente} no pudo ser creado.")
+                return False
+        except Exception as e:
+            print(f"Error al crear el registro: {e}")
+            return False
 
-    def consultarTablaClientes(self, objetoConexion, noIdentificacionCliente):
-        objetoCursor = objetoConexion.cursor()
-        consultar = f"SELECT * FROM clientes WHERE noIdentificacionCliente = '{noIdentificacionCliente}'"
-        objetoCursor.execute(consultar)
-        resultadosBusqueda = objetoCursor.fetchall()
-        if not resultadosBusqueda:
-            print("Datos inexistentes")
-        else:
-            print("Coincidencias encontradas:")
-            for n, (id, nom, ape, dir, tel, cor) in enumerate(resultadosBusqueda, start=1):
-                print(f"{n}. | {id}, {nom} {ape}, {dir}, {tel}, {cor}")
-            return resultadosBusqueda[0]
+    def actualizar_direccion_cliente(self, objeto_conexion, no_identificacion_cliente, nueva_direccion):
+        """Actualiza la dirección de un cliente.
+
+        Args:
+            objeto_conexion: Conexión a la base de datos.
+            no_identificacion_cliente: Número de identificación del cliente a actualizar.
+            nueva_direccion: Nueva dirección del cliente.
+
+        Returns:
+            bool: True si la actualización fue exitosa, False en caso contrario.
+        """
+        try:
+            objeto_cursor = objeto_conexion.cursor()
+            actualizar = "UPDATE clientes SET direccion = ? WHERE noIdentificacionCliente = ?"
+            objeto_cursor.execute(actualizar, (nueva_direccion, no_identificacion_cliente))
+            objeto_conexion.commit()
+
+            # Verificar si alguna fila fue actualizada
+            if objeto_cursor.rowcount > 0:
+                return True
+            else:
+                print(f"Registro {no_identificacion_cliente} de la tabla clientes no encontrado.")
+                return False
+        except Exception as e:
+            print(f"Error al actualizar el registro: {e}")
+            return False
+
+    def consultar_informacion_cliente(self, objeto_conexion, no_identificacion_cliente):
+        """Consulta la información de un cliente.
+
+        Args:
+            objeto_conexion: Conexión a la base de datos.
+            no_identificacion_cliente: Número de identificación del cliente a consultar.
+
+        Returns:
+            tuple: Tupla con los datos del cliente, o None si no se encuentra.
+        """
+        objeto_cursor = objeto_conexion.cursor()
+        consultar = "SELECT * FROM clientes WHERE noIdentificacionCliente = ?"
+
+        try:
+            objeto_cursor.execute(consultar, (no_identificacion_cliente,))
+            resultado = objeto_cursor.fetchone()
+            if resultado:
+                return resultado
+            else:
+                print(f"Registro {no_identificacion_cliente} de la tabla clientes no encontrado.")
+                return None
+        except Exception as e:
+            print(f"Error al consultar el registro: {e}")
+            return None

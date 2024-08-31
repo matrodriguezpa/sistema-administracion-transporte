@@ -7,29 +7,35 @@ from modules.facturas import Facturas
 import modules.menu
 
 
-def conectarBaseDatos():
+def conectar_base_de_datos():
+    """Establece una conexión con la base de datos SQLite."""
     try:
-        conexion = sqlite3.connect("baseDatos.db")
+        conexion = sqlite3.connect("base_datos.db")
         return conexion
     except Error as e:
-        print(e)
+        print(f"Error al conectar con la base de datos: {e}")
 
 
-def cerrarBaseDatos(conexion):
+def cerrar_base_de_datos(conexion):
+    """Cierra la conexión con la base de datos SQLite."""
     conexion.close()
 
 
 def main():
-    conexionBaseDeDatos = conectarBaseDatos()
-    moduloServicios = Servicios(conexionBaseDeDatos)
-    moduloClientes = Clientes(conexionBaseDeDatos)
-    moduloVentas = Ventas(conexionBaseDeDatos)
-    moduloFacturas = Facturas(conexionBaseDeDatos)
-    menuAplicacion = modules.menu
+    """Función principal que gestiona la conexión a la base de datos y los módulos del programa."""
+    conexion_base_datos = conectar_base_de_datos()
 
-    # El menù toma la conexiòn a la dase de datos y los modulos del programa
-    menuAplicacion.generar_menu(conexionBaseDeDatos, moduloServicios, moduloVentas, moduloClientes, moduloFacturas)
-    cerrarBaseDatos(conexionBaseDeDatos)
+    modulo_servicios = Servicios(conexion_base_datos)
+    modulo_clientes = Clientes(conexion_base_datos)
+    modulo_ventas = Ventas(conexion_base_datos)
+    modulo_facturas = Facturas(conexion_base_datos)
+
+    menu_aplicacion = modules.menu
+
+    # El menú toma la conexión a la base de datos y los módulos del programa
+    menu_aplicacion.generar_menu(conexion_base_datos, modulo_servicios, modulo_ventas, modulo_clientes, modulo_facturas)
+
+    cerrar_base_de_datos(conexion_base_datos)
 
 
 main()
