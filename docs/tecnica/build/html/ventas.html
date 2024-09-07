@@ -17,8 +17,8 @@
     <script src="_static/translations.js"></script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
-    <link rel="next" title="Librerías del Sistema" href="librerias.html" />
-    <link rel="prev" title="Módulo gestion de clientes" href="clientes.html" />
+    <link rel="next" title="Clase Facturas" href="facturas.html" />
+    <link rel="prev" title="Clase Clientes" href="clientes.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -36,201 +36,106 @@
 
           <div class="body" role="main">
             
-  <section id="clase-ventas">
-<h1>Clase Ventas<a class="headerlink" href="#clase-ventas" title="Permalink to this heading">¶</a></h1>
-<p>La clase <cite>Ventas</cite> gestiona las operaciones relacionadas con la tabla de ventas en una base de datos y el envío de facturas por correo electrónico.</p>
+  <section id="module-ventas">
+<span id="clase-ventas"></span><h1>Clase Ventas<a class="headerlink" href="#module-ventas" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="Ventas">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Ventas</span></span><a class="headerlink" href="#Ventas" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Maneja la creación, lectura, actualización y eliminación de registros de ventas, así como la capacidad para enviar facturas por correo electrónico.</p>
+<dt class="sig sig-object py" id="ventas.Ventas">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ventas.</span></span><span class="sig-name descname"><span class="pre">Ventas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ventas.Ventas" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Esta clase representa una venta con atributos como número de factura, número de identificación del cliente,
+código del servicio y cantidad vendida.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ventas.Ventas.anadir_servicio_factura">
+<span class="sig-name descname"><span class="pre">añadir_servicio_factura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_venta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ventas.Ventas.anadir_servicio_factura" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Registra la venta de un servicio en la base de datos.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="ventas.Ventas.generar_numero_factura">
+<span class="sig-name descname"><span class="pre">generar_numero_factura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ventas.Ventas.generar_numero_factura" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Genera un nuevo número de factura.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ventas.Ventas.quitar_servicio_factura">
+<span class="sig-name descname"><span class="pre">quitar_servicio_factura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_factura</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ventas.Ventas.quitar_servicio_factura" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Elimina un registro de venta de la base de datos.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ventas.Ventas.verificar_disponibilidad">
+<span class="sig-name descname"><span class="pre">verificar_disponibilidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_servicio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cantidad_vendida</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carga_max</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ventas.Ventas.verificar_disponibilidad" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Verifica si hay disponibilidad para la venta.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>La clase <code class="docutils literal notranslate"><span class="pre">Ventas</span></code> representa una venta en el sistema SAT.</p>
 <section id="atributos">
 <h2>Atributos<a class="headerlink" href="#atributos" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><strong>noFactura</strong>: Número único de la factura para identificar cada venta.</p></li>
-<li><p><strong>noIdentificacionCliente</strong>: Número de identificación del cliente que realiza la compra.</p></li>
-<li><p><strong>codigoServicio</strong>: Código único del servicio que se está vendiendo.</p></li>
-<li><p><strong>cantidadVendida</strong>: Cantidad de unidades del servicio vendidas.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">no_factura</span></code> (int): Número de factura de la venta.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">no_identificacion_cliente</span></code> (int): Número de identificación del cliente.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codigo_servicio</span></code> (int): Código del servicio vendido.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cantidad_vendida</span></code> (int): Cantidad vendida del servicio.</p></li>
 </ul>
 </section>
 <section id="metodos">
 <h2>Métodos<a class="headerlink" href="#metodos" title="Permalink to this heading">¶</a></h2>
 <dl class="py method">
-<dt class="sig sig-object py" id="crearTablaVentas">
-<span class="sig-name descname"><span class="pre">crearTablaVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crearTablaVentas" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Crea la tabla <cite>Ventas</cite> en la base de datos si no existe.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>con</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="sig sig-object py" id="ventas.Ventas.__init__">
+<span class="sig-prename descclassname"><span class="pre">Ventas.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ventas.Ventas.__init__" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Constructor de la clase Ventas. Crea la tabla “ventas” en la base de datos si no existe.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>objeto_conexion: Conexión a la base de datos.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="leerVenta">
-<span class="sig-name descname"><span class="pre">leerVenta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoVentas</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#leerVenta" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Lee y genera un nuevo registro de venta solicitando al usuario los datos necesarios.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>objetoVentas</strong> (<a class="reference internal" href="#Ventas" title="Ventas"><em>Ventas</em></a>) – Instancia de la clase que maneja la consulta de ventas.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple de los datos de la venta generada</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="id0">
+<span class="sig-prename descclassname"><span class="pre">Ventas.</span></span><span class="sig-name descname"><span class="pre">generar_numero_factura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Genera un nuevo número de factura.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="anadirServicioAVender">
-<span class="sig-name descname"><span class="pre">añadirServicioAVender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miVenta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#anadirServicioAVender" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Añade un nuevo registro de venta a la base de datos.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>miVenta</strong> (<em>tuple</em>) – Datos de la venta a insertar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="id1">
+<span class="sig-prename descclassname"><span class="pre">Ventas.</span></span><span class="sig-name descname"><span class="pre">verificar_disponibilidad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_servicio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cantidad_vendida</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carga_max</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Verifica si hay disponibilidad para la venta.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="consultarTablaVentas1">
-<span class="sig-name descname"><span class="pre">consultarTablaVentas1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas1" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta y muestra todos los registros en la tabla <cite>Ventas</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="id2">
+<span class="sig-prename descclassname"><span class="pre">Ventas.</span></span><span class="sig-name descname"><span class="pre">añadir_servicio_factura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_venta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id2" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Registra la venta de un servicio en la base de datos.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="consultarTablaVentas2">
-<span class="sig-name descname"><span class="pre">consultarTablaVentas2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dato</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noFactura</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas2" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta un dato específico en la tabla <cite>Ventas</cite> basado en el número de factura.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>dato</strong> (<em>str</em>) – El dato a consultar.</p></li>
-<li><p><strong>noFactura</strong> (<em>str</em>) – Número de factura a buscar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>El valor del dato consultado o None si no se encuentra.</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="id3">
+<span class="sig-prename descclassname"><span class="pre">Ventas.</span></span><span class="sig-name descname"><span class="pre">quitar_servicio_factura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_factura</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id3" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Elimina un registro de venta de la base de datos.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="consultarTablaVentas3">
-<span class="sig-name descname"><span class="pre">consultarTablaVentas3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">con</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas3" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta el número total de registros en la tabla <cite>Ventas</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>con</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Número total de registros en la tabla.</p>
-</dd>
-</dl>
-</dd></dl>
+</section>
+<section id="ejemplo-de-uso">
+<h2>Ejemplo de uso<a class="headerlink" href="#ejemplo-de-uso" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear una instancia de Ventas</span>
+<span class="n">ventas</span> <span class="o">=</span> <span class="n">Ventas</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">)</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="consultarTablaVentas4">
-<span class="sig-name descname"><span class="pre">consultarTablaVentas4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dato</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datoConsulta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas4" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta registros en la tabla <cite>Ventas</cite> basado en un dato específico.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>dato</strong> (<em>str</em>) – El dato a consultar.</p></li>
-<li><p><strong>datoConsulta</strong> (<em>str</em>) – Valor del dato a buscar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Lista de registros que coinciden con la consulta o None si no se encuentran.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="c1"># Generar un nuevo número de factura</span>
+<span class="n">nuevo_no_factura</span> <span class="o">=</span> <span class="n">ventas</span><span class="o">.</span><span class="n">generar_numero_factura</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">)</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="consultarTablaVentas5">
-<span class="sig-name descname"><span class="pre">consultarTablaVentas5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#consultarTablaVentas5" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta la suma total de las cantidades vendidas en la tabla <cite>Ventas</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>La suma total de las cantidades vendidas o 0 si no hay ventas.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="c1"># Verificar disponibilidad antes de la venta</span>
+<span class="k">if</span> <span class="n">ventas</span><span class="o">.</span><span class="n">verificar_disponibilidad</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">,</span> <span class="n">servicio</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">,</span> <span class="n">carga_max</span><span class="p">):</span>
+    <span class="c1"># Añadir un servicio a la factura</span>
+    <span class="n">venta</span> <span class="o">=</span> <span class="p">(</span><span class="n">nuevo_no_factura</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">,</span> <span class="n">codigo_servicio</span><span class="p">,</span> <span class="n">cantidad</span><span class="p">)</span>
+    <span class="n">ventas</span><span class="o">.</span><span class="n">añadir_servicio_factura</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">,</span> <span class="n">venta</span><span class="p">)</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="borrarRegistroTablaVentas">
-<span class="sig-name descname"><span class="pre">borrarRegistroTablaVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noFactura</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#borrarRegistroTablaVentas" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Borra un registro específico en la tabla <cite>Ventas</cite> basado en el número de factura.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>noFactura</strong> (<em>str</em>) – Número de factura del registro a borrar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="borrarTablaVentas">
-<span class="sig-name descname"><span class="pre">borrarTablaVentas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#borrarTablaVentas" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Borra toda la tabla <cite>Ventas</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="imprimirFactura">
-<span class="sig-name descname"><span class="pre">imprimirFactura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miVenta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miCliente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miServicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imprimirFactura" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Envía la factura de una venta por correo electrónico.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>miVenta</strong> (<em>tuple</em>) – Datos de la venta.</p></li>
-<li><p><strong>miCliente</strong> (<em>tuple</em>) – Datos del cliente.</p></li>
-<li><p><strong>miServicio</strong> (<em>tuple</em>) – Datos del servicio.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
+<span class="c1"># Quitar un servicio de la factura</span>
+<span class="n">ventas</span><span class="o">.</span><span class="n">quitar_servicio_factura</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">,</span> <span class="n">nuevo_no_factura</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Nota: Esta clase maneja las operaciones relacionadas con las ventas, incluyendo la generación de números de factura, verificación de disponibilidad y registro de ventas en la base de datos.</p>
 </section>
 </section>
 
@@ -252,23 +157,24 @@
 
 <h3>Navegación</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="menu.html">Menú Principal</a></li>
-<li class="toctree-l1"><a class="reference internal" href="servicios.html">Módulo gestion de servicios</a></li>
-<li class="toctree-l1"><a class="reference internal" href="clientes.html">Módulo gestion de clientes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="servicios.html">Clase Servicios</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clientes.html">Clase Clientes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Clase Ventas</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#atributos">Atributos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#metodos">Métodos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ejemplo-de-uso">Ejemplo de uso</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="librerias.html">Librerías del Sistema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facturas.html">Clase Facturas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Funciones del Menú Principal</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="clientes.html" title="capítulo anterior">Módulo gestion de clientes</a></li>
-      <li>Next: <a href="librerias.html" title="próximo capítulo">Librerías del Sistema</a></li>
+      <li>Previous: <a href="clientes.html" title="capítulo anterior">Clase Clientes</a></li>
+      <li>Next: <a href="facturas.html" title="próximo capítulo">Clase Facturas</a></li>
   </ul></li>
 </ul>
 </div>

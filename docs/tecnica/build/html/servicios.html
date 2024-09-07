@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Módulo gestion de servicios &#8212; documentación de SAT - 1.0</title>
+    <title>Clase Servicios &#8212; documentación de SAT - 1.0</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -17,8 +17,8 @@
     <script src="_static/translations.js"></script>
     <link rel="index" title="Índice" href="genindex.html" />
     <link rel="search" title="Búsqueda" href="search.html" />
-    <link rel="next" title="Módulo gestion de clientes" href="clientes.html" />
-    <link rel="prev" title="Menú Principal" href="menu.html" />
+    <link rel="next" title="Clase Clientes" href="clientes.html" />
+    <link rel="prev" title="Sistema de Administración de Transportes (SAT)" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -36,261 +36,180 @@
 
           <div class="body" role="main">
             
-  <section id="modulo-gestion-de-servicios">
-<h1>Módulo gestion de servicios<a class="headerlink" href="#modulo-gestion-de-servicios" title="Permalink to this heading">¶</a></h1>
+  <section id="module-servicios">
+<span id="clase-servicios"></span><h1>Clase Servicios<a class="headerlink" href="#module-servicios" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="Servicios">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Servicios</span></span><a class="headerlink" href="#Servicios" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Clase para gestionar la tabla servicios de la base de datos.</p>
+<dt class="sig sig-object py" id="servicios.Servicios">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">servicios.</span></span><span class="sig-name descname"><span class="pre">Servicios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#servicios.Servicios" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Esta clase representa un servicio con atributos como código, nombre, origen, destino,
+precio de venta, hora de salida, cantidad máxima de puestos y cantidad máxima de kilos.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="servicios.Servicios.actualizar_nombre_servicio">
+<span class="sig-name descname"><span class="pre">actualizar_nombre_servicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codigo_servicio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevo_nombre</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#servicios.Servicios.actualizar_nombre_servicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Actualiza el nombre de un servicio.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>objeto_conexion: Conexión a la base de datos.
+nuevo_nombre: Nuevo nombre del servicio.
+codigo_servicio: Código del servicio a actualizar.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si la actualización fue exitosa, False en caso contrario.</p>
+</dd>
+</dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="servicios.Servicios.cantidad_max_kilos">
+<span class="sig-name descname"><span class="pre">cantidad_max_kilos</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#servicios.Servicios.cantidad_max_kilos" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="servicios.Servicios.cantidad_max_puestos">
+<span class="sig-name descname"><span class="pre">cantidad_max_puestos</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#servicios.Servicios.cantidad_max_puestos" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="servicios.Servicios.codigo_servicio">
+<span class="sig-name descname"><span class="pre">codigo_servicio</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#servicios.Servicios.codigo_servicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="servicios.Servicios.consultar_informacion_servicio">
+<span class="sig-name descname"><span class="pre">consultar_informacion_servicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codigo_servicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#servicios.Servicios.consultar_informacion_servicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta la información de un servicio.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>objeto_conexion: Conexión a la base de datos.
+codigo_servicio: Código del servicio a consultar.</p>
+</dd>
+<dt>Returns:</dt><dd><p>tuple: Tupla con los datos del servicio, o None si no se encuentra.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="servicios.Servicios.crear_nuevo_servicio">
+<span class="sig-name descname"><span class="pre">crear_nuevo_servicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_servicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#servicios.Servicios.crear_nuevo_servicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Inserta un nuevo servicio en la base de datos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>objeto_conexion: Conexión a la base de datos.
+mi_servicio: Tupla con los datos del servicio (código, nombre, etc.).</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True si la inserción fue exitosa, False en caso contrario.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="servicios.Servicios.destino">
+<span class="sig-name descname"><span class="pre">destino</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#servicios.Servicios.destino" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="servicios.Servicios.hora_salida">
+<span class="sig-name descname"><span class="pre">hora_salida</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#servicios.Servicios.hora_salida" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="servicios.Servicios.nombre">
+<span class="sig-name descname"><span class="pre">nombre</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#servicios.Servicios.nombre" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="servicios.Servicios.origen">
+<span class="sig-name descname"><span class="pre">origen</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#servicios.Servicios.origen" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="servicios.Servicios.precio_venta">
+<span class="sig-name descname"><span class="pre">precio_venta</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#servicios.Servicios.precio_venta" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>La clase <code class="docutils literal notranslate"><span class="pre">Servicios</span></code> representa un servicio de transporte en el sistema SAT.</p>
 <section id="atributos">
 <h2>Atributos<a class="headerlink" href="#atributos" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p><strong>codigoServicio</strong>: Código único del servicio.</p></li>
-<li><p><strong>nombre</strong>: Nombre del servicio.</p></li>
-<li><p><strong>origen</strong>: Ciudad de origen del servicio.</p></li>
-<li><p><strong>destino</strong>: Ciudad de destino del servicio.</p></li>
-<li><p><strong>precioVenta</strong>: Precio de venta del servicio.</p></li>
-<li><p><strong>horaSalida</strong>: Fecha y hora de salida del servicio.</p></li>
-<li><p><strong>cantidadMaxPuestos</strong>: Cantidad máxima de puestos disponibles.</p></li>
-<li><p><strong>cantidadMaxKilos</strong>: Peso máximo permitido en kilogramos.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codigo_servicio</span></code> (int): Código único del servicio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nombre</span></code> (str): Nombre del servicio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">origen</span></code> (str): Lugar de origen del servicio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destino</span></code> (str): Lugar de destino del servicio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">precio_venta</span></code> (float): Precio de venta del servicio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hora_salida</span></code> (datetime): Hora de salida del servicio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cantidad_max_puestos</span></code> (int): Cantidad máxima de puestos disponibles.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cantidad_max_kilos</span></code> (int): Cantidad máxima de kilos permitidos.</p></li>
 </ul>
 </section>
 <section id="metodos">
 <h2>Métodos<a class="headerlink" href="#metodos" title="Permalink to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.crearTablaServicios">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">crearTablaServicios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.crearTablaServicios" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Crea la tabla “servicios” en la base de datos si no existe.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="servicios.Servicios.__init__">
+<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#servicios.Servicios.__init__" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Constructor de la clase Servicio. Crea la tabla “servicios” en la base de datos si no existe.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>objeto_conexion: Conexión a la base de datos.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.leerServicio">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">leerServicio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.leerServicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Solicita al usuario los datos de un servicio y los retorna como una tupla.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Datos del servicio ingresados por el usuario.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">crear_nuevo_servicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mi_servicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Inserta un nuevo servicio en la base de datos.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>objeto_conexion: Conexión a la base de datos.
+mi_servicio: Tupla con los datos del servicio (código, nombre, etc.).</p>
 </dd>
-<dt class="field-even">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-even"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.insertarServicio">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">insertarServicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miServicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.insertarServicio" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Inserta un nuevo servicio en la tabla “servicios”.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>miServicio</strong> (<em>tuple</em>) – Datos del servicio a insertar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt>Returns:</dt><dd><p>bool: True si la inserción fue exitosa, False en caso contrario.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.consultarTablaServicios1">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultarTablaServicios1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.consultarTablaServicios1" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta y muestra todos los registros de la tabla “servicios”.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">actualizar_nombre_servicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codigo_servicio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevo_nombre</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Actualiza el nombre de un servicio.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>objeto_conexion: Conexión a la base de datos.
+nuevo_nombre: Nuevo nombre del servicio.
+codigo_servicio: Código del servicio a actualizar.</p>
 </dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.consultarTablaServicios2">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultarTablaServicios2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.consultarTablaServicios2" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta y muestra el código, nombre, origen, fecha y hora de salida de todos los registros.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt>Returns:</dt><dd><p>bool: True si la actualización fue exitosa, False en caso contrario.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.consultarTablaServicios3">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultarTablaServicios3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.consultarTablaServicios3" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta y muestra los puestos máximos y peso máximo de todos los registros.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultar_informacion_servicio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objeto_conexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codigo_servicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id2" title="Enlazar permanentemente con esta definición">¶</a></dt>
+<dd><p>Consulta la información de un servicio.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>objeto_conexion: Conexión a la base de datos.
+codigo_servicio: Código del servicio a consultar.</p>
 </dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.consultarTablaServicios4">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultarTablaServicios4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dato</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codigoServicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.consultarTablaServicios4" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta un dato específico de un servicio.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>dato</strong> (<em>str</em>) – Nombre de la columna a consultar.</p></li>
-<li><p><strong>codigoServicio</strong> (<em>int</em>) – Código del servicio a consultar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Valor del dato consultado.</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
+<dt>Returns:</dt><dd><p>tuple: Tupla con los datos del servicio, o None si no se encuentra.</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.consultarTablaServicios5">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultarTablaServicios5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.consultarTablaServicios5" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta la cantidad total de registros en la tabla “servicios”.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Cantidad total de registros.</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
+</section>
+<section id="ejemplo-de-uso">
+<h2>Ejemplo de uso<a class="headerlink" href="#ejemplo-de-uso" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear una instancia de Servicios</span>
+<span class="n">servicios</span> <span class="o">=</span> <span class="n">Servicios</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">)</span>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.consultarTablaServicios6">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultarTablaServicios6</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.consultarTablaServicios6" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta la suma de los precios de venta de todos los servicios.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Suma total de los precios de venta.</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="c1"># Crear un nuevo servicio</span>
+<span class="n">nuevo_servicio</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Ruta Express&quot;</span><span class="p">,</span> <span class="s2">&quot;Ciudad A&quot;</span><span class="p">,</span> <span class="s2">&quot;Ciudad B&quot;</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="s2">&quot;2023-09-01 08:00:00&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">servicios</span><span class="o">.</span><span class="n">crear_nuevo_servicio</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">,</span> <span class="n">nuevo_servicio</span><span class="p">)</span>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.consultarTablaServicios7">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultarTablaServicios7</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dato</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nombre</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.consultarTablaServicios7" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta registros en la tabla “servicios” filtrados por un dato específico.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>dato</strong> (<em>str</em>) – Nombre de la columna por la cual filtrar.</p></li>
-<li><p><strong>nombre</strong> (<em>str</em>) – Valor del dato a buscar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Primer registro coincidente.</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="c1"># Actualizar el nombre de un servicio</span>
+<span class="n">servicios</span><span class="o">.</span><span class="n">actualizar_nombre_servicio</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Ruta Rápida&quot;</span><span class="p">)</span>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.consultarTablaServicios8">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">consultarTablaServicios8</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">letraInicial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.consultarTablaServicios8" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Consulta registros en la tabla “servicios” filtrados por la letra inicial del nombre.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>letraInicial</strong> (<em>str</em>) – Letra inicial para filtrar los nombres.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>Lista de registros que cumplen con el filtro.</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.actualizarTablaServicios">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">actualizarTablaServicios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevoNombre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codigoServicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.actualizarTablaServicios" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Actualiza el nombre de un registro en la tabla “servicios”.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>nuevoNombre</strong> (<em>str</em>) – Nuevo nombre para el servicio.</p></li>
-<li><p><strong>codigoServicio</strong> (<em>int</em>) – Código del servicio a actualizar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.borrarRegistroTablaServicios">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">borrarRegistroTablaServicios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codigoServicio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.borrarRegistroTablaServicios" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Elimina un registro de la tabla “servicios”.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p></li>
-<li><p><strong>codigoServicio</strong> (<em>int</em>) – Código del servicio a eliminar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Servicios.borrarTablaServicios">
-<span class="sig-prename descclassname"><span class="pre">Servicios.</span></span><span class="sig-name descname"><span class="pre">borrarTablaServicios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objetoConexion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Servicios.borrarTablaServicios" title="Enlazar permanentemente con esta definición">¶</a></dt>
-<dd><p>Elimina la tabla “servicios” de la base de datos.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>objetoConexion</strong> (<em>Objeto de conexión</em>) – Objeto de conexión a la base de datos.</p>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
+<span class="c1"># Consultar información de un servicio</span>
+<span class="n">info_servicio</span> <span class="o">=</span> <span class="n">servicios</span><span class="o">.</span><span class="n">consultar_informacion_servicio</span><span class="p">(</span><span class="n">conexion_db</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">info_servicio</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -312,23 +231,24 @@
 
 <h3>Navegación</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="menu.html">Menú Principal</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Módulo gestion de servicios</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Clase Servicios</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#atributos">Atributos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#metodos">Métodos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ejemplo-de-uso">Ejemplo de uso</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="clientes.html">Módulo gestion de clientes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clientes.html">Clase Clientes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ventas.html">Clase Ventas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="librerias.html">Librerías del Sistema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facturas.html">Clase Facturas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="menu.html">Funciones del Menú Principal</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="menu.html" title="capítulo anterior">Menú Principal</a></li>
-      <li>Next: <a href="clientes.html" title="próximo capítulo">Módulo gestion de clientes</a></li>
+      <li>Previous: <a href="index.html" title="capítulo anterior">Sistema de Administración de Transportes (SAT)</a></li>
+      <li>Next: <a href="clientes.html" title="próximo capítulo">Clase Clientes</a></li>
   </ul></li>
 </ul>
 </div>

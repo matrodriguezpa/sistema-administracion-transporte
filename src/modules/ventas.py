@@ -3,8 +3,6 @@ class Ventas:
     Esta clase representa una venta con atributos como número de factura, número de identificación del cliente,
     código del servicio y cantidad vendida.
     """
-
-    # Atributos de la clase
     no_factura = None
     no_identificacion_cliente = None
     codigo_servicio = None
@@ -20,43 +18,45 @@ class Ventas:
 
         objeto_cursor = objeto_conexion.cursor()
         crear = """CREATE TABLE IF NOT EXISTS ventas(
-                    noFactura INTEGER NOT NULL,
-                    noIdentificacionCliente INTEGER NOT NULL,
-                    codigoServicio INTEGER NOT NULL,
-                    cantidadVendida INTEGER NOT NULL
+                    no_factura INTEGER NOT NULL,
+                    no_identificacion_cliente INTEGER NOT NULL,
+                    codigo_servicio INTEGER NOT NULL,
+                    cantidad_vendida INTEGER NOT NULL
                 )"""
         try:
-            print("Creando tabla ventas, si no existe.")
+            print("Cargando base de datos ventas.")
             objeto_cursor.execute(crear)
             objeto_conexion.commit()
         except Exception as e:
             print(f"Error al crear la tabla 'ventas': {e}")
 
+    def generar_numero_factura(self, objeto_conexion):
+        """Genera un nuevo número de factura."""
+        objeto_cursor = objeto_conexion.cursor()
+        consulta_no_factura = "SELECT MAX(no_factura) FROM ventas"
+        objeto_cursor.execute(consulta_no_factura)
+        resultado = objeto_cursor.fetchone()
+        return 1 if resultado[0] is None else resultado[0] + 1
+
+    def verificar_disponibilidad(self, objeto_conexion, mi_servicio, cantidad_vendida, carga_max):
+        """Verifica si hay disponibilidad para la venta."""
+        objeto_cursor = objeto_conexion.cursor()
+        consultar = f"SELECT SUM(cantidad_vendida) FROM ventas WHERE codigo_servicio = {self.codigo_servicio}"
+        objeto_cursor.execute(consultar)
+        cantidad_ocupada = objeto_cursor.fetchone()[0] or 0
+        cantidad_espacio = mi_servicio[carga_max]
+        return cantidad_vendida <= (cantidad_espacio - cantidad_ocupada)
+
     def añadir_servicio_factura(self, objeto_conexion, mi_venta):
-        """Registra la venta de un servicio en la base de datos.
-
-        Args:
-            objeto_conexion: Conexión a la base de datos.
-            mi_venta: Tupla con los datos de la venta (número de identificación del cliente, código del servicio, cantidad vendida).
-
-        Returns:
-            bool: True si la inserción fue exitosa, False en caso contrario.
-        """
+        """Registra la venta de un servicio en la base de datos."""
         try:
             objeto_cursor = objeto_conexion.cursor()
-
-            # Genera el número de la factura automáticamente
-            consulta_no_factura = "SELECT MAX(noFactura) FROM ventas"
-            objeto_cursor.execute(consulta_no_factura)
-            resultado = objeto_cursor.fetchone()
-            no_factura = 1 if resultado[0] is None else resultado[0] + 1
-
             insertar = "INSERT INTO ventas VALUES(?,?,?,?)"
-            objeto_cursor.execute(insertar, (no_factura, *mi_venta))
+            objeto_cursor.execute(insertar, mi_venta)
             objeto_conexion.commit()
 
             if objeto_cursor.rowcount > 0:
-                print(f"Venta registrada con número de factura {no_factura}.")
+                print(f"Venta registrada con número de factura {self.no_factura}.")
                 return True
             else:
                 print(f"Registro de venta {mi_venta} no pudo ser creado.")
@@ -65,27 +65,25 @@ class Ventas:
             print(f"Error al registrar la venta: {e}")
             return False
 
-    def quitar_servicio_factura(self, objeto_conexion, no_factura):
-        """Elimina un registro de venta de la base de datos.
-
-        Args:
-            objeto_conexion: Conexión a la base de datos.
-            no_factura: Número de factura de la venta a eliminar.
-
-        Returns:
-            bool: True si la eliminación fue exitosa, False en caso contrario.
-        """
+    def quitar_servicio_factura(self, objeto_conexion, no_factura, codigo_servicio, no_identificacion_cliente, cantidad_vendida):
+        """Elimina un registro de venta específico de la base de datos."""
         try:
             objeto_cursor = objeto_conexion.cursor()
-            borrar = "DELETE FROM ventas WHERE noFactura = ?"
-            objeto_cursor.execute(borrar, (no_factura,))
+            borrar = """
+            DELETE FROM ventas 
+            WHERE no_factura = ? 
+            AND codigo_servicio = ? 
+            AND no_identificacion_cliente = ?
+            AND cantidad_vendida = ?
+            """
+            objeto_cursor.execute(borrar, (no_factura, codigo_servicio, no_identificacion_cliente,cantidad_vendida))
             objeto_conexion.commit()
-
             if objeto_cursor.rowcount > 0:
-                print(f"Venta con número de factura {no_factura} eliminada.")
+                print(
+                    f"Venta con número de factura {no_factura}, código de servicio {codigo_servicio} y número de identificación del cliente {no_identificacion_cliente} eliminada.")
                 return True
             else:
-                print(f"Registro de venta con número de factura {no_factura} no encontrado.")
+                print(f"Registro de venta no encontrado con los parámetros proporcionados.")
                 return False
         except Exception as e:
             print(f"Error al eliminar la venta: {e}")

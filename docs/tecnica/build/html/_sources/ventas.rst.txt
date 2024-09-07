@@ -1,124 +1,52 @@
 Clase Ventas
-=============
+============
 
-La clase `Ventas` gestiona las operaciones relacionadas con la tabla de ventas en una base de datos y el envío de facturas por correo electrónico.
+.. automodule:: ventas
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-.. py:class:: Ventas
-
-   Maneja la creación, lectura, actualización y eliminación de registros de ventas, así como la capacidad para enviar facturas por correo electrónico.
+La clase ``Ventas`` representa una venta en el sistema SAT.
 
 Atributos
 ---------
-- **noFactura**: Número único de la factura para identificar cada venta.
-- **noIdentificacionCliente**: Número de identificación del cliente que realiza la compra.
-- **codigoServicio**: Código único del servicio que se está vendiendo.
-- **cantidadVendida**: Cantidad de unidades del servicio vendidas.
+
+* ``no_factura`` (int): Número de factura de la venta.
+* ``no_identificacion_cliente`` (int): Número de identificación del cliente.
+* ``codigo_servicio`` (int): Código del servicio vendido.
+* ``cantidad_vendida`` (int): Cantidad vendida del servicio.
 
 Métodos
 -------
 
-.. py:method:: crearTablaVentas(self, con)
+.. automethod:: Ventas.__init__
 
-    Crea la tabla `Ventas` en la base de datos si no existe.
+.. automethod:: Ventas.generar_numero_factura
 
-    :param con: Objeto de conexión a la base de datos.
-    :type con: Objeto de conexión
-    :return: None
+.. automethod:: Ventas.verificar_disponibilidad
 
-.. py:method:: leerVenta(self, objetoConexion, objetoVentas)
+.. automethod:: Ventas.añadir_servicio_factura
 
-    Lee y genera un nuevo registro de venta solicitando al usuario los datos necesarios.
+.. automethod:: Ventas.quitar_servicio_factura
 
-    :param objetoConexion: Objeto de conexión a la base de datos.
-    :type objetoConexion: Objeto de conexión
-    :param objetoVentas: Instancia de la clase que maneja la consulta de ventas.
-    :type objetoVentas: Ventas
-    :return: tuple de los datos de la venta generada
+Ejemplo de uso
+--------------
 
-.. py:method:: añadirServicioAVender(self, objetoConexion, miVenta)
+.. code-block:: python
 
-    Añade un nuevo registro de venta a la base de datos.
+   # Crear una instancia de Ventas
+   ventas = Ventas(conexion_db)
 
-    :param objetoConexion: Objeto de conexión a la base de datos.
-    :type objetoConexion: Objeto de conexión
-    :param miVenta: Datos de la venta a insertar.
-    :type miVenta: tuple
-    :return: None
+   # Generar un nuevo número de factura
+   nuevo_no_factura = ventas.generar_numero_factura(conexion_db)
 
-.. py:method:: consultarTablaVentas1(self, objetoConexion)
+   # Verificar disponibilidad antes de la venta
+   if ventas.verificar_disponibilidad(conexion_db, servicio, cantidad, carga_max):
+       # Añadir un servicio a la factura
+       venta = (nuevo_no_factura, id_cliente, codigo_servicio, cantidad)
+       ventas.añadir_servicio_factura(conexion_db, venta)
 
-    Consulta y muestra todos los registros en la tabla `Ventas`.
+   # Quitar un servicio de la factura
+   ventas.quitar_servicio_factura(conexion_db, nuevo_no_factura)
 
-    :param objetoConexion: Objeto de conexión a la base de datos.
-    :type objetoConexion: Objeto de conexión
-    :return: None
-
-.. py:method:: consultarTablaVentas2(self, objetoConexion, dato, noFactura)
-
-    Consulta un dato específico en la tabla `Ventas` basado en el número de factura.
-
-    :param objetoConexion: Objeto de conexión a la base de datos.
-    :type objetoConexion: Objeto de conexión
-    :param dato: El dato a consultar.
-    :type dato: str
-    :param noFactura: Número de factura a buscar.
-    :type noFactura: str
-    :return: El valor del dato consultado o None si no se encuentra.
-
-.. py:method:: consultarTablaVentas3(self, con)
-
-    Consulta el número total de registros en la tabla `Ventas`.
-
-    :param con: Objeto de conexión a la base de datos.
-    :type con: Objeto de conexión
-    :return: Número total de registros en la tabla.
-
-.. py:method:: consultarTablaVentas4(self, objetoConexion, dato, datoConsulta)
-
-    Consulta registros en la tabla `Ventas` basado en un dato específico.
-
-    :param objetoConexion: Objeto de conexión a la base de datos.
-    :type objetoConexion: Objeto de conexión
-    :param dato: El dato a consultar.
-    :type dato: str
-    :param datoConsulta: Valor del dato a buscar.
-    :type datoConsulta: str
-    :return: Lista de registros que coinciden con la consulta o None si no se encuentran.
-
-.. py:method:: consultarTablaVentas5(self, objetoConexion)
-
-    Consulta la suma total de las cantidades vendidas en la tabla `Ventas`.
-
-    :param objetoConexion: Objeto de conexión a la base de datos.
-    :type objetoConexion: Objeto de conexión
-    :return: La suma total de las cantidades vendidas o 0 si no hay ventas.
-
-.. py:method:: borrarRegistroTablaVentas(self, objetoConexion, noFactura)
-
-    Borra un registro específico en la tabla `Ventas` basado en el número de factura.
-
-    :param objetoConexion: Objeto de conexión a la base de datos.
-    :type objetoConexion: Objeto de conexión
-    :param noFactura: Número de factura del registro a borrar.
-    :type noFactura: str
-    :return: None
-
-.. py:method:: borrarTablaVentas(self, objetoConexion)
-
-    Borra toda la tabla `Ventas`.
-
-    :param objetoConexion: Objeto de conexión a la base de datos.
-    :type objetoConexion: Objeto de conexión
-    :return: None
-
-.. py:method:: imprimirFactura(self, miVenta, miCliente, miServicio)
-
-    Envía la factura de una venta por correo electrónico.
-
-    :param miVenta: Datos de la venta.
-    :type miVenta: tuple
-    :param miCliente: Datos del cliente.
-    :type miCliente: tuple
-    :param miServicio: Datos del servicio.
-    :type miServicio: tuple
-    :return: None
+Nota: Esta clase maneja las operaciones relacionadas con las ventas, incluyendo la generación de números de factura, verificación de disponibilidad y registro de ventas en la base de datos.

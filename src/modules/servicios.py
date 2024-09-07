@@ -24,21 +24,21 @@ class Servicios:
 
         objeto_cursor = objeto_conexion.cursor()
         crear = '''CREATE TABLE IF NOT EXISTS servicios(
-                codigoServicio integer NOT NULL,
+                codigo_servicio integer NOT NULL,
                 nombre text NOT NULL,
                 origen text NOT NULL,
                 destino text NOT NULL,
-                precioVenta integer NOT NULL,
-                horaSalida date NOT NULL,
-                cantidadMaxPuestos integer NOT NULL,
-                cantidadMaxKilos integer NOT NULL,
-                PRIMARY KEY(codigoServicio))
+                precio_venta integer NOT NULL,
+                hora_salida date NOT NULL,
+                cantidad_max_puestos integer NOT NULL,
+                cantidad_max_kilos integer NOT NULL,
+                PRIMARY KEY(codigo_servicio))
                 '''
         try:
-            print("Creando tabla servicios, si no existe.")
+            print("Cargando base de datos servicios.")
             objeto_cursor.execute(crear)
             objeto_conexion.commit()
-        except exception as e:
+        except Exception as e:
             print(f"Error al crear la tabla 'servicios': {e}")
 
     def crear_nuevo_servicio(self, objeto_conexion, mi_servicio):
@@ -79,7 +79,7 @@ class Servicios:
         """
         try:
             objeto_cursor = objeto_conexion.cursor()
-            actualizar = "UPDATE servicios SET nombre = ? WHERE codigoServicio = ?"
+            actualizar = "UPDATE servicios SET nombre = ? WHERE codigo_servicio = ?"
             objeto_cursor.execute(actualizar, (nuevo_nombre, codigo_servicio))
             objeto_conexion.commit()
 
@@ -95,29 +95,29 @@ class Servicios:
             return False
 
 
-def consultar_informacion_servicio(self, objeto_conexion, codigo_servicio):
-    """Consulta la información de un servicio.
+    def consultar_informacion_servicio(self, objeto_conexion, codigo_servicio):
+        """Consulta la información de un servicio.
 
-    Args:
-        objeto_conexion: Conexión a la base de datos.
-        codigo_servicio: Código del servicio a consultar.
+        Args:
+            objeto_conexion: Conexión a la base de datos.
+            codigo_servicio: Código del servicio a consultar.
 
-    Returns:
-        tuple: Tupla con los datos del servicio, o None si no se encuentra.
-    """
+        Returns:
+            tuple: Tupla con los datos del servicio, o None si no se encuentra.
+        """
 
-    objeto_cursor = objeto_conexion.cursor()
-    consultar = "SELECT * FROM Servicios WHERE codigoServicio = ?"
+        objeto_cursor = objeto_conexion.cursor()
+        consultar = "SELECT * FROM servicios WHERE codigo_servicio = ?"
 
-    try:
-        objeto_cursor.execute(consultar, (codigo_servicio,))
-        resultado = objeto_cursor.fetchone()
-        if resultado is not None:
-            print("Servicio consultado exitosamente:")
-            return resultado
-        else:
-            print(f"Registro {codigo_servicio} de la tabla servicios no encontrado.")
+        try:
+            objeto_cursor.execute(consultar, (codigo_servicio,))
+            resultado = objeto_cursor.fetchone()
+            if resultado is not None:
+                print("Servicio consultado exitosamente:")
+                return resultado
+            else:
+                print(f"Registro {codigo_servicio} de la tabla servicios no encontrado.")
+                return False
+        except Exception as e:
+            print(f"Error al buscar el registro: {e}")
             return False
-    except Exception as e:
-        print(f"Error al buscar el registro: {e}")
-        return False

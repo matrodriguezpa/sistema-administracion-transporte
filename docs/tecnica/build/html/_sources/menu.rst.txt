@@ -1,74 +1,38 @@
-Menú Principal
-==============
+Funciones del Menú Principal
+============================
 
-.. py:class:: Menu
+Este módulo contiene las funciones principales para la gestión del menú y la interacción con el usuario en el sistema SAT.
 
-   Clase que representa un sistema de administración de transportes con menús para gestionar servicios, clientes y ventas.
+Funciones
+---------
 
-   **Librerías:**
-   
-   - **sys**: Utilizada para cerrar el programa desde la interfaz.
-   - **time**: Utilizada para pausar el programa, proporcionando una breve demora.
+.. autofunction:: mostrar_menu_principal
 
-   **Notas:**
-   
-   - Cada método de menú contiene un bucle para manejar las opciones seleccionadas por el usuario.
-   - Las operaciones de CRUD (Crear, Leer, Actualizar, Borrar) se gestionan a través de métodos específicos para servicios, clientes y ventas.
-   - Se realizan validaciones para asegurar la integridad de los datos ingresados por el usuario.
+.. autofunction:: gestionar_menu_servicios
 
-.. py:function:: Menu.menuPrincipal()
+.. autofunction:: gestionar_menu_clientes
 
-   Muestra el menú principal del sistema.
+.. autofunction:: gestionar_menu_ventas
 
-   :return: La opción seleccionada por el usuario.
-   :rtype: str
+.. autofunction:: gestionar_menu_facturas
 
-.. py:function:: Menu.menuServicios(objetoConexion, objetoServicios)
+.. autofunction:: cerrar_programa
 
-   Muestra el menú para gestionar la tabla de servicios.
+.. autofunction:: generar_menu
 
-   :param objetoConexion: Objeto de conexión a la base de datos.
-   :type objetoConexion: Objeto de conexión
-   :param objetoServicios: Objeto que maneja las operaciones en la tabla de servicios.
-   :type objetoServicios: Clase que maneja la tabla de servicios
-   :return: None
+Ejemplo de uso
+--------------
 
-.. py:function:: Menu.menuClientes(objetoConexion, objetoClientes)
+.. code-block:: python
 
-   Muestra el menú para gestionar la tabla de clientes.
+   # Inicializar objetos necesarios
+   conexion_db = ...  # Crear conexión a la base de datos
+   servicios = Servicios(conexion_db)
+   clientes = Clientes(conexion_db)
+   ventas = Ventas(conexion_db)
+   facturas = Facturas(conexion_db)
 
-   :param objetoConexion: Objeto de conexión a la base de datos.
-   :type objetoConexion: Objeto de conexión
-   :param objetoClientes: Objeto que maneja las operaciones en la tabla de clientes.
-   :type objetoClientes: Clase que maneja la tabla de clientes
-   :return: None
+   # Ejecutar el menú principal
+   generar_menu(conexion_db, servicios, ventas, clientes, facturas)
 
-.. py:function:: Menu.menuVentas(objetoConexion, objetoServicios, objetoVentas, objetoClientes)
-
-   Muestra el menú para gestionar la tabla de ventas.
-
-   :param objetoConexion: Objeto de conexión a la base de datos.
-   :type objetoConexion: Objeto de conexión
-   :param objetoServicios: Objeto que maneja las operaciones en la tabla de servicios.
-   :type objetoServicios: Clase que maneja la tabla de servicios
-   :param objetoVentas: Objeto que maneja las operaciones en la tabla de ventas.
-   :type objetoVentas: Clase que maneja la tabla de ventas
-   :param objetoClientes: Objeto que maneja las operaciones en la tabla de clientes.
-   :type objetoClientes: Clase que maneja la tabla de clientes
-   :return: None
-
-.. py:function:: Menu.menu(objetoConexion, objetoServicios, objetoVentas, objetoClientes, objetoMenu)
-
-   Inicia el menú principal y gestiona la creación de tablas y la navegación del usuario.
-
-   :param objetoConexion: Objeto de conexión a la base de datos.
-   :type objetoConexion: Objeto de conexión
-   :param objetoServicios: Objeto que maneja las operaciones en la tabla de servicios.
-   :type objetoServicios: Clase que maneja la tabla de servicios
-   :param objetoVentas: Objeto que maneja las operaciones en la tabla de ventas.
-   :type objetoVentas: Clase que maneja la tabla de ventas
-   :param objetoClientes: Objeto que maneja las operaciones en la tabla de clientes.
-   :type objetoClientes: Clase que maneja la tabla de clientes
-   :param objetoMenu: Instancia de la clase Menu para manejar la navegación entre menús.
-   :type objetoMenu: Clase Menu
-   :return: None
+Nota: Este módulo maneja la interacción principal con el usuario y coordina las diferentes funcionalidades del sistema SAT.

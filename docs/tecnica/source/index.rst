@@ -1,25 +1,62 @@
-Documentación Técnica: SAT La Nacional
-======================================
+.. SAT documentation master file
 
-**SAT** es un proyecto de *Python* para gestionar los servicios ofrecidos, los clientes y la venta de estos servicios a clientes, así como la impresión de facturas. *Repo:* https://github.com/MatRodriguezPa/sistema-administracion-transporte. Espero que sea útil.
+Sistema de Administración de Transportes (SAT)
+=============================================
 
-.. note::
+Bienvenido a la documentación del Sistema de Administración de Transportes (SAT).
 
-   Este es un proyecto aún en desarrollo.
-
-Contents
---------
+Contenido:
+----------
 
 .. toctree::
-   menu
+   :maxdepth: 2
+   
    servicios
    clientes
    ventas
-   librerias
+   facturas
+   menu
 
-Librerías Utilizadas
----------------------
+Introducción
+------------
 
-- **sys**: Utilizada para cerrar el programa desde la interfaz.
-- **time**: Utilizada para pausar la ejecución del programa (e.g., con `time.sleep`).
+El Sistema de Administración de Transportes (SAT) es una aplicación diseñada para gestionar servicios de transporte, clientes, ventas y facturas. Este sistema permite a los usuarios realizar diversas operaciones como crear y actualizar servicios, gestionar clientes, realizar ventas y generar facturas.
 
+Funcionalidades principales
+---------------------------
+
+* Gestión de servicios de transporte
+* Administración de clientes
+* Realización de ventas
+* Generación de facturas
+
+Requisitos del sistema
+----------------------
+
+* Python 3.x
+* SQLite3
+
+Instalación
+-----------
+
+1. Clona el repositorio o descarga los archivos del proyecto.
+2. Asegúrate de tener Python 3.x instalado en tu sistema.
+3. No se requieren dependencias adicionales.
+
+Uso básico
+----------
+
+Para iniciar el sistema, ejecuta el script principal:
+
+.. code-block:: bash
+
+   python main.py
+
+Sigue las instrucciones en pantalla para navegar por los diferentes módulos y realizar las operaciones deseadas.
+
+Índices y tablas
+================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

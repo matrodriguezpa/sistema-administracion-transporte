@@ -22,15 +22,16 @@ class Clientes:
 
         objeto_cursor = objeto_conexion.cursor()
         crear = '''CREATE TABLE IF NOT EXISTS clientes(
-                noIdentificacionCliente integer NOT NULL,
-                nombre text NOT NULL,
-                apellido text NOT NULL,
+                no_identificacion_cliente integer NOT NULL,
+                nombre varchar(20) NOT NULL,
+                apellido varchar(20) NOT NULL,
                 direccion text NOT NULL,
                 telefono integer NOT NULL,
-                correoElectronico text NOT NULL,
-                PRIMARY KEY(noIdentificacionCliente))
+                correo_electronico varchar(40) NOT NULL,
+                PRIMARY KEY(no_identificacion_cliente))
                 '''
         try:
+            print("Cargando base de datos clientes.")
             objeto_cursor.execute(crear)
             objeto_conexion.commit()
         except Exception as e:
@@ -52,6 +53,7 @@ class Clientes:
             objeto_cursor.execute(insertar, mi_cliente)
             objeto_conexion.commit()
             if objeto_cursor.rowcount > 0:
+                print("Cliente creado exitosamente.")
                 return True
             else:
                 print(f"Registro {mi_cliente} no pudo ser creado.")
@@ -73,7 +75,7 @@ class Clientes:
         """
         try:
             objeto_cursor = objeto_conexion.cursor()
-            actualizar = "UPDATE clientes SET direccion = ? WHERE noIdentificacionCliente = ?"
+            actualizar = "UPDATE clientes SET direccion = ? WHERE no_identificacion_cliente = ?"
             objeto_cursor.execute(actualizar, (nueva_direccion, no_identificacion_cliente))
             objeto_conexion.commit()
 
@@ -98,7 +100,7 @@ class Clientes:
             tuple: Tupla con los datos del cliente, o None si no se encuentra.
         """
         objeto_cursor = objeto_conexion.cursor()
-        consultar = "SELECT * FROM clientes WHERE noIdentificacionCliente = ?"
+        consultar = "SELECT * FROM clientes WHERE no_identificacion_cliente = ?"
 
         try:
             objeto_cursor.execute(consultar, (no_identificacion_cliente,))
