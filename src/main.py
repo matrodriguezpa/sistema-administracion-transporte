@@ -1,10 +1,13 @@
 import sqlite3
 from sqlite3 import Error
-from modules.ventas import Ventas
-from modules.servicios import Servicios
-from modules.clientes import Clientes
-from modules.facturas import Facturas
-import modules.menu
+
+from modulos.modulos import Modulos
+from modulos.ventas import Ventas
+from modulos.servicios import Servicios
+from modulos.clientes import Clientes
+from modulos.facturas import Facturas
+
+import modulos.menu
 
 
 def conectar_base_de_datos():
@@ -23,19 +26,19 @@ def cerrar_base_de_datos(conexion):
 
 def main():
     """Función principal que gestiona la conexión a la base de datos y los módulos del programa."""
-    conexion_base_datos = conectar_base_de_datos()
+    conexion = conectar_base_de_datos()
 
-    modulo_servicios = Servicios(conexion_base_datos)
-    modulo_clientes = Clientes(conexion_base_datos)
-    modulo_ventas = Ventas(conexion_base_datos)
-    modulo_facturas = Facturas(conexion_base_datos)
+    servicios = Servicios(conexion)
+    clientes = Clientes(conexion)
+    ventas = Ventas(conexion)
+    facturas = Facturas(conexion)
 
-    menu_aplicacion = modules.menu
+    menu_aplicacion = modulos.menu
 
     # El menú toma la conexión a la base de datos y los módulos del programa
-    menu_aplicacion.generar_menu(conexion_base_datos, modulo_servicios, modulo_ventas, modulo_clientes, modulo_facturas)
+    menu_aplicacion.generar_menu(servicios, ventas, clientes, facturas)
 
-    cerrar_base_de_datos(conexion_base_datos)
+    cerrar_base_de_datos(conexion)
 
 
 main()

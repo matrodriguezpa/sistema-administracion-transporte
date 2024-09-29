@@ -30,7 +30,7 @@ def mostrar_menu_principal():
         Seleccione una opción: """)
 
 
-def gestionar_menu_servicios(conexion_db, servicios):
+def gestionar_menu_servicios(servicios):
     """
     Gestiona el menú de opciones para la administración de servicios.
     Opciones:
@@ -147,7 +147,7 @@ def gestionar_menu_servicios(conexion_db, servicios):
                                   servicios.max_kilos)
 
                 # Llamada al método para crear un nuevo servicio
-                servicios.crear_nuevo_servicio(conexion_db, nuevo_servicio)
+                servicios.insertar(nuevo_servicio)
 
                 salir_del_menu = True
             except ValueError as error:
@@ -169,7 +169,7 @@ def gestionar_menu_servicios(conexion_db, servicios):
                     raise ValueError("El nuevo nombre del servicio debe tener entre 3 y 50 caracteres.")
 
                 # Insersion del dato
-                actualizacion_exitosa = servicios.actualizar_nombre_servicio(conexion_db, codigo_servicio, nuevo_nombre)
+                actualizacion_exitosa = servicios.actualizar(codigo_servicio,nuevo_nombre)
                 if actualizacion_exitosa:
                     print("Nombre del servicio actualizado correctamente.")
                 else:
@@ -181,17 +181,27 @@ def gestionar_menu_servicios(conexion_db, servicios):
 
         elif opcion_seleccionada == "3":
             try:
-                codigo_servicio = input("Ingrese el código del servicio (número entero): ")
+                # Mostrar todos los servicios
+                todos_los_servicios = servicios.consultar_todos()
+                if todos_los_servicios:
+                    print("Servicios:\n")
+                    for servicio in todos_los_servicios:
+                        print(f"{servicio[0]} | {servicio[1]} | {servicio[2]} - {servicio[3]}")
+                else:
+                    print("No se encontraron servicios en la base de datos.")
+
+                # Luego de mostrar todos los registros, consultar por un código específico
+                codigo_servicio = input("\nIngrese el código del servicio (número entero): ")
                 if not codigo_servicio.isdigit():
                     raise ValueError("El código del servicio debe ser un número entero.")
                 codigo_servicio = int(codigo_servicio)
 
-                informacion_servicio = servicios.consultar_informacion_servicio(conexion_db, codigo_servicio)
+                informacion_servicio = servicios.consultar(codigo_servicio)
 
                 if informacion_servicio:
                     print("Información del servicio:\n")
                     print(
-                        f"Código del servicio: {informacion_servicio[0]}| Nombre:{informacion_servicio[1]}, Origen:{informacion_servicio[2]}, Destino: {informacion_servicio[3]},Precio de venta:{informacion_servicio[4]}, Hora de salida:{informacion_servicio[5]}, Puestos máximos: {informacion_servicio[6]},Kilos máximos: {informacion_servicio[7]},")
+                        f"Código del servicio: {informacion_servicio[0]} | Nombre: {informacion_servicio[1]} | Origen: {informacion_servicio[2]} | Destino: {informacion_servicio[3]} | Precio de venta: {informacion_servicio[4]} | Hora de salida: {informacion_servicio[5]} | Puestos máximos: {informacion_servicio[6]} | Kilos máximos: {informacion_servicio[7]}")
                 else:
                     print(f"No se encontró información para el código de servicio {codigo_servicio}.")
                 salir_del_menu = True
@@ -205,10 +215,10 @@ def gestionar_menu_servicios(conexion_db, servicios):
             salir_del_menu = True
 
         else:
-            print("Opción no válida. Por favor, seleccione una opción válida.")
+            print("Opción no válida. Por favor, seleccioneconsultar una opción válida.")
 
 
-def gestionar_menu_clientes(conexion_db, clientes):
+def gestionar_menu_clientes(clientes):
     """
     Gestiona el menú de opciones para la administración de clientes.
     Opciones:
@@ -246,13 +256,13 @@ def gestionar_menu_clientes(conexion_db, clientes):
 
                 clientes.nombre = input("Ingrese el nombre: ")
                 if not clientes.nombre.isalpha():
-                    raise ValueError("El nombre solo deben contener letras.")
+                    raise ValueError("El nombre solo deben contener caracteres alphanumericos(a-z, sin espacios).")
                 if len(clientes.nombre) < 3 or len(clientes.nombre) > 20:
                     raise ValueError("El nombre del cliente debe tener entre 3 y 50 caracteres.")
 
                 clientes.apellido = input("Ingrese el apellido: ")
                 if not clientes.apellido.isalpha():
-                    raise ValueError("El apellido solo deben contener letras.")
+                    raise ValueError("El apellido solo deben contener caracteres (a-z sin espacios).")
                 if len(clientes.apellido) < 3 or len(clientes.nombre) > 20:
                     raise ValueError("El apellido del cliente debe tener entre 3 y 20 caracteres.")
 
@@ -302,7 +312,7 @@ def gestionar_menu_clientes(conexion_db, clientes):
                               clientes.telefono,
                               clientes.correo_electronico)
 
-                clientes.crear_nuevo_cliente(conexion_db, mi_cliente)
+                clientes.insertar(mi_cliente)
                 salir_del_menu = True
 
             except ValueError as e:
@@ -319,15 +329,28 @@ def gestionar_menu_clientes(conexion_db, clientes):
                 numero_identificacion = int(numero_identificacion)
 
                 # Ingresar la nueva dirección por partes
-                nueva_direccion = input("Ingrese la nueva dirección del cliente:")
-                patron_correo = r"^[\w\.-]+@[\w\.-]+\.\w+$"
-                if not re.match(patron_correo, clientes.correo_electronico):
-                    raise ValueError("El correo electrónico no tiene el formato adecuado. Ej: nombre@correo.algo.")
-                if len(clientes.correo_electronico) < 5 or len(clientes.correo_electronico) > 20:
-                    raise ValueError("El coreeo electrónico debe tener entre 5 y 20 caracteres.")
+                print("Ingreso de la dirección de cliente")
+                tipo_via = input("Ingrese el tipo de vía (calle/carrera/diagonal/transversal): ").strip().lower()
+                if tipo_via not in ["calle", "carrera", "diagonal", "transversal"]:
+                    raise ValueError("El tipo de vía debe ser 'calle' o 'carrera'.")
 
-                actualizacion_exitosa = clientes.actualizar_direccion_cliente(conexion_db, numero_identificacion,
-                                                                              nueva_direccion)
+                numero_via = input("Ingrese el número de la vía: ").strip()
+                if not re.match(r"^\d+[a-zA-Z]*$", numero_via):
+                    raise ValueError(
+                        "El número de la vía debe ser un número, opcionalmente seguido de una letra o varias.")
+
+                numero_puerta = input("Ingrese el número de puerta: ").strip()
+                if not re.match(r"^\d+[a-zA-Z]*$", numero_puerta):
+                    raise ValueError(
+                        "El número de la puerta debe ser un número, opcionalmente seguido de una letra o varias.")
+
+                numero_adicional = input("Ingrese el número adicional (después del guión '-'): ").strip()
+                if not numero_adicional.isdigit():
+                    raise ValueError("El número adicional debe ser un número.")
+
+                nueva_direccion = f"{tipo_via} {numero_via}#{numero_puerta}-{numero_adicional}"
+
+                actualizacion_exitosa = clientes.actualizar(numero_identificacion, nueva_direccion)
 
                 if actualizacion_exitosa:
                     print("Dirección del cliente actualizada correctamente.")
@@ -341,11 +364,21 @@ def gestionar_menu_clientes(conexion_db, clientes):
 
         elif opcion_seleccionada == "3":
             try:
-                numero_identificacion = input("Ingrese el número de identificación del cliente (número entero): ")
+                # Mostrar todos los servicios
+                todos_los_clientes = clientes.consultar_todos()
+                if todos_los_clientes:
+                    print("Clientes:\n")
+                    for cliente in todos_los_clientes:
+                        print(f"{cliente[0]} | {cliente[1]} {cliente[2]}")
+                else:
+                    print("No se encontraron servicios en la base de datos.")
+
+
+                numero_identificacion = input("\nIngrese el número de identificación del cliente (número entero): ")
                 if not numero_identificacion.isdigit():
                     raise ValueError("El número de identificación debe ser un número entero.")
 
-                datos_cliente = clientes.consultar_datos_cliente(conexion_db, numero_identificacion)
+                datos_cliente = clientes.consultar(numero_identificacion)
                 if datos_cliente:
                     print("Información del cliente:", datos_cliente)
                 else:
@@ -363,7 +396,7 @@ def gestionar_menu_clientes(conexion_db, clientes):
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
 
-def gestionar_menu_ventas(conexion_db, servicios, clientes, ventas, facturas):
+def gestionar_menu_ventas(servicios, clientes, ventas, facturas):
     """
     Gestiona el menú de opciones para la administración de ventas.
     Opciones:
@@ -394,24 +427,20 @@ def gestionar_menu_ventas(conexion_db, servicios, clientes, ventas, facturas):
             try:
                 # Generar número de factura si no existe
                 if ventas.no_factura is None:
-                    ventas.no_factura = ventas.generar_numero_factura(conexion_db)
+                    ventas.no_factura = ventas.generar_numero_factura()
 
                 continuar_ventas = True
                 while continuar_ventas:
                     ventas.no_identificacion_cliente = input("Ingrese el número de identificación del cliente: ")
-                    mi_cliente = clientes.consultar_informacion_cliente(conexion_db, ventas.no_identificacion_cliente)
+                    mi_cliente = clientes.consultar(ventas.no_identificacion_cliente)
                     if mi_cliente is None or mi_cliente is False:
                         raise ValueError("Cliente no encontrado")
 
                     ventas.codigo_servicio = input("Ingrese el código del servicio que va a vender: ")
-                    mi_servicio = servicios.consultar_informacion_servicio(conexion_db, ventas.codigo_servicio)
+                    mi_servicio = servicios.consultar(ventas.codigo_servicio)
                     if mi_servicio is None or mi_servicio is False:
                         raise ValueError("Servicio no encontrado")
-
-                    ventas.cantidad_vendida = input("Ingrese la cantidad a vender: ")
-                    cantidad_vendida = int(ventas.cantidad_vendida)
-                    if cantidad_vendida < 0:
-                        raise ValueError("La cantidad no puede ser negativa")
+                    
 
                     #comprobar si la carga es de puestos o de encomienda
                     if mi_servicio[6] == 0:
@@ -419,14 +448,20 @@ def gestionar_menu_ventas(conexion_db, servicios, clientes, ventas, facturas):
                     else:
                         carga_max = 6
 
+                    ventas.cantidad_vendida = input("Ingrese la cantidad a vender: ")
+                    print(f"Cantidad disponible: {mi_servicio[carga_max]}")
+                    cantidad_vendida = int(ventas.cantidad_vendida)
+                    if cantidad_vendida < 0:
+                        raise ValueError("La cantidad no puede ser negativa")
+
                     # Verificar disponibilidad
-                    if not ventas.verificar_disponibilidad(conexion_db, mi_servicio, cantidad_vendida, carga_max):
+                    if not ventas.verificar_disponibilidad(mi_servicio, cantidad_vendida, carga_max):
                         raise ValueError("Cantidad a vender excede el espacio disponible")
 
                     # Insertar la venta
                     mi_venta = (
                         ventas.no_factura, ventas.no_identificacion_cliente, ventas.codigo_servicio, cantidad_vendida)
-                    ventas.añadir_servicio_factura(conexion_db, mi_venta)
+                    ventas.insertar(mi_venta)
 
                     realizar_compra = input("¿El cliente desea realizar otra venta? (s/n): ")
                     if realizar_compra.lower() != 's':
@@ -434,18 +469,27 @@ def gestionar_menu_ventas(conexion_db, servicios, clientes, ventas, facturas):
 
                 imprimir_factura = input("¿Deseas imprimir la factura de venta? (s/n): ")
                 if imprimir_factura.lower() == 's':
-                    facturas.imprimir_factura(conexion_db, ventas.no_factura)
+                    facturas.imprimir_factura(ventas.no_factura)
             except ValueError as e:
                 print(f"Error: {str(e)}")
             finally:
                 ventas.no_factura = None  # Resetear el número de factura
 
         elif opcion_seleccionada == "2":
-            no_factura = input("Ingrese el número de factura del servicio de la factura a quitar: ")
+            # Mostrar todos los servicios
+            todas_las_ventas = ventas.consultar_todos()
+            if todas_las_ventas:
+                print("ventas:\n")
+                for venta in todas_las_ventas:
+                    print(f"{venta[0]} | {venta[1]}, {venta[2]} - {venta[3]}")
+            else:
+                print("No se encontraron ventas en la base de datos.")
+
+            no_factura = input("\nIngrese el número de factura del servicio de la factura a quitar: ")
             codigo_servicio = input("Ingrese el codigo del servicio de la factura a quitar: ")
             no_identificacion_cliente = input("Ingrese el número de identificación del cliente de la factura a quitar: ")
             cantidad_vendida = input("Ingrese la cantidad que sea habia vendido de la venta de la factura  a quitar: ")
-            ventas.quitar_servicio_factura(conexion_db, no_factura,codigo_servicio,no_identificacion_cliente, cantidad_vendida)
+            ventas.borrar(no_factura,codigo_servicio,no_identificacion_cliente, cantidad_vendida)
 
         elif opcion_seleccionada == "3":
             salir_del_menu = True
@@ -454,7 +498,7 @@ def gestionar_menu_ventas(conexion_db, servicios, clientes, ventas, facturas):
             print("Opción no válida. Por favor, seleccione una opción válida.")
 
 
-def gestionar_menu_facturas(conexion_db, facturas):
+def gestionar_menu_facturas(facturas, ventas):
     """
     Gestiona el menú de opciones para la administración de facturas.
     Opciones:
@@ -478,8 +522,19 @@ def gestionar_menu_facturas(conexion_db, facturas):
                 Seleccione una opción:  """)
 
         if opcion_seleccionada == "1":
-            no_factura = input("Ingrese el número de la factura: ")
-            facturas.imprimir_factura(conexion_db, no_factura)
+
+            # Mostrar todos los servicios
+            todas_las_ventas = ventas.consultar_todos()
+            if todas_las_ventas:
+                print("ventas:\n")
+                for venta in todas_las_ventas:
+                    print(f"{venta[0]} | {venta[1]}, {venta[2]} - {venta[3]}")
+            else:
+                print("No se encontraron ventas en la base de datos.")
+
+
+            no_factura = input("\nIngrese el número de la factura: ")
+            facturas.imprimir_factura(no_factura)
             salir_del_menu = True
 
         elif opcion_seleccionada == "2":
@@ -501,7 +556,7 @@ def cerrar_programa():
     sys.exit()
 
 
-def generar_menu(conexion, servicios, ventas, clientes, facturas):
+def generar_menu(servicios, ventas, clientes, facturas):
     """
     Ejecuta el menú principal, permitiendo al usuario seleccionar entre diferentes módulos o salir del programa.
 
@@ -512,13 +567,13 @@ def generar_menu(conexion, servicios, ventas, clientes, facturas):
         print("Iniciando pantalla principal...")
         opcion_principal = mostrar_menu_principal()
         if opcion_principal == "1":
-            gestionar_menu_servicios(conexion, servicios)
+            gestionar_menu_servicios(servicios)
         elif opcion_principal == "2":
-            gestionar_menu_clientes(conexion, clientes)
+            gestionar_menu_clientes(clientes)
         elif opcion_principal == "3":
-            gestionar_menu_ventas(conexion, servicios, clientes, ventas, facturas)
+            gestionar_menu_ventas(servicios, clientes, ventas, facturas)
         elif opcion_principal == "4":
-            gestionar_menu_facturas(conexion, facturas)
+            gestionar_menu_facturas(facturas, ventas)
         elif opcion_principal == "5":
             cerrar_programa()
         else:

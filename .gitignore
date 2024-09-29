@@ -1,1 +1,293 @@
-/.idea/
+# Python cache files
+.src/modules/__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Editor directories and files
+.vscode/
+.idea/verifica si hay algun herror de logica, teniendo en cuenta que estas calses seran utilizadas en un modulo llamado menu donde llamare estos metodos 
+
+
+class BaseDatosModel:
+    """
+    Clase base para los modelos de la base de datos. Define métodos comunes para creación de tablas,
+    inserción, actualización y consulta.
+    """
+
+    def __init__(self, objeto_conexion, nombre_tabla, esquema_tabla):
+        """
+        Constructor para inicializar la conexión y crear la tabla si no existe.
+
+        Args:
+            objeto_conexion: Conexión a la base de datos.
+            nombre_tabla: Nombre de la tabla a crear.
+            esquema_tabla: Esquema SQL para la creación de la tabla.
+        """
+        self.objeto_conexion = objeto_conexion
+        self.nombre_tabla = nombre_tabla
+        self.esquema_tabla = esquema_tabla
+        self.crear_tabla()
+
+    def crear_tabla(self):
+        """Crea la tabla en la base de datos si no existe."""
+        objeto_cursor = self.objeto_conexion.cursor()
+        try:
+            print(f"Cargando base de datos {self.nombre_tabla}.")
+            objeto_cursor.execute(self.esquema_tabla)
+            self.objeto_conexion.commit()
+        except Exception as e:
+            print(f"Error al crear la tabla '{self.nombre_tabla}': {e}")
+
+    def insertar(self, datos):
+        """Inserta un nuevo registro en la tabla."""
+        raise NotImplementedError("Este método debe ser implementado por las subclases")
+
+    def actualizar(self, id_registro, nuevos_datos):
+        """Actualiza un registro en la tabla."""
+        raise NotImplementedError("Este método debe ser implementado por las subclases")
+
+    def consultar(self, id_registro):
+        """Consulta un registro en la tabla."""
+        raise NotImplementedError("Este método debe ser implementado por las subclases")
+
+class Facturas:
+    def __init__(self, objetoConexion):
+        self.objetoConexion = objetoConexion
+
+    def imprimir_factura(self, conexion, no_factura):
+        cursor = None
+        try:
+            cursor = conexion.cursor()
+
+            # Obtener ventas
+            query_ventas = "SELECT * FROM ventas WHERE no_factura = ?"
+            cursor.execute(query_ventas, (no_factura,))
+            mi_ventas = cursor.fetchall()
+            if not mi_ventas:
+                print(f"No se encontraron ventas para la factura {no_factura}")
+                return
+
+            # Obtener cliente
+            no_identificacion_cliente = mi_ventas[0][1]
+            query_cliente = "SELECT * FROM clientes WHERE no_identificacion_cliente = ?"
+            cursor.execute(query_cliente, (no_identificacion_cliente,))
+            mi_cliente = cursor.fetchone()
+            if not mi_cliente:
+                print(f"No se encontró el cliente para la factura {no_factura}")
+                return
+
+            # Generar el mensaje de la factura
+            mensaje = f"COOPERATIVA DE TRANSPORTES LA NACIONAL\nComprobante de venta de la factura no. {no_factura}\n"
+            mensaje += f"""
+    Nombre completo del cliente: {mi_cliente[1]} {mi_cliente[2]}
+    Dirección del cliente: {mi_cliente[3]}
+    Teléfono del cliente: {mi_cliente[4]}
+    """
+
+            total_general = 0
+            for venta in mi_ventas:
+                codigo_servicio = venta[2]
+                query_servicio = "SELECT * FROM servicios WHERE codigo_servicio = ?"
+                cursor.execute(query_servicio, (codigo_servicio,))
+                mi_servicio = cursor.fetchone()
+                if mi_servicio:
+                    precio_unitario = mi_servicio[4]
+                    cantidad = venta[3]
+                    precio_total = precio_unitario * cantidad
+                    total_general += precio_total
+
+                    mensaje += f"""
+    Nombre del producto: {mi_servicio[1]}
+    Hora de salida: {mi_servicio[5]}
+    Cantidad: {cantidad}
+    Precio unitario: {precio_unitario}
+    Precio según la cantidad: {precio_total}
+    """
+
+            mensaje += f"\nPie final:\nPrecio total: {total_general}\n"
+            print(mensaje)
+
+        except Exception as e:
+            print(f"Error al imprimir la factura: {e}")
+        finally:
+            if cursor:
+                cursor.close()
+
+class Clientes(BaseDatosModel):
+    """
+    Esta clase representa un cliente con atributos como número de identificación, nombre, apellido,
+    dirección, teléfono y correo electrónico.
+    """
+
+    # Atributos de la clase
+    no_identificacion_cliente = None
+    nombre = None
+    apellido = None
+    direccion = None
+    telefono = None
+    correo_electronico = None
+
+    def __init__(self, objeto_conexion):
+        esquema = '''
+        CREATE TABLE IF NOT EXISTS clientes(
+            no_identificacion_cliente integer NOT NULL,
+            nombre varchar(20) NOT NULL,
+            apellido varchar(20) NOT NULL,
+            direccion text NOT NULL,
+            telefono integer NOT NULL,
+            correo_electronico varchar(40) NOT NULL,
+            PRIMARY KEY(no_identificacion_cliente)
+        )'''
+        super().__init__(objeto_conexion, 'clientes', esquema)
+
+    def insertar(self, mi_cliente):
+        """Inserta un nuevo cliente en la base de datos."""
+        try:
+            objeto_cursor = self.objeto_conexion.cursor()
+            insertar = "INSERT INTO clientes VALUES(?,?,?,?,?,?)"
+            objeto_cursor.execute(insertar, mi_cliente)
+            self.objeto_conexion.commit()
+            print("Cliente creado exitosamente.")
+            return True
+        except Exception as e:
+            print(f"Error al crear el registro: {e}")
+            return False
+    def actualizar(self, no_identificacion_cliente, nueva_direccion):
+        """Actualiza la dirección de un cliente."""
+        try:
+            objeto_cursor = self.objeto_conexion.cursor()
+            actualizar = "UPDATE clientes SET direccion = ? WHERE no_identificacion_cliente = ?"
+            objeto_cursor.execute(actualizar, (nueva_direccion, no_identificacion_cliente))
+            self.objeto_conexion.commit()
+            return objeto_cursor.rowcount > 0
+        except Exception as e:
+            print(f"Error al actualizar el registro: {e}")
+            return False
+
+     def consultar(self, no_identificacion_cliente):
+        """Consulta la información de un cliente."""
+        objeto_cursor = self.objeto_conexion.cursor()
+        consultar = "SELECT * FROM clientes WHERE no_identificacion_cliente = ?"
+        try:
+            objeto_cursor.execute(consultar, (no_identificacion_cliente,))
+            return objeto_cursor.fetchone()
+        except Exception as e:
+            print(f"Error al consultar el registro: {e}")
+            return None
+
+class Servicios(BaseDatosModel):
+    """
+    Esta clase representa un servicio con atributos como código, nombre, origen, destino,
+    precio de venta, hora de salida, cantidad máxima de puestos y cantidad máxima de kilos.
+    """
+
+    # Atributos de la clase
+    codigo_servicio = None
+    nombre = None
+    origen = None
+    destino = None
+    precio_venta = None
+    hora_salida = None
+    cantidad_max_puestos = None
+    cantidad_max_kilos = None
+
+    def __init__(self, objeto_conexion):
+        esquema = '''
+        CREATE TABLE IF NOT EXISTS servicios(
+            codigo_servicio integer NOT NULL,
+            nombre text NOT NULL,
+            origen text NOT NULL,
+            destino text NOT NULL,
+            precio_venta integer NOT NULL,
+            hora_salida date NOT NULL,
+            cantidad_max_puestos integer NOT NULL,
+            cantidad_max_kilos integer NOT NULL,
+            PRIMARY KEY(codigo_servicio)
+        )'''
+        super().__init__(objeto_conexion, 'servicios', esquema)
+
+    def insertar(self, mi_servicio):
+        """Inserta un nuevo servicio en la base de datos."""
+        try:
+            objeto_cursor = self.objeto_conexion.cursor()
+            insertar = "INSERT INTO servicios VALUES(?,?,?,?,?,?,?,?)"
+            objeto_cursor.execute(insertar, mi_servicio)
+            self.objeto_conexion.commit()
+            print("Servicio creado exitosamente.")
+            return True
+        except Exception as e:
+            print(f"Error al crear el registro: {e}")
+            return False
+
+    def actualizar(self, codigo_servicio, nuevo_nombre):
+        """Actualiza el nombre de un servicio."""
+        try:
+            objeto_cursor = self.objeto_conexion.cursor()
+            actualizar = "UPDATE servicios SET nombre = ? WHERE codigo_servicio = ?"
+            objeto_cursor.execute(actualizar, (nuevo_nombre, codigo_servicio))
+            self.objeto_conexion.commit()
+            return objeto_cursor.rowcount > 0
+        except Exception as e:
+            print(f"Error al actualizar el registro: {e}")
+            return False
+
+    def consultar(self, codigo_servicio):
+        """Consulta la información de un servicio."""
+        objeto_cursor = self.objeto_conexion.cursor()
+        consultar = "SELECT * FROM servicios WHERE codigo_servicio = ?"
+        try:
+            objeto_cursor.execute(consultar, (codigo_servicio,))
+            return objeto_cursor.fetchone()
+        except Exception as e:
+            print(f"Error al consultar el registro: {e}")
+            return None
+
+class Ventas(BaseDatosModel):
+    """
+    Esta clase representa una venta con atributos como número de factura, número de identificación del cliente,
+    código del servicio y cantidad vendida.
+    """
+    no_factura = None
+    no_identificacion_cliente = None
+    codigo_servicio = None
+    cantidad_vendida = None
+
+    def __init__(self, objeto_conexion):
+        esquema = '''
+        CREATE TABLE IF NOT EXISTS ventas(
+            no_factura INTEGER NOT NULL,
+            no_identificacion_cliente INTEGER NOT NULL,
+            codigo_servicio INTEGER NOT NULL,
+            cantidad_vendida INTEGER NOT NULL
+        )'''
+        super().__init__(objeto_conexion, 'ventas', esquema)
+
+    def insertar(self, mi_venta):
+        """Registra una venta en la base de datos."""
+        try:
+            objeto_cursor = self.objeto_conexion.cursor()
+            insertar = "INSERT INTO ventas VALUES(?,?,?,?)"
+            objeto_cursor.execute(insertar, mi_venta)
+            self.objeto_conexion.commit()
+            print(f"Venta registrada con número de factura {mi_venta[0]}.")
+            return True
+        except Exception as e:
+            print(f"Error al registrar la venta: {e}")
+            return False
+
+    def consultar(self, no_factura):
+        """Consulta la información de una venta."""
+        objeto_cursor = self.objeto_conexion.cursor()
+        consultar = "SELECT * FROM ventas WHERE no_factura = ?"
+        try:
+            objeto_cursor.execute(consultar, (no_factura,))
+            return objeto_cursor.fetchone()
+        except Exception as e:
+            print(f"Error al consultar el registro: {e}")
+            return None
